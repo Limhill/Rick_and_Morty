@@ -13,6 +13,9 @@
     "strict": true,
     "skipLibCheck": true,
     "baseUrl": "./src",
+    "paths": {
+      "pages": ["pages/*"]
+    },
     "resolveJsonModule": true
   },
   "include": ["./src/**/*", "styled.d.ts"]
