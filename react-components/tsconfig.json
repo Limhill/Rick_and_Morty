@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
-      "pages": ["pages/*"]
+      "core": ["core/*"],
+      "pages": ["pages/*"],
+      "public": ["public/*"]
     },
     "resolveJsonModule": true
   },
