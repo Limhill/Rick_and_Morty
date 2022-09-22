@@ -1,9 +1,6 @@
 import React from 'react';
 import './styles.css';
-
-interface SearchBarState {
-  value: string;
-}
+import { SearchBarState } from 'core/interfaces';
 
 class SearchBar extends React.Component<unknown, SearchBarState> {
   constructor(props: unknown) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from 'pages/Main';
-import { Pages } from './core/constants';
+import { Pages } from './core/enums';
 import AboutUs from 'pages/AboutUs';
 import PageNotFound from 'pages/PageNotFound';
 
