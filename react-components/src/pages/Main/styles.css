@@ -1,11 +1,11 @@
 .main {
   min-height: 100vh;
-  background: #f8fbff;
+  background-image: url("../../../public/images/space.jpg");
 }
 .title {
   text-align: center;
   font-size: 32px;
-  color: rgba(0, 0, 0, 0.75);
+  color: rgb(255, 227, 227);
 }
 .content {
   margin: 0 auto;
