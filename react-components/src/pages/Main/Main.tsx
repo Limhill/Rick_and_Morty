@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Pages, CharacterStatus, CharacterGender } from 'core/enums';
 import Card from './components/Card';
 import { characters } from 'mock-data/characters';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './Main.module.scss';
 
 const Main = () => {
@@ -15,7 +16,7 @@ const Main = () => {
         <div className={styles.cards}>
           {characters.map((character) => (
             <Card
-              key={character.id}
+              key={uuidv4()}
               id={character.id}
               name={character.name}
               status={character.status as CharacterStatus}
