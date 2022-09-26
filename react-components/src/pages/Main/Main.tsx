@@ -1,18 +1,18 @@
 import React from 'react';
-import './styles.css';
 import SearchBar from './components/SearchBar';
 import { Link } from 'react-router-dom';
 import { Pages, CharacterStatus, CharacterGender } from 'core/enums';
 import Card from './components/Card';
 import { characters } from 'mock-data/characters';
+import styles from './Main.module.scss';
 
 const Main = () => {
   return (
-    <main className="main">
-      <div className="content">
-        <h1 className="title">Main page</h1>
+    <main className={styles.main}>
+      <div className={styles.content}>
+        <h1 className={styles.title}>Main page</h1>
         <SearchBar />
-        <div className="cards">
+        <div className={styles.cards}>
           {characters.map((character) => (
             <Card
               key={character.id}
@@ -28,8 +28,8 @@ const Main = () => {
             />
           ))}
         </div>
-        <nav className="nav">
-          <Link to={Pages.aboutUs} className="nav__link">
+        <nav className={styles.nav}>
+          <Link to={Pages.aboutUs} className={styles.nav__link}>
             About us
           </Link>
         </nav>

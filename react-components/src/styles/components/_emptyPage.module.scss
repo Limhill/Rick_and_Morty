@@ -1,0 +1,20 @@
+.main {
+  background-color: #040F16;
+  background-image: linear-gradient(rgba(9, 9, 9, 0.6), rgba(9, 9, 9, 0.6)), url("../../../public/images/space.jpg");
+  min-height: 100vh;
+  color: #BCF8EC
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.title {
+  font-size: 46px;
+}
+.text {
+  font-size: 32px;
+  margin: 0;
+}

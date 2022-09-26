@@ -15,7 +15,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "cd .. && husky install react-components/.husky"
+    "prepare": "cd .. && husky install react-components/.husky",
+    "lint": "eslint --ext .ts, .tsx src --fix",
+    "prettier": "npx prettier src --check",
+    "prettier:fix": "npm run prettier src --write"
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +56,7 @@
     "eslint-plugin-react": "^7.31.8",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "sass": "^1.55.0"
   }
 }

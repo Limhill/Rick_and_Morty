@@ -17,7 +17,9 @@
       "core": ["core/*"],
       "mockData": ["mockData/*"],
       "pages": ["pages/*"],
-      "public": ["public/*"]
+      "public": ["public/*"],
+      "services": ["services/*"],
+      "styles": ["styles/*"]
     },
     "resolveJsonModule": true
   },

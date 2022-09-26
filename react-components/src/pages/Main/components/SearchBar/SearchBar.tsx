@@ -1,6 +1,6 @@
 import React from 'react';
-import './styles.css';
 import { SearchBarState } from 'core/interfaces';
+import styles from './SearchBar.module.scss';
 
 class SearchBar extends React.Component<unknown, SearchBarState> {
   constructor(props: unknown) {
@@ -17,7 +17,6 @@ class SearchBar extends React.Component<unknown, SearchBarState> {
   componentDidMount() {
     const value = localStorage.getItem('value');
     if (value) {
-      console.log(value);
       this.setState({ value });
     } else {
       this.setState({ value: '' });
@@ -31,7 +30,7 @@ class SearchBar extends React.Component<unknown, SearchBarState> {
   render() {
     return (
       <input
-        className="search-bar"
+        className={styles.searchBar}
         type="text"
         onChange={this.handleChange}
         value={this.state.value}
