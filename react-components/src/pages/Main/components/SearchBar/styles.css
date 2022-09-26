@@ -6,9 +6,10 @@
   outline: none;
   font-size: 2.4rem;
   font-family: Roboto, sans-serif;
-  border: 0.3rem solid rgb(21, 218, 255);
+  border: 0.3rem solid #BCF8EC;
   color: #f8f8f8;
   min-width: 50%;
+
 }
 ::placeholder {
   color: #f8f8f8;
@@ -16,5 +17,5 @@
 }
 .search-bar:hover,
 .search-bar:focus {
-  box-shadow: 0 0 14px 7px rgba(21, 218, 255, 0.7);
+  box-shadow: 0 0 15px 10px rgba(172, 228, 170, 0.7);
 }

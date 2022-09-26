@@ -14,6 +14,11 @@ const Card = ({ name, status, species, type, gender, origin, location, image }: 
           <ul className="list">
             <li className="list__item">
               <span>
+                <b>Name:</b> {name}
+              </span>
+            </li>
+            <li className="list__item">
+              <span>
                 <b>Status:</b> {status}
               </span>
             </li>
