@@ -1,11 +1,14 @@
 import React from 'react';
 import { SearchBarState } from 'core/interfaces';
 import styles from './SearchBar.module.scss';
+import { localStorageKey } from 'core/enums';
 
 class SearchBar extends React.Component<unknown, SearchBarState> {
   constructor(props: unknown) {
     super(props);
-    const value = localStorage.getItem('value') ? (localStorage.getItem('value') as string) : '';
+    const value = localStorage.getItem(localStorageKey.value)
+      ? (localStorage.getItem(localStorageKey.value) as string)
+      : '';
     this.state = { value };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -15,7 +18,7 @@ class SearchBar extends React.Component<unknown, SearchBarState> {
   }
 
   componentDidMount() {
-    const value = localStorage.getItem('value');
+    const value = localStorage.getItem(localStorageKey.value);
     if (value) {
       this.setState({ value });
     } else {
@@ -24,12 +27,13 @@ class SearchBar extends React.Component<unknown, SearchBarState> {
   }
 
   componentWillUnmount() {
-    localStorage.setItem('value', this.state.value);
+    localStorage.setItem(localStorageKey.value, this.state.value);
   }
 
   render() {
     return (
       <input
+        data-testid="search-bar"
         className={styles.searchBar}
         type="text"
         onChange={this.handleChange}

@@ -20,6 +20,6 @@ export interface CardInfo {
   location: Origin;
   image: string;
   episode?: string[];
-  url?: string[];
+  url?: string;
   created?: string;
 }

@@ -13,7 +13,7 @@ const Main = () => {
       <div className={styles.content}>
         <h1 className={styles.title}>Main page</h1>
         <SearchBar />
-        <div className={styles.cards}>
+        <div className={styles.cards} data-testid="cards">
           {characters.map((character) => (
             <Card
               key={uuidv4()}

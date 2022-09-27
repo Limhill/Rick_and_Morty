@@ -15,7 +15,7 @@ const Card = ({ name, status, species, type, gender, origin, location, image }: 
     location: location.name,
   };
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="card">
       <div className={styles.card}>
         <div className={styles.card__side_front}>
           <h2 className={styles.card__title}>{name}</h2>
