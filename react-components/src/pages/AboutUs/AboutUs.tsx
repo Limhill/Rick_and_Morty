@@ -1,14 +1,19 @@
 import React from 'react';
-import styles from 'styles/components/_emptyPage.module.scss';
+import styles from './AboutUs.module.scss';
+import { Link } from 'react-router-dom';
+import { Pages } from 'core/enums';
 
 const AboutUs = () => {
   return (
-    <main className={styles.main}>
-      <section className={styles.content}>
-        <h1 className={styles.title}>About us</h1>
-        <p className={styles.text}>This is an about us page</p>
-      </section>
-    </main>
+    <section className={styles.content}>
+      <h1 className={styles.title}>About us</h1>
+      <p className={styles.text}>This is an about us page</p>
+      <p className={styles.linkContainer}>
+        <Link to={Pages.main} className={styles.link}>
+          Bring me home!
+        </Link>
+      </p>
+    </section>
   );
 };
 

@@ -16,7 +16,3 @@ export enum CharacterGender {
   genderless = 'Genderless',
   unknown = 'unknown',
 }
-
-export enum localStorageKey {
-  value = 'value',
-}

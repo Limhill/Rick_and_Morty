@@ -1,12 +1,8 @@
-.main {
-  min-height: 100vh;
-  background-image: linear-gradient(rgba(9, 9, 9, 0.4), rgba(9, 9, 9, 0.4)), url("../../../public/images/space.jpg");
-  background-color: #000000;
-}
+@import "src/styles/main";
 .title {
   text-align: center;
   font-size: 36px;
-  color: #BCF8EC;
+  color: $lightBlue;
   margin-bottom: 3rem;
 }
 .content {
@@ -31,22 +27,5 @@
   justify-content: space-around;
 }
 .nav__link {
-  font-size: 22px;
-  color: #BCF8EC;
-  text-decoration: none;
-  position: relative;
-}
-.nav__link::after {
-  display: block;
-  position: absolute;
-  left: 0;
-  width: 0;
-  height: 0.3rem;
-  content: '';
-  transition: width 0.3s ease-in-out;
-  background: #ACE4AA;
-}
-.nav__link:hover:after,
-.nav__link:focus:after {
-  width: 100%;
+  @include link;
 }

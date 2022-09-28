@@ -3,7 +3,7 @@ import React from 'react';
 import Main from './Main';
 import { MemoryRouter } from 'react-router-dom';
 
-describe('Test all cards on the page', () => {
+describe('Test Main component', () => {
   beforeEach(() => {
     render(
       <MemoryRouter>
@@ -11,10 +11,10 @@ describe('Test all cards on the page', () => {
       </MemoryRouter>
     );
   });
-  test('There is should be card container!', () => {
-    expect(screen.getByTestId('cards')).toBeInTheDocument();
-  });
   test('There are should be 20 cards', () => {
     expect(screen.getAllByTestId('card')).toHaveLength(20);
+  });
+  test('Check link on the page', () => {
+    expect(screen.getByRole('link')).toBeInTheDocument();
   });
 });
