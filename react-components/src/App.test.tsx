@@ -1,9 +1,30 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.queryByText(/hello world/i);
-  expect(linkElement).toBeNull();
+describe('Test routing in the app', () => {
+  test('test App render and go to About page', () => {
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+    const link = screen.getByRole('link');
+    userEvent.click(link);
+    expect(screen.getByText(/this is an about us page/i)).toBeInTheDocument();
+    const backToHome = screen.getByRole('link');
+    userEvent.click(backToHome);
+    expect(screen.getByText(/main page/i)).toBeInTheDocument();
+  });
+  test('test PageNotFound', () => {
+    const badRoute = '/just/some/bad/route';
+    render(
+      <MemoryRouter initialEntries={[badRoute]}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+  });
 });

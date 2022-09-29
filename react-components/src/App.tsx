@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Main from 'pages/Main';
 import { Pages } from './core/enums';
 import AboutUs from 'pages/AboutUs';
@@ -9,13 +9,11 @@ import styles from './App.module.scss';
 function App() {
   return (
     <main className={styles.main}>
-      <BrowserRouter>
-        <Routes>
-          <Route path={Pages.main} element={<Main />} />
-          <Route path={Pages.aboutUs} element={<AboutUs />} />
-          <Route path={Pages.pageNotFound} element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path={Pages.main} element={<Main />} />
+        <Route path={Pages.aboutUs} element={<AboutUs />} />
+        <Route path={Pages.pageNotFound} element={<PageNotFound />} />
+      </Routes>
     </main>
   );
 }
