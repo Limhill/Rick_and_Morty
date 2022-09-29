@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import PageNotFound from './PageNotFound';
 import { MemoryRouter } from 'react-router-dom';
+import PageNotFound from './PageNotFound';
 
 describe('Test PageNotFound component', () => {
   beforeEach(() => {

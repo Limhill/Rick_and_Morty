@@ -1,8 +1,8 @@
 import React from 'react';
-import { CardInfo } from 'core/interfaces';
-import styles from './Card.module.scss';
-import { capitalize } from 'services/helpers';
 import { v4 as uuidv4 } from 'uuid';
+import { CardInfo } from 'core/interfaces';
+import { capitalize } from 'services/helpers';
+import styles from './Card.module.scss';
 
 const Card = ({ name, status, species, type, gender, origin, location, image }: CardInfo) => {
   const listItems = {

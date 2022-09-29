@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import SearchBar from './SearchBar';
 import userEvent from '@testing-library/user-event';
 import { placeholder, searchBarValue } from 'core/constants';
+import SearchBar from './SearchBar';
 
 describe('Test how it works with localStorage', () => {
   test('Check saving text in localStorage', () => {

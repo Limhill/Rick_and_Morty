@@ -1,7 +1,7 @@
 import React from 'react';
 import { SearchBarState } from 'core/interfaces';
-import styles from './SearchBar.module.scss';
 import { placeholder, searchBarValue } from 'core/constants';
+import styles from './SearchBar.module.scss';
 
 class SearchBar extends React.Component<unknown, SearchBarState> {
   constructor(props: unknown) {

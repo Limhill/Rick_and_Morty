@@ -1,9 +1,9 @@
+import { render, screen } from '@testing-library/react';
+import React from 'react';
 import { CardInfo } from 'core/interfaces';
 import { characters } from 'mock-data/characters';
-import { render, screen } from '@testing-library/react';
-import Card from './index';
 import { CharacterGender, CharacterStatus } from 'core/enums';
-import React from 'react';
+import Card from './index';
 
 describe('test Card component', () => {
   const { id, name, status, species, type, gender, origin, location, image }: CardInfo =

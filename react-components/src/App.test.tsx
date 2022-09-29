@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import App from './App';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import App from './App';
 
 describe('Test routing in the app', () => {
   test('test App render and go to About page', () => {

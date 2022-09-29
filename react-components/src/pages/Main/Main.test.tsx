@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import Main from './Main';
 import { MemoryRouter } from 'react-router-dom';
+import Main from './Main';
 
 describe('Test Main component', () => {
   beforeEach(() => {

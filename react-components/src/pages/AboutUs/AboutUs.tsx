@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './AboutUs.module.scss';
 import { Link } from 'react-router-dom';
 import { Pages } from 'core/enums';
+import styles from './AboutUs.module.scss';
 
 const AboutUs = () => {
   return (

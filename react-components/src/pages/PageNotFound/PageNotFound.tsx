@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './PageNotFound.module.scss';
 import { Link } from 'react-router-dom';
 import { Pages } from 'core/enums';
+import styles from './PageNotFound.module.scss';
 
 const PageNotFound = () => {
   return (
