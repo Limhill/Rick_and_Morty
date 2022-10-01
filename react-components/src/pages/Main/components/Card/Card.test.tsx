@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { CardInfo } from 'core/interfaces';
-import { characters } from 'mock-data/characters';
+import { characters } from '__mocks__/characters';
 import { CharacterGender, CharacterStatus } from 'core/enums';
-import Card from './index';
+import Card from 'pages/Main/components/Card';
 
-describe('test Card component', () => {
+describe('Card', () => {
   const { id, name, status, species, type, gender, origin, location, image }: CardInfo =
     characters[3] as CardInfo;
   beforeEach(() =>
@@ -23,7 +23,7 @@ describe('test Card component', () => {
       />
     )
   );
-  test('test card fields', () => {
+  it('should have correct fields', () => {
     expect(screen.getByText('Name:')).toBeInTheDocument();
     expect(screen.getByText('Status:')).toBeInTheDocument();
     expect(screen.getByText('Species:')).toBeInTheDocument();
@@ -32,7 +32,7 @@ describe('test Card component', () => {
     expect(screen.getByText('Origin:')).toBeInTheDocument();
     expect(screen.getByText('Location:')).toBeInTheDocument();
   });
-  test('card values', () => {
+  it('should have correct values', () => {
     expect(screen.getAllByText(name)).toHaveLength(2);
     expect(screen.getByText(status)).toHaveTextContent(CharacterStatus.alive);
     expect(screen.getByText(species)).toHaveTextContent('Human');

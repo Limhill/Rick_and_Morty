@@ -1,11 +1,14 @@
-export const characters = [
+import { CardInfo } from 'core/interfaces';
+import { CharacterGender, CharacterStatus } from 'core/enums';
+
+export const characters: CardInfo[] = [
   {
     id: 1,
     name: 'Rick Sanchez',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Human',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'Earth (C-137)',
       url: 'https://rickandmortyapi.com/api/location/1',
@@ -74,10 +77,10 @@ export const characters = [
   {
     id: 2,
     name: 'Morty Smith',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Human',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -146,10 +149,10 @@ export const characters = [
   {
     id: 3,
     name: 'Summer Smith',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Human',
     type: '',
-    gender: 'Female',
+    gender: CharacterGender.female,
     origin: {
       name: 'Earth (Replacement Dimension)',
       url: 'https://rickandmortyapi.com/api/location/20',
@@ -209,10 +212,10 @@ export const characters = [
   {
     id: 4,
     name: 'Beth Smith',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Human',
     type: '',
-    gender: 'Female',
+    gender: CharacterGender.female,
     origin: {
       name: 'Earth (Replacement Dimension)',
       url: 'https://rickandmortyapi.com/api/location/20',
@@ -272,10 +275,10 @@ export const characters = [
   {
     id: 5,
     name: 'Jerry Smith',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Human',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'Earth (Replacement Dimension)',
       url: 'https://rickandmortyapi.com/api/location/20',
@@ -332,10 +335,10 @@ export const characters = [
   {
     id: 6,
     name: 'Abadango Cluster Princess',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Alien',
     type: '',
-    gender: 'Female',
+    gender: CharacterGender.female,
     origin: {
       name: 'Abadango',
       url: 'https://rickandmortyapi.com/api/location/2',
@@ -352,10 +355,10 @@ export const characters = [
   {
     id: 7,
     name: 'Abradolf Lincler',
-    status: 'unknown',
+    status: CharacterStatus.unknown,
     species: 'Human',
     type: 'Genetic experiment',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'Earth (Replacement Dimension)',
       url: 'https://rickandmortyapi.com/api/location/20',
@@ -375,10 +378,10 @@ export const characters = [
   {
     id: 8,
     name: 'Adjudicator Rick',
-    status: 'Dead',
+    status: CharacterStatus.dead,
     species: 'Human',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -395,10 +398,10 @@ export const characters = [
   {
     id: 9,
     name: 'Agency Director',
-    status: 'Dead',
+    status: CharacterStatus.dead,
     species: 'Human',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'Earth (Replacement Dimension)',
       url: 'https://rickandmortyapi.com/api/location/20',
@@ -415,10 +418,10 @@ export const characters = [
   {
     id: 10,
     name: 'Alan Rails',
-    status: 'Dead',
+    status: CharacterStatus.dead,
     species: 'Human',
     type: 'Superhuman (Ghost trains summoner)',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -435,10 +438,10 @@ export const characters = [
   {
     id: 11,
     name: 'Albert Einstein',
-    status: 'Dead',
+    status: CharacterStatus.dead,
     species: 'Human',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'Earth (C-137)',
       url: 'https://rickandmortyapi.com/api/location/1',
@@ -455,10 +458,10 @@ export const characters = [
   {
     id: 12,
     name: 'Alexander',
-    status: 'Dead',
+    status: CharacterStatus.dead,
     species: 'Human',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'Earth (C-137)',
       url: 'https://rickandmortyapi.com/api/location/1',
@@ -475,10 +478,10 @@ export const characters = [
   {
     id: 13,
     name: 'Alien Googah',
-    status: 'unknown',
+    status: CharacterStatus.unknown,
     species: 'Alien',
     type: '',
-    gender: 'unknown',
+    gender: CharacterGender.unknown,
     origin: {
       name: 'unknown',
       url: '',
@@ -495,10 +498,10 @@ export const characters = [
   {
     id: 14,
     name: 'Alien Morty',
-    status: 'unknown',
+    status: CharacterStatus.unknown,
     species: 'Alien',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -515,10 +518,10 @@ export const characters = [
   {
     id: 15,
     name: 'Alien Rick',
-    status: 'unknown',
+    status: CharacterStatus.unknown,
     species: 'Alien',
     type: '',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -535,10 +538,10 @@ export const characters = [
   {
     id: 16,
     name: 'Amish Cyborg',
-    status: 'Dead',
+    status: CharacterStatus.dead,
     species: 'Alien',
     type: 'Parasite',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -555,10 +558,10 @@ export const characters = [
   {
     id: 17,
     name: 'Annie',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Human',
     type: '',
-    gender: 'Female',
+    gender: CharacterGender.female,
     origin: {
       name: 'Earth (C-137)',
       url: 'https://rickandmortyapi.com/api/location/1',
@@ -575,10 +578,10 @@ export const characters = [
   {
     id: 18,
     name: 'Antenna Morty',
-    status: 'Alive',
+    status: CharacterStatus.alive,
     species: 'Human',
     type: 'Human with antennae',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -598,10 +601,10 @@ export const characters = [
   {
     id: 19,
     name: 'Antenna Rick',
-    status: 'unknown',
+    status: CharacterStatus.unknown,
     species: 'Human',
     type: 'Human with antennae',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',
@@ -618,10 +621,10 @@ export const characters = [
   {
     id: 20,
     name: 'Ants in my Eyes Johnson',
-    status: 'unknown',
+    status: CharacterStatus.unknown,
     species: 'Human',
     type: 'Human with ants in his eyes',
-    gender: 'Male',
+    gender: CharacterGender.male,
     origin: {
       name: 'unknown',
       url: '',

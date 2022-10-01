@@ -6,19 +6,12 @@ import styles from './SearchBar.module.scss';
 class SearchBar extends React.Component<unknown, SearchBarState> {
   constructor(props: unknown) {
     super(props);
-
-    if (localStorage.getItem(searchBarValue)) {
-      this.state = { value: localStorage.getItem(searchBarValue) as string };
-    } else {
-      this.state = { value: '' };
-    }
-
-    this.handleChange = this.handleChange.bind(this);
+    this.state = { value: localStorage.getItem(searchBarValue) || '' };
   }
 
-  handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ value: e.target.value });
-  }
+  };
 
   componentWillUnmount() {
     localStorage.setItem(searchBarValue, this.state.value);

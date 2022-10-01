@@ -2,6 +2,6 @@
 .main {
   background-color: $black;
   background-image: linear-gradient(rgba(9, 9, 9, 0.5), rgba(9, 9, 9, 0.5)),
-    url('../public/images/space.jpg');
+    url($pathToMainBackground);
   min-height: 100vh;
 }

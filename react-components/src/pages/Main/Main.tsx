@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { Pages, CharacterStatus, CharacterGender } from 'core/enums';
-import { characters } from 'mock-data/characters';
+import { Pages } from 'core/enums';
+import { characters } from '__mocks__/characters';
 import SearchBar from './components/SearchBar';
 import Card from './components/Card';
 import styles from './Main.module.scss';
@@ -15,13 +14,13 @@ const Main = () => {
       <div className={styles.cards} data-testid="cards">
         {characters.map((character) => (
           <Card
-            key={uuidv4()}
+            key={character.id}
             id={character.id}
             name={character.name}
-            status={character.status as CharacterStatus}
+            status={character.status}
             species={character.species}
             type={character.type}
-            gender={character.gender as CharacterGender}
+            gender={character.gender}
             origin={character.origin}
             location={character.location}
             image={character.image}

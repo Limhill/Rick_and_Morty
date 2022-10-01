@@ -15,7 +15,7 @@
     "baseUrl": "./src",
     "paths": {
       "core": ["core/*"],
-      "mock-data": ["mock-data/*"],
+      "__mocks__": ["__mocks__/*"],
       "pages": ["pages/*"],
       "public": ["public/*"],
       "services": ["services/*"],

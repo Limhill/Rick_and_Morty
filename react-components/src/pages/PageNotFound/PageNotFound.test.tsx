@@ -3,7 +3,7 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import PageNotFound from './PageNotFound';
 
-describe('Test PageNotFound component', () => {
+describe('PageNotFound', () => {
   beforeEach(() => {
     render(
       <MemoryRouter>
@@ -11,11 +11,11 @@ describe('Test PageNotFound component', () => {
       </MemoryRouter>
     );
   });
-  test('Test that PageNotFound component has been rendered', () => {
+  it('should render correct title', () => {
     const text = screen.getByText(/page not found/i);
     expect(text).toBeInTheDocument();
   });
-  test('Check that PageNotFound component has a link', () => {
+  it('should have a link', () => {
     const link = screen.getByRole('link');
     expect(link).toBeInTheDocument();
     const linkText = screen.getByText(/back to home/i);

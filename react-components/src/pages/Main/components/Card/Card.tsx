@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { CardInfo } from 'core/interfaces';
 import { capitalize } from 'services/helpers';
 import styles from './Card.module.scss';
@@ -26,7 +25,7 @@ const Card = ({ name, status, species, type, gender, origin, location, image }: 
             {Object.keys(listItems).map((item) => {
               if (item === 'type' && !listItems[item]) return;
               return (
-                <li key={uuidv4()} className={styles.list__item}>
+                <li key={item} className={styles.list__item}>
                   <span>
                     <b>{`${capitalize(item)}:`}</b> {listItems[item as keyof typeof listItems]}
                   </span>

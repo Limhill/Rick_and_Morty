@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import Main from './Main';
+import Main from 'pages/Main';
 
-describe('Test Main component', () => {
+describe('Main', () => {
   beforeEach(() => {
     render(
       <MemoryRouter>
@@ -11,10 +11,10 @@ describe('Test Main component', () => {
       </MemoryRouter>
     );
   });
-  test('There are should be 20 cards', () => {
+  it('should contain 20 cards', () => {
     expect(screen.getAllByTestId('card')).toHaveLength(20);
   });
-  test('Check link on the page', () => {
+  it('should have a link', () => {
     expect(screen.getByRole('link')).toBeInTheDocument();
   });
 });
