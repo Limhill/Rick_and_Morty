@@ -1,7 +1,0 @@
-@import 'src/styles/main';
-.main {
-  background-color: $black;
-  background-image: linear-gradient(rgba(9, 9, 9, 0.5), rgba(9, 9, 9, 0.5)),
-    url($pathToMainBackground);
-  min-height: 100vh;
-}

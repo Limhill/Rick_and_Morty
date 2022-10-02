@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { CardInfo } from 'core/interfaces';
+import { CardProps } from 'core/interfaces';
 import { characters } from '__mocks__/characters';
 import { CharacterGender, CharacterStatus } from 'core/enums';
 import Card from 'pages/Main/components/Card';
 
 describe('Card', () => {
-  const { id, name, status, species, type, gender, origin, location, image }: CardInfo =
-    characters[3] as CardInfo;
+  const { id, name, status, species, type, gender, origin, location, image }: CardProps =
+    characters[3] as CardProps;
   beforeEach(() =>
     render(
       <Card

@@ -1,7 +1,7 @@
-import { CardInfo } from 'core/interfaces';
+import { CardProps } from 'core/interfaces';
 import { CharacterGender, CharacterStatus } from 'core/enums';
 
-export const characters: CardInfo[] = [
+export const characters: CardProps[] = [
   {
     id: 1,
     name: 'Rick Sanchez',

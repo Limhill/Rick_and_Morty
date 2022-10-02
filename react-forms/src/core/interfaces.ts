@@ -1,3 +1,4 @@
+import React from 'react';
 import { CharacterGender, CharacterStatus } from 'core/enums';
 
 export interface SearchBarState {
@@ -9,7 +10,7 @@ export interface Origin {
   url: string;
 }
 
-export interface CardInfo {
+export interface CardProps {
   id: number;
   name: string;
   status: CharacterStatus;
@@ -22,4 +23,12 @@ export interface CardInfo {
   episode?: string[];
   url?: string;
   created?: string;
+}
+
+export interface ParentProps {
+  children: React.ReactNode;
+}
+
+export interface CardSideProps extends ParentProps {
+  back?: boolean;
 }

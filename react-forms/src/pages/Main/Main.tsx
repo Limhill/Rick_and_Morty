@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Pages } from 'core/enums';
 import { characters } from '__mocks__/characters';
-import SearchBar from './components/SearchBar';
+import SearchBar from '../../components/core/SearchBar';
 import Card from './components/Card';
 import styles from './Main.module.scss';
 
