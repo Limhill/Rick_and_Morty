@@ -1,19 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'components/atoms/Link';
 import { Pages } from 'core/enums';
-import styles from './PageNotFound.module.scss';
+import CenteredContent from 'components/templates/CenteredContent';
+import DefaultTitle from 'components/atoms/DefaultTitle';
+import DefaultText from 'components/atoms/DefaultText';
 
 const PageNotFound = () => {
   return (
-    <div className={styles.content}>
-      <h1 className={styles.title}>Page not found</h1>
-      <p className={styles.text}>We are sorry, we could not find the page you requested.</p>
-      <p className={styles.linkContainer}>
-        <Link to={Pages.main} className={styles.link}>
-          Back to home
-        </Link>
-      </p>
-    </div>
+    <CenteredContent>
+      <DefaultTitle>Page not found</DefaultTitle>
+      <DefaultText>We are sorry, we could not find the page you requested.</DefaultText>
+      <Link to={Pages.main} marginTop={20}>
+        Back to home
+      </Link>
+    </CenteredContent>
   );
 };
 

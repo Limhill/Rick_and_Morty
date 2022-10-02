@@ -1,4 +1,4 @@
-import { CardProps } from 'core/interfaces';
+import { CardProps } from 'core/interfaces/props';
 import { CharacterGender, CharacterStatus } from 'core/enums';
 
 export const characters: CardProps[] = [

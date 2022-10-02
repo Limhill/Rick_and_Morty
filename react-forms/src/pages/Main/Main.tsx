@@ -1,17 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Pages } from 'core/enums';
 import { characters } from '__mocks__/characters';
-import SearchBar from '../../components/core/SearchBar';
-import Card from './components/Card';
-import styles from './Main.module.scss';
+import MainPageTitle from 'components/atoms/MainPageTitle';
+import Content from 'components/templates/Content/Content';
+import SearchBar from 'components/atoms/SearchBar';
+import Card from 'components/organisms/Card';
+import CardsContainer from 'components/organisms/CardsContainer';
+import Link from 'components/atoms/Link';
+import Navigation from 'components/molecules/Navigation';
 
 const Main = () => {
   return (
-    <div className={styles.content}>
-      <h1 className={styles.title}>Main page</h1>
+    <Content>
+      <MainPageTitle>Main page</MainPageTitle>
       <SearchBar />
-      <div className={styles.cards} data-testid="cards">
+      <CardsContainer data-testid="cards">
         {characters.map((character) => (
           <Card
             key={character.id}
@@ -26,13 +29,11 @@ const Main = () => {
             image={character.image}
           />
         ))}
-      </div>
-      <nav className={styles.nav}>
-        <Link to={Pages.aboutUs} className={styles.nav__link}>
-          About us
-        </Link>
-      </nav>
-    </div>
+      </CardsContainer>
+      <Navigation>
+        <Link to={Pages.aboutUs}>About us</Link>
+      </Navigation>
+    </Content>
   );
 };
 
