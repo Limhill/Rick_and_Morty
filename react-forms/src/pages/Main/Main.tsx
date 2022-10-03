@@ -1,8 +1,8 @@
 import React from 'react';
 import { Pages } from 'core/enums';
 import { characters } from '__mocks__/characters';
-import MainPageTitle from 'components/atoms/MainPageTitle';
-import Content from 'components/templates/Content/Content';
+import PageTitle from 'components/atoms/PageTitle';
+import Content from 'components/templates/Content';
 import SearchBar from 'components/atoms/SearchBar';
 import Card from 'components/organisms/Card';
 import CardsContainer from 'components/organisms/CardsContainer';
@@ -12,7 +12,7 @@ import Navigation from 'components/molecules/Navigation';
 const Main = () => {
   return (
     <Content>
-      <MainPageTitle>Main page</MainPageTitle>
+      <PageTitle>Main page</PageTitle>
       <SearchBar />
       <CardsContainer data-testid="cards">
         {characters.map((character) => (

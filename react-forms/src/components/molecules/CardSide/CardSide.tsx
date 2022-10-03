@@ -1,9 +1,8 @@
-import React from 'react';
 import styled from 'styled-components';
 import { Color } from 'core/enums';
 import { CardSideProps } from 'core/interfaces/props';
 
-const StyledCardSide = styled.div<CardSideProps>`
+const CardSide = styled.div<CardSideProps>`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -16,9 +15,5 @@ const StyledCardSide = styled.div<CardSideProps>`
   justify-content: center;
   transform: ${({ isBackSide }) => (isBackSide ? 'rotateY(180deg)' : 'none')};
 `;
-
-const CardSide = ({ isBackSide, children }: CardSideProps) => {
-  return <StyledCardSide isBackSide={isBackSide}>{children}</StyledCardSide>;
-};
 
 export default CardSide;

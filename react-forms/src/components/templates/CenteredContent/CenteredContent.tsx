@@ -1,8 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
-import { ParentProps } from 'core/interfaces/props';
 
-const StyledCenteredContent = styled.section`
+const CenteredContent = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,9 +9,5 @@ const StyledCenteredContent = styled.section`
   margin: 0 auto;
   max-width: 1440px;
 `;
-
-const CenteredContent = ({ children }: ParentProps) => {
-  return <StyledCenteredContent>{children}</StyledCenteredContent>;
-};
 
 export default CenteredContent;

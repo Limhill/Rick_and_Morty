@@ -6,6 +6,7 @@ import AboutUs from 'pages/AboutUs';
 import PageNotFound from 'pages/PageNotFound';
 import { Color, Pages } from 'core/enums';
 import img from 'assets/images/space.jpg';
+import Create from 'pages/Create';
 
 const AppWrapper = styled.main`
   background-color: ${Color.black};
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path={Pages.main} element={<Main />} />
         <Route path={Pages.aboutUs} element={<AboutUs />} />
+        <Route path={Pages.create} element={<Create />} />
         <Route path={Pages.pageNotFound} element={<PageNotFound />} />
       </Routes>
     </AppWrapper>

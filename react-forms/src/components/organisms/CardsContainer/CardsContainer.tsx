@@ -1,8 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
-import { ParentProps } from 'core/interfaces/props';
 
-const StyledCardsContainer = styled.section`
+const CardsContainer = styled.section`
   padding-top: 5rem;
   width: 100%;
   display: grid;
@@ -10,9 +8,5 @@ const StyledCardsContainer = styled.section`
   grid-template-rows: repeat(5, 1fr);
   gap: 2rem;
 `;
-
-const CardsContainer = ({ children }: ParentProps) => {
-  return <StyledCardsContainer>{children}</StyledCardsContainer>;
-};
 
 export default CardsContainer;

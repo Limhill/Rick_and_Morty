@@ -1,4 +1,3 @@
-import React from 'react';
 import { CharacterGender, CharacterStatus } from 'core/enums';
 
 export interface Origin {
@@ -21,11 +20,7 @@ export interface CardProps {
   created?: string;
 }
 
-export interface ParentProps {
-  children?: React.ReactNode;
-}
-
-export interface CardSideProps extends ParentProps {
+export interface CardSideProps {
   isBackSide?: boolean;
 }
 

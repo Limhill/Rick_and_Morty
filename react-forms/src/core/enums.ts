@@ -1,6 +1,7 @@
 export enum Pages {
   main = '/',
   aboutUs = 'about',
+  create = 'create',
   pageNotFound = '/*',
 }
 
