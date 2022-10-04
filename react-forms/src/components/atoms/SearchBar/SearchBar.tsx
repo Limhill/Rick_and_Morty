@@ -3,22 +3,16 @@ import styled from 'styled-components';
 import { SearchBarState } from 'core/interfaces/states';
 import { placeholder, searchBarValue } from 'core/constants';
 import icon from 'assets/icons/search.svg';
+import TextInput from 'components/atoms/TextInput';
 import { Color } from 'core/enums';
 
-const StyledSearchBar = styled.input`
+const StyledSearchBar = styled(TextInput)`
   border-radius: 3rem;
-  min-height: 3rem;
-  background: 1rem 0.8rem url(${icon}) no-repeat;
+  background: 1rem 0.7rem url(${icon}) no-repeat;
   padding: 0.7rem 0 0.7rem 5rem;
-  outline: none;
-  font-size: 2.4rem;
-  font-family: Roboto, sans-serif;
-  border: 0.3rem solid ${Color.lightBlue};
-  color: ${Color.white};
-  min-width: 50%;
   &::placeholder {
     color: ${Color.white};
-    opacity: 0.9;
+    opacity: 0.8;
   }
   &:hover,
   &:focus {
