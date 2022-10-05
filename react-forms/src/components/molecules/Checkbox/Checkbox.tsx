@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Color } from 'core/enums';
+import { SwitcherProps } from 'core/interfaces/props';
 
 const CheckBoxContainer = styled.label`
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
-  margin-bottom: 12px;
   cursor: pointer;
   font-size: 22px;
   -webkit-user-select: none;
@@ -18,6 +18,10 @@ const CheckBoxContainer = styled.label`
   border: 0.3rem solid ${Color.lightBlue};
   border-radius: 0.8rem;
   padding: 1rem 1rem 1rem 1rem;
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 15px 5px rgba(172, 228, 170, 0.7);
+  }
 
   input {
     visibility: hidden;
@@ -25,8 +29,8 @@ const CheckBoxContainer = styled.label`
 `;
 
 const Checkmark = styled.span`
-  height: 22px;
-  width: 22px;
+  height: 18px;
+  width: 18px;
   background-color: #eee;
   position: relative;
 
@@ -38,8 +42,8 @@ const Checkmark = styled.span`
   }
   &:after {
     position: absolute;
-    left: 0.7rem;
-    top: 0.3rem;
+    left: 0.5rem;
+    top: 0.1rem;
     content: '';
     display: block;
     width: 5px;
@@ -53,11 +57,14 @@ const Checkmark = styled.span`
   }
 `;
 
-const Checkbox = () => {
+const Checkbox = ({ handler }: SwitcherProps) => {
+  const handleChange = () => {
+    handler();
+  };
   return (
     <CheckBoxContainer>
       It is a human?
-      <input type="checkbox" />
+      <input type="checkbox" onChange={handleChange} />
       <Checkmark></Checkmark>
     </CheckBoxContainer>
   );

@@ -28,13 +28,6 @@ export interface LinkProps {
   marginTop?: number;
 }
 
-export interface FlexBoxProps {
-  mt?: number;
-  mb?: number;
-  ml?: number;
-  mr?: number;
-  pt?: number;
-  pb?: number;
-  pl?: number;
-  pr?: number;
+export interface SwitcherProps {
+  handler: () => void;
 }

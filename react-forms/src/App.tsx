@@ -10,7 +10,7 @@ import Create from 'pages/Create';
 
 const AppWrapper = styled.main`
   background-color: ${Color.black};
-  background-image: linear-gradient(rgba(9, 9, 9, 0.5), rgba(9, 9, 9, 0.5)), url(${img});
+  background-image: linear-gradient(rgba(9, 9, 9, 0.7), rgba(9, 9, 9, 0.7)), url(${img});
   min-height: 100vh;
 `;
 

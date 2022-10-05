@@ -1,15 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Color } from 'core/enums';
+import { SwitcherProps } from 'core/interfaces/props';
 
 const Container = styled.label`
   position: relative;
   display: inline-block;
   width: 6rem;
-  height: 3.5rem;
+  height: 2.4rem;
 
   input {
     visibility: hidden;
     user-focus: none;
+    width: 0;
+    height: 0;
   }
 `;
 
@@ -28,31 +32,31 @@ const Slider = styled.span`
     position: absolute;
     border-radius: 50%;
     content: '';
-    height: 26px;
-    width: 26px;
+    height: 20px;
+    width: 20px;
     left: 4px;
-    bottom: 4px;
-    background-color: white;
+    bottom: 2px;
+    background-color: ${Color.black};
     -webkit-transition: 0.4s;
     transition: 0.4s;
   }
   input:checked + & {
-    background-color: #2196f3;
+    background-color: ${Color.lightBlue};
   }
 
-  input:focus + & {
-    box-shadow: 0 0 1px #2196f3;
-  }
   input:checked + &:before {
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
+    -ms-transform: translateX(30px);
+    transform: translateX(30px);
   }
 `;
 
-const Switcher = () => {
+const Switcher = ({ handler }: SwitcherProps) => {
+  const handleChange = () => {
+    handler();
+  };
   return (
     <Container>
-      <input type="checkbox" />
+      <input type="checkbox" onChange={handleChange} />
       <Slider />
     </Container>
   );

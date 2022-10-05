@@ -7,7 +7,7 @@ import CardTitle from 'components/atoms/CardTitle/CardTitle';
 import CardImage from 'components/atoms/CardImage';
 import { Color } from 'core/enums';
 
-const StyledCardContainer = styled.div`
+const CardContainer = styled.div`
   perspective: 100rem;
   background-color: transparent;
   width: 30rem;
@@ -23,7 +23,7 @@ const StyledCard = styled.div`
   transition: transform 0.8s;
   transform-style: preserve-3d;
   border-radius: 2.5rem;
-  ${StyledCardContainer}:hover & {
+  ${CardContainer}:hover & {
     transform: rotateY(180deg);
     box-shadow: 0 0 15px 10px ${Color.cardHighlight};
   }
@@ -31,7 +31,7 @@ const StyledCard = styled.div`
 
 const Card = ({ id, name, status, species, type, gender, origin, location, image }: CardProps) => {
   return (
-    <StyledCardContainer data-testid="card">
+    <CardContainer data-testid="card">
       <StyledCard>
         <CardSide>
           <CardTitle>{name}</CardTitle>
@@ -51,7 +51,7 @@ const Card = ({ id, name, status, species, type, gender, origin, location, image
           />
         </CardSide>
       </StyledCard>
-    </StyledCardContainer>
+    </CardContainer>
   );
 };
 
