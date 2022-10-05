@@ -54,9 +54,7 @@ const SubmitContainer = styled.div`
   margin-top: 3rem;
 `;
 
-const Submit = styled.button.attrs(() => ({
-  type: 'submit',
-}))`
+const Submit = styled.button`
   background: ${Color.cardBackground};
   border: none;
   color: ${Color.black};
@@ -76,9 +74,11 @@ const Submit = styled.button.attrs(() => ({
 `;
 
 class Form extends React.Component<unknown, FormState> {
+  nameInput: React.RefObject<HTMLInputElement>;
   constructor(props: unknown) {
     super(props);
-    this.state = { isSubmitDisabled: true };
+    this.state = { isSubmitDisabled: true, nameFieldError: '' };
+    this.nameInput = React.createRef();
   }
 
   handleChange = () => {
@@ -87,9 +87,16 @@ class Form extends React.Component<unknown, FormState> {
     }
   };
 
+  handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (this.nameInput.current && this.nameInput.current.value.length < 3) {
+      this.setState({ nameFieldError: 'Имя должно быть длиннее 3 символов!' });
+    }
+  };
+
   render() {
     return (
-      <form autoComplete="off">
+      <form autoComplete="off" onSubmit={this.handleSubmit}>
         <GridContainer>
           <FormItem>
             <Label htmlFor="input">Name</Label>
@@ -98,7 +105,9 @@ class Form extends React.Component<unknown, FormState> {
               id="input"
               placeholder="Character name"
               autoComplete="off"
+              ref={this.nameInput}
             />
+            <InnerText>{this.state.nameFieldError}</InnerText>
           </FormItem>
           <FormItem>
             <Label htmlFor="date">Date of birth</Label>
