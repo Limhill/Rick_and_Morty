@@ -8,10 +8,12 @@ import { CharacterStatus, Color } from 'core/enums';
 import Checkbox from 'components/molecules/Checkbox';
 import Switcher from 'components/atoms/Switcher';
 import { FormState } from 'core/interfaces/states';
+import ErrorText from 'components/atoms/ErrorText';
 
 const FormItem = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 11.5rem;
 `;
 
 const Flexbox = styled.div`
@@ -73,12 +75,37 @@ const Submit = styled.button`
   }
 `;
 
+const DateInput = styled(TextInput)`
+  ::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+  }
+`;
+
+const StyledForm = styled.form`
+  width: 70%;
+`;
+
 class Form extends React.Component<unknown, FormState> {
   nameInput: React.RefObject<HTMLInputElement>;
+  dateInput: React.RefObject<HTMLInputElement>;
+  statusSelect: React.RefObject<HTMLSelectElement>;
+  speciesCheckbox: React.RefObject<HTMLInputElement>;
+  avatarInput: React.RefObject<HTMLInputElement>;
   constructor(props: unknown) {
     super(props);
-    this.state = { isSubmitDisabled: true, nameFieldError: '' };
+    this.state = {
+      isSubmitDisabled: true,
+      nameError: '',
+      dateError: '',
+      statusError: '',
+      speciesError: '',
+      avatarError: '',
+    };
     this.nameInput = React.createRef();
+    this.dateInput = React.createRef();
+    this.statusSelect = React.createRef();
+    this.speciesCheckbox = React.createRef();
+    this.avatarInput = React.createRef();
   }
 
   handleChange = () => {
@@ -89,14 +116,51 @@ class Form extends React.Component<unknown, FormState> {
 
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (this.nameInput.current && this.nameInput.current.value.length < 3) {
-      this.setState({ nameFieldError: 'Имя должно быть длиннее 3 символов!' });
+    if (this.nameInput.current) {
+      if (this.nameInput.current.value.length < 3) {
+        this.setState({ nameError: 'Name should contain at least 3 letters' });
+      } else if (this.nameInput.current.value.match(/[^a-zA-Z]+/i)) {
+        this.setState({ nameError: 'Name could contain only english letters' });
+      }
+    }
+    if (this.dateInput.current) {
+      const date = new Date(this.dateInput.current.value);
+      const currentDate = new Date(Date.now());
+      if (!date.getDate() || !date.getMonth() || !date.getFullYear()) {
+        this.setState({ dateError: 'Please enter the date' });
+      } else if (date.getTime() > currentDate.getTime()) {
+        this.setState({ dateError: 'Date should be less than current' });
+      }
+    }
+
+    if (this.statusSelect.current) {
+      if (this.statusSelect.current.value.match(/character/i)) {
+        this.setState({ statusError: 'Please choose character status' });
+      }
+    }
+
+    if (this.speciesCheckbox.current) {
+      if (!this.speciesCheckbox.current.checked) {
+        this.setState({ speciesError: 'Only Premium users could create non-humans' });
+      }
+    }
+
+    if (this.avatarInput.current) {
+      const fileName = this.avatarInput.current.value;
+      if (!fileName) {
+        this.setState({ avatarError: 'Please upload an image' });
+      } else if (
+        !fileName.endsWith('.png') ||
+        !fileName.endsWith('.jpg') ||
+        !fileName.endsWith('.jpeg')
+      ) {
+        this.setState({ avatarError: 'Please upload .png, .jpg or .jpeg file.' });
+      }
     }
   };
-
   render() {
     return (
-      <form autoComplete="off" onSubmit={this.handleSubmit}>
+      <StyledForm autoComplete="off" onSubmit={this.handleSubmit} noValidate>
         <GridContainer>
           <FormItem>
             <Label htmlFor="input">Name</Label>
@@ -107,29 +171,33 @@ class Form extends React.Component<unknown, FormState> {
               autoComplete="off"
               ref={this.nameInput}
             />
-            <InnerText>{this.state.nameFieldError}</InnerText>
+            <ErrorText>{this.state.nameError}</ErrorText>
           </FormItem>
           <FormItem>
             <Label htmlFor="date">Date of birth</Label>
-            <TextInput
+            <DateInput
               onChange={this.handleChange}
               id="date"
               placeholder="Date of birth"
               type="date"
+              ref={this.dateInput}
             />
+            <ErrorText>{this.state.dateError}</ErrorText>
           </FormItem>
           <FormItem>
             <Label htmlFor="select">Pick character status</Label>
-            <Select onChange={this.handleChange} id="select">
+            <Select onChange={this.handleChange} id="select" ref={this.statusSelect}>
               <Option>Character status</Option>
               <Option>{CharacterStatus.alive}</Option>
               <Option>{CharacterStatus.dead}</Option>
               <Option>{CharacterStatus.unknown}</Option>
             </Select>
+            <ErrorText>{this.state.statusError}</ErrorText>
           </FormItem>
           <FormItem>
             <Label>Check species</Label>
-            <Checkbox handler={this.handleChange} />
+            <Checkbox ref={this.speciesCheckbox} handler={this.handleChange} />
+            <ErrorText>{this.state.speciesError}</ErrorText>
           </FormItem>
           <FormItem>
             <Label>Choose character gender</Label>
@@ -143,14 +211,15 @@ class Form extends React.Component<unknown, FormState> {
             <Label>Choose avatar</Label>
             <Flexbox>
               <InnerText>Image:</InnerText>
-              <Input type="file" onChange={this.handleChange} />
+              <Input type="file" onChange={this.handleChange} ref={this.avatarInput} />
             </Flexbox>
+            <ErrorText>{this.state.avatarError}</ErrorText>
           </FormItem>
         </GridContainer>
         <SubmitContainer>
           <Submit disabled={this.state.isSubmitDisabled}>Submit</Submit>
         </SubmitContainer>
-      </form>
+      </StyledForm>
     );
   }
 }

@@ -4,5 +4,9 @@ export interface SearchBarState {
 
 export interface FormState {
   isSubmitDisabled: boolean;
-  nameFieldError: string;
+  nameError: string;
+  dateError: string;
+  statusError: string;
+  speciesError: string;
+  avatarError: string;
 }

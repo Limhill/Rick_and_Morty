@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Color } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
@@ -57,17 +57,19 @@ const Checkmark = styled.span`
   }
 `;
 
-const Checkbox = ({ handler }: SwitcherProps) => {
+type Ref = HTMLInputElement;
+
+const Checkbox = forwardRef<Ref, SwitcherProps>(({ handler }, ref) => {
   const handleChange = () => {
     handler();
   };
   return (
     <CheckBoxContainer>
       It is a human?
-      <input type="checkbox" onChange={handleChange} />
-      <Checkmark></Checkmark>
+      <input ref={ref} type="checkbox" onChange={handleChange} />
+      <Checkmark />
     </CheckBoxContainer>
   );
-};
+});
 
 export default Checkbox;
