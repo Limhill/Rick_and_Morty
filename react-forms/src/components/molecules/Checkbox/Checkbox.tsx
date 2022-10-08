@@ -57,15 +57,13 @@ const Checkmark = styled.span`
   }
 `;
 
-type Ref = HTMLInputElement;
-
-const Checkbox = forwardRef<Ref, SwitcherProps>(({ handler }, ref) => {
+const Checkbox = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handler(e);
   };
   return (
     <CheckBoxContainer>
-      It is a human?
+      Is it a human?
       <input ref={ref} type="checkbox" onChange={handleChange} name={fieldName.species} />
       <Checkmark />
     </CheckBoxContainer>

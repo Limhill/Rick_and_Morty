@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Color, fieldName } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
@@ -50,16 +50,16 @@ const Slider = styled.span`
   }
 `;
 
-const Switcher = ({ handler }: SwitcherProps) => {
+const Switcher = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handler(e);
   };
   return (
     <Container>
-      <input type="checkbox" onChange={handleChange} name={fieldName.gender} />
+      <input ref={ref} type="checkbox" onChange={handleChange} name={fieldName.gender} />
       <Slider />
     </Container>
   );
-};
+});
 
 export default Switcher;

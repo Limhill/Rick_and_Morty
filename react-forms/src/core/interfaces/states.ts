@@ -1,3 +1,5 @@
+import { UserCardProps } from './props';
+
 export interface SearchBarState {
   value: string;
 }
@@ -8,5 +10,10 @@ export interface FormState {
   dateError: string;
   statusError: string;
   speciesError: string;
+  genderError: string;
   avatarError: string;
+}
+
+export interface CreatePageState {
+  cards: UserCardProps[];
 }

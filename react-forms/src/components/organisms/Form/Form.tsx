@@ -15,7 +15,9 @@ import {
   validateFile,
   validateName,
   validateSelect,
+  validateSwitcher,
 } from 'services/helpers';
+import { FormProps } from 'core/interfaces/props';
 
 const FormItem = styled.div`
   display: flex;
@@ -92,14 +94,16 @@ const StyledForm = styled.form`
   width: 70%;
 `;
 
-class Form extends React.Component<unknown, FormState> {
+class Form extends React.Component<FormProps, FormState> {
   nameInput: React.RefObject<HTMLInputElement>;
   dateInput: React.RefObject<HTMLInputElement>;
   statusSelect: React.RefObject<HTMLSelectElement>;
   speciesCheckbox: React.RefObject<HTMLInputElement>;
+  genderSwitcher: React.RefObject<HTMLInputElement>;
   avatarInput: React.RefObject<HTMLInputElement>;
+  form: React.RefObject<HTMLFormElement>;
 
-  constructor(props: unknown) {
+  constructor(props: FormProps) {
     super(props);
     this.state = {
       isSubmitDisabled: true,
@@ -107,6 +111,7 @@ class Form extends React.Component<unknown, FormState> {
       dateError: ' ',
       statusError: ' ',
       speciesError: ' ',
+      genderError: ' ',
       avatarError: ' ',
     };
 
@@ -114,7 +119,9 @@ class Form extends React.Component<unknown, FormState> {
     this.dateInput = React.createRef();
     this.statusSelect = React.createRef();
     this.speciesCheckbox = React.createRef();
+    this.genderSwitcher = React.createRef();
     this.avatarInput = React.createRef();
+    this.form = React.createRef();
   }
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -130,6 +137,9 @@ class Form extends React.Component<unknown, FormState> {
         break;
       case fieldName.status:
         this.setState({ statusError: '' });
+        break;
+      case fieldName.gender:
+        this.setState({ genderError: '' });
         break;
       case fieldName.species:
         this.setState({ speciesError: '' });
@@ -161,6 +171,11 @@ class Form extends React.Component<unknown, FormState> {
       if (errorMessage) this.setState(errorMessage);
     }
 
+    if (this.genderSwitcher.current) {
+      const errorMessage = validateSwitcher(this.genderSwitcher.current.checked);
+      if (errorMessage) this.setState(errorMessage);
+    }
+
     if (this.avatarInput.current) {
       const errorMessage = validateFile(this.avatarInput.current.value);
       if (errorMessage) this.setState(errorMessage);
@@ -172,14 +187,41 @@ class Form extends React.Component<unknown, FormState> {
       !this.state.statusError &&
       !this.state.speciesError &&
       !this.state.avatarError &&
+      !this.state.genderError &&
       !this.state.isSubmitDisabled
     ) {
-      console.log('success');
+      if (
+        this.nameInput.current &&
+        this.dateInput.current &&
+        this.statusSelect.current &&
+        this.speciesCheckbox.current &&
+        this.genderSwitcher.current &&
+        this.avatarInput.current &&
+        this.avatarInput.current.files
+      ) {
+        this.props.handler({
+          name: this.nameInput.current.value,
+          birthday: this.dateInput.current.value,
+          status: this.statusSelect.current.value,
+          species: this.speciesCheckbox.current.checked,
+          gender: this.genderSwitcher.current.checked,
+          image: this.avatarInput.current.files[0],
+        });
+        if (this.form.current) {
+          this.form.current.reset();
+        }
+      }
     }
   };
   render() {
     return (
-      <StyledForm autoComplete="off" onSubmit={this.handleSubmit} noValidate>
+      <StyledForm
+        autoComplete="off"
+        onSubmit={this.handleSubmit}
+        noValidate
+        encType="multipart/form-data"
+        ref={this.form}
+      >
         <GridContainer>
           <FormItem>
             <Label htmlFor="input">Name</Label>
@@ -228,9 +270,10 @@ class Form extends React.Component<unknown, FormState> {
             <Label>Choose character gender</Label>
             <Flexbox>
               <InnerText>Male</InnerText>
-              <Switcher handler={this.handleChange} />
+              <Switcher ref={this.genderSwitcher} handler={this.handleChange} />
               <InnerText>Female</InnerText>
             </Flexbox>
+            <ErrorText>{this.state.genderError}</ErrorText>
           </FormItem>
           <FormItem>
             <Label>Choose avatar</Label>

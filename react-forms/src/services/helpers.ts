@@ -3,7 +3,7 @@ export const capitalize = (str: string) => {
 };
 
 export const validateName = (name: string) => {
-  if (!name) {
+  if (name.length < 3) {
     return { nameError: 'Name should contain at least 3 letters' };
   } else if (name.match(/[^a-zA-Z]+/i)) {
     return { nameError: 'Name could contain only english letters' };
@@ -34,6 +34,10 @@ export const validateSelect = (value: string) => {
 
 export const validateCheckbox = (isChecked: boolean) => {
   if (!isChecked) return { speciesError: 'Only Premium users could create non-humans' };
+};
+
+export const validateSwitcher = (isChecked: boolean) => {
+  if (!isChecked) return { genderError: 'Only Premium users could create male characters' };
 };
 
 export const validateFile = (filePath: string) => {
