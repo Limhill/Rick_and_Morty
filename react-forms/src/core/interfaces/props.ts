@@ -1,4 +1,5 @@
-import { CharacterGender, CharacterStatus } from 'core/enums';
+import React from 'react';
+import { CharacterGender, CharacterStatus, fieldName } from 'core/enums';
 
 export interface Origin {
   name: string;
@@ -29,5 +30,6 @@ export interface LinkProps {
 }
 
 export interface SwitcherProps {
-  handler: () => void;
+  handler: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  name?: fieldName;
 }

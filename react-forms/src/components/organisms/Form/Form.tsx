@@ -4,11 +4,18 @@ import TextInput from 'components/atoms/TextInput';
 import Label from 'components/atoms/Label';
 import Select from 'components/molecules/Select';
 import Option from 'components/atoms/Option';
-import { CharacterStatus, Color } from 'core/enums';
+import { CharacterStatus, Color, fieldName } from 'core/enums';
 import Checkbox from 'components/molecules/Checkbox';
 import Switcher from 'components/atoms/Switcher';
 import { FormState } from 'core/interfaces/states';
 import ErrorText from 'components/atoms/ErrorText';
+import {
+  validateCheckbox,
+  validateDate,
+  validateFile,
+  validateName,
+  validateSelect,
+} from 'services/helpers';
 
 const FormItem = styled.div`
   display: flex;
@@ -35,10 +42,10 @@ const InnerText = styled.span`
   user-select: none;
 `;
 
-const Input = styled.input`
-  overflow: hidden;
-  display: block;
-  width: 38%;
+const FileInput = styled.input`
+  ::-webkit-file-upload-button {
+    float: right;
+  }
 `;
 
 const GridContainer = styled.div`
@@ -91,16 +98,18 @@ class Form extends React.Component<unknown, FormState> {
   statusSelect: React.RefObject<HTMLSelectElement>;
   speciesCheckbox: React.RefObject<HTMLInputElement>;
   avatarInput: React.RefObject<HTMLInputElement>;
+
   constructor(props: unknown) {
     super(props);
     this.state = {
       isSubmitDisabled: true,
-      nameError: '',
-      dateError: '',
-      statusError: '',
-      speciesError: '',
-      avatarError: '',
+      nameError: ' ',
+      dateError: ' ',
+      statusError: ' ',
+      speciesError: ' ',
+      avatarError: ' ',
     };
+
     this.nameInput = React.createRef();
     this.dateInput = React.createRef();
     this.statusSelect = React.createRef();
@@ -108,54 +117,64 @@ class Form extends React.Component<unknown, FormState> {
     this.avatarInput = React.createRef();
   }
 
-  handleChange = () => {
+  handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if (this.state.isSubmitDisabled) {
       this.setState({ isSubmitDisabled: false });
+    }
+    switch (e.target.name) {
+      case fieldName.name:
+        this.setState({ nameError: '' });
+        break;
+      case fieldName.date:
+        this.setState({ dateError: '' });
+        break;
+      case fieldName.status:
+        this.setState({ statusError: '' });
+        break;
+      case fieldName.species:
+        this.setState({ speciesError: '' });
+        break;
+      case fieldName.avatar:
+        this.setState({ avatarError: '' });
+        break;
     }
   };
 
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (this.nameInput.current) {
-      if (this.nameInput.current.value.length < 3) {
-        this.setState({ nameError: 'Name should contain at least 3 letters' });
-      } else if (this.nameInput.current.value.match(/[^a-zA-Z]+/i)) {
-        this.setState({ nameError: 'Name could contain only english letters' });
-      }
+      const errorMessage = validateName(this.nameInput.current.value);
+      if (errorMessage) this.setState(errorMessage);
     }
     if (this.dateInput.current) {
-      const date = new Date(this.dateInput.current.value);
-      const currentDate = new Date(Date.now());
-      if (!date.getDate() || !date.getMonth() || !date.getFullYear()) {
-        this.setState({ dateError: 'Please enter the date' });
-      } else if (date.getTime() > currentDate.getTime()) {
-        this.setState({ dateError: 'Date should be less than current' });
-      }
+      const errorMessage = validateDate(this.dateInput.current.value);
+      if (errorMessage) this.setState(errorMessage);
     }
 
     if (this.statusSelect.current) {
-      if (this.statusSelect.current.value.match(/character/i)) {
-        this.setState({ statusError: 'Please choose character status' });
-      }
+      const errorMessage = validateSelect(this.statusSelect.current.value);
+      if (errorMessage) this.setState(errorMessage);
     }
 
     if (this.speciesCheckbox.current) {
-      if (!this.speciesCheckbox.current.checked) {
-        this.setState({ speciesError: 'Only Premium users could create non-humans' });
-      }
+      const errorMessage = validateCheckbox(this.speciesCheckbox.current.checked);
+      if (errorMessage) this.setState(errorMessage);
     }
 
     if (this.avatarInput.current) {
-      const fileName = this.avatarInput.current.value;
-      if (!fileName) {
-        this.setState({ avatarError: 'Please upload an image' });
-      } else if (
-        !fileName.endsWith('.png') ||
-        !fileName.endsWith('.jpg') ||
-        !fileName.endsWith('.jpeg')
-      ) {
-        this.setState({ avatarError: 'Please upload .png, .jpg or .jpeg file.' });
-      }
+      const errorMessage = validateFile(this.avatarInput.current.value);
+      if (errorMessage) this.setState(errorMessage);
+    }
+
+    if (
+      !this.state.nameError &&
+      !this.state.dateError &&
+      !this.state.statusError &&
+      !this.state.speciesError &&
+      !this.state.avatarError &&
+      !this.state.isSubmitDisabled
+    ) {
+      console.log('success');
     }
   };
   render() {
@@ -168,8 +187,8 @@ class Form extends React.Component<unknown, FormState> {
               onChange={this.handleChange}
               id="input"
               placeholder="Character name"
-              autoComplete="off"
               ref={this.nameInput}
+              name={fieldName.name}
             />
             <ErrorText>{this.state.nameError}</ErrorText>
           </FormItem>
@@ -181,12 +200,18 @@ class Form extends React.Component<unknown, FormState> {
               placeholder="Date of birth"
               type="date"
               ref={this.dateInput}
+              name={fieldName.date}
             />
             <ErrorText>{this.state.dateError}</ErrorText>
           </FormItem>
           <FormItem>
             <Label htmlFor="select">Pick character status</Label>
-            <Select onChange={this.handleChange} id="select" ref={this.statusSelect}>
+            <Select
+              onChange={this.handleChange}
+              id="select"
+              ref={this.statusSelect}
+              name={fieldName.status}
+            >
               <Option>Character status</Option>
               <Option>{CharacterStatus.alive}</Option>
               <Option>{CharacterStatus.dead}</Option>
@@ -211,7 +236,12 @@ class Form extends React.Component<unknown, FormState> {
             <Label>Choose avatar</Label>
             <Flexbox>
               <InnerText>Image:</InnerText>
-              <Input type="file" onChange={this.handleChange} ref={this.avatarInput} />
+              <FileInput
+                name={fieldName.avatar}
+                type="file"
+                onChange={this.handleChange}
+                ref={this.avatarInput}
+              />
             </Flexbox>
             <ErrorText>{this.state.avatarError}</ErrorText>
           </FormItem>

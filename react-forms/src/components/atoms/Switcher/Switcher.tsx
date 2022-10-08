@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Color } from 'core/enums';
+import { Color, fieldName } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
 
 const Container = styled.label`
@@ -51,12 +51,12 @@ const Slider = styled.span`
 `;
 
 const Switcher = ({ handler }: SwitcherProps) => {
-  const handleChange = () => {
-    handler();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handler(e);
   };
   return (
     <Container>
-      <input type="checkbox" onChange={handleChange} />
+      <input type="checkbox" onChange={handleChange} name={fieldName.gender} />
       <Slider />
     </Container>
   );

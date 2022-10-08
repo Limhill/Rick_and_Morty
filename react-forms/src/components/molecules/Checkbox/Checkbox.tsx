@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import { Color } from 'core/enums';
+import { Color, fieldName } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
 
 const CheckBoxContainer = styled.label`
@@ -60,13 +60,13 @@ const Checkmark = styled.span`
 type Ref = HTMLInputElement;
 
 const Checkbox = forwardRef<Ref, SwitcherProps>(({ handler }, ref) => {
-  const handleChange = () => {
-    handler();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handler(e);
   };
   return (
     <CheckBoxContainer>
       It is a human?
-      <input ref={ref} type="checkbox" onChange={handleChange} />
+      <input ref={ref} type="checkbox" onChange={handleChange} name={fieldName.species} />
       <Checkmark />
     </CheckBoxContainer>
   );
