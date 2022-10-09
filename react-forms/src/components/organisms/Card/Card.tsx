@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CardProps, UserCardProps } from 'core/interfaces/props';
-import CharacterCardInfo from 'components/molecules/CharacaterCardInfo';
+import CardInfo from 'components/molecules/CardInfo';
 import CardSide from 'components/molecules/CardSide/CardSide';
 import CardTitle from 'components/atoms/CardTitle/CardTitle';
 import CardImage from 'components/atoms/CardImage';
 import { Color } from 'core/enums';
 import { isCardProps } from 'services/helpers';
-import UserCardInfo from '../../molecules/UserCardInfo';
 
 const CardContainer = styled.div`
   perspective: 100rem;
@@ -44,7 +43,7 @@ const Card = (data: CardProps | UserCardProps) => {
         </CardSide>
         <CardSide isBackSide={true}>
           {isCardProps(data) && (
-            <CharacterCardInfo
+            <CardInfo
               id={data.id}
               name={data.name}
               status={data.status}
@@ -57,7 +56,7 @@ const Card = (data: CardProps | UserCardProps) => {
             />
           )}
           {!isCardProps(data) && (
-            <UserCardInfo
+            <CardInfo
               name={data.name}
               birthday={data.birthday}
               status={data.status}

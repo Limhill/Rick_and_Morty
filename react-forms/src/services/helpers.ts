@@ -1,4 +1,5 @@
 import { CardProps, UserCardProps } from '../core/interfaces/props';
+import { CharacterInfo, UserInfo } from '../core/interfaces/others';
 
 export const capitalize = (str: string) => {
   return (str.at(0) || '').toUpperCase().concat(str.slice(1));
@@ -62,4 +63,8 @@ export const validateFile = (filePath: string) => {
 
 export const isCardProps = (object: CardProps | UserCardProps): object is CardProps => {
   return 'location' in object;
+};
+
+export const isCharacterInfo = (data: CharacterInfo | UserInfo): data is CharacterInfo => {
+  return 'location' in data;
 };
