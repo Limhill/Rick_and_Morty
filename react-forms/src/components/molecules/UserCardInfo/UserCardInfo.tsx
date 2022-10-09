@@ -16,8 +16,8 @@ const UserCardInfo = ({ name, birthday, status, species, gender }: UserCardProps
     name,
     birthday,
     status,
-    species: species ? 'human' : 'non-human',
-    gender: gender ? 'female' : 'male',
+    species: species ? 'Human' : 'Non-human',
+    gender: gender ? 'Female' : 'Male',
   };
   return (
     <StyledCardInfo>

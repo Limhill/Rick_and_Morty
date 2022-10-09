@@ -94,6 +94,16 @@ const StyledForm = styled.form`
   width: 70%;
 `;
 
+const initial = {
+  isSubmitDisabled: true,
+  nameError: ' ',
+  dateError: ' ',
+  statusError: ' ',
+  speciesError: ' ',
+  genderError: ' ',
+  avatarError: ' ',
+};
+
 class Form extends React.Component<FormProps, FormState> {
   nameInput: React.RefObject<HTMLInputElement>;
   dateInput: React.RefObject<HTMLInputElement>;
@@ -105,15 +115,7 @@ class Form extends React.Component<FormProps, FormState> {
 
   constructor(props: FormProps) {
     super(props);
-    this.state = {
-      isSubmitDisabled: true,
-      nameError: ' ',
-      dateError: ' ',
-      statusError: ' ',
-      speciesError: ' ',
-      genderError: ' ',
-      avatarError: ' ',
-    };
+    this.state = initial;
 
     this.nameInput = React.createRef();
     this.dateInput = React.createRef();
@@ -150,35 +152,29 @@ class Form extends React.Component<FormProps, FormState> {
     }
   };
 
-  handleSubmit = (e: React.FormEvent) => {
+  handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (this.nameInput.current) {
-      const errorMessage = validateName(this.nameInput.current.value);
-      if (errorMessage) this.setState(errorMessage);
+      await this.setState(validateName(this.nameInput.current.value));
     }
     if (this.dateInput.current) {
-      const errorMessage = validateDate(this.dateInput.current.value);
-      if (errorMessage) this.setState(errorMessage);
+      await this.setState(validateDate(this.dateInput.current.value));
     }
 
     if (this.statusSelect.current) {
-      const errorMessage = validateSelect(this.statusSelect.current.value);
-      if (errorMessage) this.setState(errorMessage);
+      await this.setState(validateSelect(this.statusSelect.current.value));
     }
 
     if (this.speciesCheckbox.current) {
-      const errorMessage = validateCheckbox(this.speciesCheckbox.current.checked);
-      if (errorMessage) this.setState(errorMessage);
+      await this.setState(validateCheckbox(this.speciesCheckbox.current.checked));
     }
 
     if (this.genderSwitcher.current) {
-      const errorMessage = validateSwitcher(this.genderSwitcher.current.checked);
-      if (errorMessage) this.setState(errorMessage);
+      await this.setState(validateSwitcher(this.genderSwitcher.current.checked));
     }
 
     if (this.avatarInput.current) {
-      const errorMessage = validateFile(this.avatarInput.current.value);
-      if (errorMessage) this.setState(errorMessage);
+      await this.setState(validateFile(this.avatarInput.current.value));
     }
 
     if (
@@ -207,8 +203,12 @@ class Form extends React.Component<FormProps, FormState> {
           gender: this.genderSwitcher.current.checked,
           image: this.avatarInput.current.files[0],
         });
+
         if (this.form.current) {
           this.form.current.reset();
+          this.speciesCheckbox.current.checked = false;
+          this.genderSwitcher.current.checked = false;
+          this.setState(initial);
         }
       }
     }

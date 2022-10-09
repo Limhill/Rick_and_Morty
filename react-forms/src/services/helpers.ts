@@ -35,11 +35,19 @@ export const validateSelect = (value: string) => {
 };
 
 export const validateCheckbox = (isChecked: boolean) => {
-  if (!isChecked) return { speciesError: 'Only Premium users could create non-humans' };
+  if (!isChecked) {
+    return { speciesError: 'Only Premium users could create non-humans' };
+  } else {
+    return { speciesError: '' };
+  }
 };
 
 export const validateSwitcher = (isChecked: boolean) => {
-  if (!isChecked) return { genderError: 'Only Premium users could create male characters' };
+  if (!isChecked) {
+    return { genderError: 'Only Premium users could create male characters' };
+  } else {
+    return { genderError: '' };
+  }
 };
 
 export const validateFile = (filePath: string) => {
