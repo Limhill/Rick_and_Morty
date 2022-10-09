@@ -7,7 +7,7 @@ export const capitalize = (str: string) => {
 export const validateName = (name: string) => {
   if (name.length < 3) {
     return { nameError: 'Name should contain at least 3 letters' };
-  } else if (name.match(/[^a-zA-Z]+/i)) {
+  } else if (name.match(/[^a-z]+/i)) {
     return { nameError: 'Name could contain only english letters' };
   } else {
     return { nameError: '' };

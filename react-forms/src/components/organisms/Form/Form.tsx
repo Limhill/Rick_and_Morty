@@ -130,25 +130,9 @@ class Form extends React.Component<FormProps, FormState> {
     if (this.state.isSubmitDisabled) {
       this.setState({ isSubmitDisabled: false });
     }
-    switch (e.target.name) {
-      case fieldName.name:
-        this.setState({ nameError: '' });
-        break;
-      case fieldName.date:
-        this.setState({ dateError: '' });
-        break;
-      case fieldName.status:
-        this.setState({ statusError: '' });
-        break;
-      case fieldName.gender:
-        this.setState({ genderError: '' });
-        break;
-      case fieldName.species:
-        this.setState({ speciesError: '' });
-        break;
-      case fieldName.avatar:
-        this.setState({ avatarError: '' });
-        break;
+    const key = `${e.target.name}Error`;
+    if (Object.keys(this.state).includes(key)) {
+      this.setState({ [key]: '' } as unknown as Pick<FormState, keyof FormState>);
     }
   };
 
