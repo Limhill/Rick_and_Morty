@@ -5,6 +5,7 @@ const CardImage = styled.img.attrs(({ src, alt }) => ({
   alt: alt,
 }))`
   width: 100%;
+  height: 100%;
   border-radius: 0 0 2.5rem 2.5rem;
 `;
 

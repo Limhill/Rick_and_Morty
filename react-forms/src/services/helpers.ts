@@ -1,3 +1,5 @@
+import { CardProps, UserCardProps } from '../core/interfaces/props';
+
 export const capitalize = (str: string) => {
   return (str.at(0) || '').toUpperCase().concat(str.slice(1));
 };
@@ -48,4 +50,8 @@ export const validateFile = (filePath: string) => {
   } else {
     return { avatarError: 'Please upload .png, .jpg or .jpeg file.' };
   }
+};
+
+export const isCardProps = (object: CardProps | UserCardProps): object is CardProps => {
+  return 'location' in object;
 };

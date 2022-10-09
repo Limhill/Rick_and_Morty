@@ -11,7 +11,15 @@ const StyledCardInfo = styled.ul`
   color: ${Color.black};
 `;
 
-const CardInfo = ({ name, status, species, type, gender, origin, location }: CardProps) => {
+const CharacterCardInfo = ({
+  name,
+  status,
+  species,
+  type,
+  gender,
+  origin,
+  location,
+}: CardProps) => {
   const items = {
     name,
     status,
@@ -37,4 +45,4 @@ const CardInfo = ({ name, status, species, type, gender, origin, location }: Car
   );
 };
 
-export default CardInfo;
+export default CharacterCardInfo;

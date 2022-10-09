@@ -5,7 +5,7 @@ import Form from 'components/organisms/Form';
 import CardsContainer from 'components/organisms/CardsContainer';
 import { CreatePageState } from 'core/interfaces/states';
 import { UserCardProps } from 'core/interfaces/props';
-import UserCard from 'components/molecules/UserCard';
+import Card from 'components/organisms/Card';
 
 class Create extends React.Component<unknown, CreatePageState> {
   constructor(props: unknown) {
@@ -27,7 +27,7 @@ class Create extends React.Component<unknown, CreatePageState> {
         <CardsContainer>
           {this.state.cards.map((card) => {
             return (
-              <UserCard
+              <Card
                 key={card.name}
                 name={card.name}
                 birthday={card.birthday}

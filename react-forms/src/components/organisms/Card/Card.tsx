@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CardProps } from 'core/interfaces/props';
-import CardInfo from 'components/molecules/CardInfo/CardInfo';
+import { CardProps, UserCardProps } from 'core/interfaces/props';
+import CharacterCardInfo from 'components/molecules/CharacaterCardInfo';
 import CardSide from 'components/molecules/CardSide/CardSide';
 import CardTitle from 'components/atoms/CardTitle/CardTitle';
 import CardImage from 'components/atoms/CardImage';
 import { Color } from 'core/enums';
+import { isCardProps } from 'services/helpers';
+import UserCardInfo from '../../molecules/UserCardInfo';
 
 const CardContainer = styled.div`
   perspective: 100rem;
@@ -29,26 +31,41 @@ const StyledCard = styled.div`
   }
 `;
 
-const Card = ({ id, name, status, species, type, gender, origin, location, image }: CardProps) => {
+const Card = (data: CardProps | UserCardProps) => {
   return (
     <CardContainer data-testid="card">
       <StyledCard>
         <CardSide>
-          <CardTitle>{name}</CardTitle>
-          <CardImage src={image} alt={name} />
+          <CardTitle>{data.name}</CardTitle>
+          <CardImage
+            src={isCardProps(data) ? data.image : URL.createObjectURL(data.image)}
+            alt={data.name}
+          />
         </CardSide>
         <CardSide isBackSide={true}>
-          <CardInfo
-            id={id}
-            name={name}
-            status={status}
-            species={species}
-            type={type}
-            gender={gender}
-            origin={origin}
-            location={location}
-            image={image}
-          />
+          {isCardProps(data) && (
+            <CharacterCardInfo
+              id={data.id}
+              name={data.name}
+              status={data.status}
+              species={data.species}
+              type={data.type}
+              gender={data.gender}
+              origin={data.origin}
+              location={data.location}
+              image={data.image}
+            />
+          )}
+          {!isCardProps(data) && (
+            <UserCardInfo
+              name={data.name}
+              birthday={data.birthday}
+              status={data.status}
+              species={data.species}
+              gender={data.gender}
+              image={data.image}
+            />
+          )}
         </CardSide>
       </StyledCard>
     </CardContainer>
