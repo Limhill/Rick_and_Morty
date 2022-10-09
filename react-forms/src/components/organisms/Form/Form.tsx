@@ -18,24 +18,12 @@ import {
   validateSwitcher,
 } from 'services/helpers';
 import { FormProps } from 'core/interfaces/props';
+import BorderedFlexbox from 'components/atoms/BorderedFlexbox';
 
 const FormItem = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 11.5rem;
-`;
-
-const Flexbox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 0.3rem solid ${Color.lightBlue};
-  padding: 1rem;
-  border-radius: 0.8rem;
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 15px 5px rgba(172, 228, 170, 0.7);
-  }
 `;
 
 const InnerText = styled.span`
@@ -223,7 +211,6 @@ class Form extends React.Component<FormProps, FormState> {
             <DateInput
               onChange={this.handleChange}
               id="date"
-              placeholder="Date of birth"
               type="date"
               ref={this.dateInput}
               name={fieldName.date}
@@ -246,30 +233,25 @@ class Form extends React.Component<FormProps, FormState> {
             <ErrorText>{this.state.statusError}</ErrorText>
           </FormItem>
           <FormItem>
-            <Label>Check species</Label>
             <Checkbox ref={this.speciesCheckbox} handler={this.handleChange} />
             <ErrorText>{this.state.speciesError}</ErrorText>
           </FormItem>
           <FormItem>
-            <Label>Choose character gender</Label>
-            <Flexbox>
-              <InnerText>Male</InnerText>
-              <Switcher ref={this.genderSwitcher} handler={this.handleChange} />
-              <InnerText>Female</InnerText>
-            </Flexbox>
+            <Switcher ref={this.genderSwitcher} handler={this.handleChange} />
             <ErrorText>{this.state.genderError}</ErrorText>
           </FormItem>
           <FormItem>
-            <Label>Choose avatar</Label>
-            <Flexbox>
+            <Label htmlFor="avatar">Choose avatar</Label>
+            <BorderedFlexbox>
               <InnerText>Image:</InnerText>
               <FileInput
+                id="avatar"
                 name={fieldName.avatar}
                 type="file"
                 onChange={this.handleChange}
                 ref={this.avatarInput}
               />
-            </Flexbox>
+            </BorderedFlexbox>
             <ErrorText>{this.state.avatarError}</ErrorText>
           </FormItem>
         </GridContainer>

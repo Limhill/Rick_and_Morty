@@ -2,8 +2,10 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Color, fieldName } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
+import BorderedFlexbox from 'components/atoms/BorderedFlexbox';
+import Label from 'components/atoms/Label';
 
-const Container = styled.label`
+const SliderContainer = styled.span`
   position: relative;
   display: inline-block;
   width: 6rem;
@@ -50,15 +52,38 @@ const Slider = styled.span`
   }
 `;
 
+const InnerText = styled.span`
+  font-size: 2.2rem;
+  color: ${Color.white};
+  user-select: none;
+`;
+
+const SwitcherContainer = styled(BorderedFlexbox)`
+  cursor: pointer;
+`;
+
 const Switcher = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handler(e);
   };
   return (
-    <Container>
-      <input ref={ref} type="checkbox" onChange={handleChange} name={fieldName.gender} />
-      <Slider />
-    </Container>
+    <label htmlFor="gender">
+      <Label as="div">Choose character gender</Label>
+      <SwitcherContainer>
+        <InnerText>Male</InnerText>
+        <SliderContainer>
+          <input
+            id="gender"
+            ref={ref}
+            type="checkbox"
+            onChange={handleChange}
+            name={fieldName.gender}
+          />
+          <Slider />
+        </SliderContainer>
+        <InnerText>Female</InnerText>
+      </SwitcherContainer>
+    </label>
   );
 });
 

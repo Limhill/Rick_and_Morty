@@ -2,8 +2,9 @@ import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import { Color, fieldName } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
+import Label from 'components/atoms/Label';
 
-const CheckBoxContainer = styled.label`
+const CheckBoxContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,10 +35,10 @@ const Checkmark = styled.span`
   background-color: #eee;
   position: relative;
 
-  ${CheckBoxContainer}:hover > & {
+  label:hover > & {
     background-color: #ccc;
   }
-  ${CheckBoxContainer} input:checked ~ & {
+  label input:checked ~ & {
     background-color: ${Color.lightBlue};
   }
   &:after {
@@ -50,7 +51,7 @@ const Checkmark = styled.span`
     height: 10px;
     transform: rotate(45deg);
   }
-  ${CheckBoxContainer} input:checked ~ &:after {
+  label input:checked ~ &:after {
     background-color: ${Color.lightBlue};
     border: solid ${Color.black};
     border-width: 0 3px 3px 0;
@@ -62,11 +63,20 @@ const Checkbox = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) 
     handler(e);
   };
   return (
-    <CheckBoxContainer>
-      Is it a human?
-      <input ref={ref} type="checkbox" onChange={handleChange} name={fieldName.species} />
-      <Checkmark />
-    </CheckBoxContainer>
+    <label htmlFor="species">
+      <Label as="div">Check species</Label>
+      <CheckBoxContainer>
+        Is it a human?
+        <input
+          id="species"
+          ref={ref}
+          type="checkbox"
+          onChange={handleChange}
+          name={fieldName.species}
+        />
+        <Checkmark />
+      </CheckBoxContainer>
+    </label>
   );
 });
 
