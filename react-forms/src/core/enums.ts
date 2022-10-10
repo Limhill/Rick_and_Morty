@@ -37,3 +37,15 @@ export enum fieldName {
   gender = 'gender',
   avatar = 'avatar',
 }
+
+export enum ErrorMessage {
+  nameTooShort = 'Name should contain at least 3 letters',
+  nameIncorrect = 'Name could contain only english letters',
+  birthdayEmpty = 'Please enter the date',
+  birthdayIncorrect = 'Date should be less than current',
+  statusUnselected = 'Please choose character status',
+  speciesUnchecked = 'Only Premium users could create non-humans',
+  genderUnchecked = 'Only Premium users could create male characters',
+  imageNotUploaded = 'Please upload an image',
+  imageExtensionIncorrect = 'Please upload .png, .jpg or .jpeg file.',
+}

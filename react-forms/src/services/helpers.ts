@@ -1,5 +1,6 @@
-import { CardProps, UserCardProps } from '../core/interfaces/props';
-import { CharacterInfo, UserInfo } from '../core/interfaces/others';
+import { CardProps, UserCardProps } from 'core/interfaces/props';
+import { CharacterInfo, UserInfo } from 'core/interfaces/others';
+import { ErrorMessage } from 'core/enums';
 
 export const capitalize = (str: string) => {
   return (str.at(0) || '').toUpperCase().concat(str.slice(1));
@@ -7,57 +8,57 @@ export const capitalize = (str: string) => {
 
 export const validateName = (name: string) => {
   if (name.length < 3) {
-    return { nameError: 'Name should contain at least 3 letters' };
+    return { nameError: ErrorMessage.nameTooShort };
   } else if (name.match(/[^a-z]+/i)) {
-    return { nameError: 'Name could contain only english letters' };
+    return { nameError: ErrorMessage.nameIncorrect };
   } else {
     return { nameError: '' };
   }
 };
 
-export const validateDate = (formDate: string) => {
+export const validateBirthday = (formDate: string) => {
   const date = new Date(formDate);
   const currentDate = new Date(Date.now());
   if (!date.getDate() || !date.getMonth() || !date.getFullYear()) {
-    return { dateError: 'Please enter the date' };
+    return { dateError: ErrorMessage.birthdayEmpty };
   } else if (date.getTime() > currentDate.getTime()) {
-    return { dateError: 'Date should be less than current' };
+    return { dateError: ErrorMessage.birthdayIncorrect };
   } else {
     return { dateError: '' };
   }
 };
 
-export const validateSelect = (value: string) => {
+export const validateStatus = (value: string) => {
   if (value.match(/character/i)) {
-    return { statusError: 'Please choose character status' };
+    return { statusError: ErrorMessage.statusUnselected };
   } else {
     return { statusError: '' };
   }
 };
 
-export const validateCheckbox = (isChecked: boolean) => {
+export const validateSpecies = (isChecked: boolean) => {
   if (!isChecked) {
-    return { speciesError: 'Only Premium users could create non-humans' };
+    return { speciesError: ErrorMessage.speciesUnchecked };
   } else {
     return { speciesError: '' };
   }
 };
 
-export const validateSwitcher = (isChecked: boolean) => {
+export const validateGender = (isChecked: boolean) => {
   if (!isChecked) {
-    return { genderError: 'Only Premium users could create male characters' };
+    return { genderError: ErrorMessage.genderUnchecked };
   } else {
     return { genderError: '' };
   }
 };
 
-export const validateFile = (filePath: string) => {
+export const validateImage = (filePath: string) => {
   if (!filePath) {
-    return { avatarError: 'Please upload an image' };
+    return { avatarError: ErrorMessage.imageNotUploaded };
   } else if (filePath.endsWith('.png') || filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
     return { avatarError: '' };
   } else {
-    return { avatarError: 'Please upload .png, .jpg or .jpeg file.' };
+    return { avatarError: ErrorMessage.imageExtensionIncorrect };
   }
 };
 

@@ -10,12 +10,12 @@ import Switcher from 'components/atoms/Switcher';
 import { FormState } from 'core/interfaces/states';
 import ErrorText from 'components/atoms/ErrorText';
 import {
-  validateCheckbox,
-  validateDate,
-  validateFile,
+  validateSpecies,
+  validateBirthday,
+  validateImage,
   validateName,
-  validateSelect,
-  validateSwitcher,
+  validateStatus,
+  validateGender,
 } from 'services/helpers';
 import { FormProps } from 'core/interfaces/props';
 import BorderedFlexbox from 'components/atoms/BorderedFlexbox';
@@ -130,23 +130,23 @@ class Form extends React.Component<FormProps, FormState> {
       await this.setState(validateName(this.nameInput.current.value));
     }
     if (this.dateInput.current) {
-      await this.setState(validateDate(this.dateInput.current.value));
+      await this.setState(validateBirthday(this.dateInput.current.value));
     }
 
     if (this.statusSelect.current) {
-      await this.setState(validateSelect(this.statusSelect.current.value));
+      await this.setState(validateStatus(this.statusSelect.current.value));
     }
 
     if (this.speciesCheckbox.current) {
-      await this.setState(validateCheckbox(this.speciesCheckbox.current.checked));
+      await this.setState(validateSpecies(this.speciesCheckbox.current.checked));
     }
 
     if (this.genderSwitcher.current) {
-      await this.setState(validateSwitcher(this.genderSwitcher.current.checked));
+      await this.setState(validateGender(this.genderSwitcher.current.checked));
     }
 
     if (this.avatarInput.current) {
-      await this.setState(validateFile(this.avatarInput.current.value));
+      await this.setState(validateImage(this.avatarInput.current.value));
     }
 
     if (
