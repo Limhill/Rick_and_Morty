@@ -2,14 +2,12 @@ export type CharacterInfo = {
   name: string;
   status: string;
   species: string;
-  type: string;
   gender: string;
+  type: string;
   origin: string;
   location: string;
 };
 
-export interface UserInfo extends Pick<CharacterInfo, 'name' | 'status'> {
+export interface UserInfo extends Omit<CharacterInfo, 'type' | 'origin' | 'location'> {
   birthday: string;
-  species: string;
-  gender: string;
 }
