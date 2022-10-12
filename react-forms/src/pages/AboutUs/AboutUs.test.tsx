@@ -12,13 +12,11 @@ describe('AboutUs', () => {
     );
   });
   it('should render a title', () => {
-    const text = screen.getByText(/About us/);
+    const text = screen.getByRole('heading');
     expect(text).toBeInTheDocument();
   });
-  it('should have a link', () => {
-    const link = screen.getByRole('link');
-    expect(link).toBeInTheDocument();
-    const linkText = screen.getByText(/bring me home/i);
-    expect(linkText).toBeInTheDocument();
+  it('should have a header', () => {
+    const link = screen.getAllByRole('link');
+    expect(link).toHaveLength(3);
   });
 });

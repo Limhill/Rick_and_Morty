@@ -25,10 +25,6 @@ export interface CardSideProps {
   isBackSide?: boolean;
 }
 
-export interface LinkProps {
-  marginTop?: number;
-}
-
 export interface SwitcherProps {
   handler: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
   name?: fieldName;

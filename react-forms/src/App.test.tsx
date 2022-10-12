@@ -11,12 +11,16 @@ describe('App routing', () => {
         <App />
       </BrowserRouter>
     );
-    const link = screen.getByRole('link');
-    userEvent.click(link);
+    const aboutUsPageLink = screen.getByTestId('about-us-page-link');
+    userEvent.click(aboutUsPageLink);
     expect(screen.getByText(/this is an about us page/i)).toBeInTheDocument();
-    const backToHome = screen.getByRole('link');
-    userEvent.click(backToHome);
-    expect(screen.getByText(/main page/i)).toBeInTheDocument();
+    const mainPageLink = screen.getByTestId('main-page-link');
+    userEvent.click(mainPageLink);
+    const searchBar = screen.getByPlaceholderText(/введите поисковый запрос/i);
+    expect(searchBar).toBeInTheDocument();
+    const createPageLink = screen.getByTestId('create-page-link');
+    userEvent.click(createPageLink);
+    expect(screen.getByText(/create your own character/i)).toBeInTheDocument();
   });
   it('should render PageNotFound when route is bad', () => {
     const badRoute = '/just/some/bad/route';

@@ -6,6 +6,7 @@ import CardsContainer from 'components/organisms/CardsContainer';
 import { CreatePageState } from 'core/interfaces/states';
 import { UserCardProps } from 'core/interfaces/props';
 import Card from 'components/organisms/Card';
+import Header from 'components/templates/Header';
 
 class Create extends React.Component<unknown, CreatePageState> {
   constructor(props: unknown) {
@@ -21,25 +22,28 @@ class Create extends React.Component<unknown, CreatePageState> {
 
   render() {
     return (
-      <Content>
-        <PageTitle>Create your own character!</PageTitle>
-        <Form handler={this.cardCreator} />
-        <CardsContainer>
-          {this.state.cards.map((card) => {
-            return (
-              <Card
-                key={card.name}
-                name={card.name}
-                birthday={card.birthday}
-                status={card.status}
-                gender={card.gender}
-                species={card.species}
-                image={card.image}
-              />
-            );
-          })}
-        </CardsContainer>
-      </Content>
+      <>
+        <Header />
+        <Content>
+          <PageTitle>Create your own character!</PageTitle>
+          <Form handler={this.cardCreator} />
+          <CardsContainer>
+            {this.state.cards.map((card) => {
+              return (
+                <Card
+                  key={card.name}
+                  name={card.name}
+                  birthday={card.birthday}
+                  status={card.status}
+                  gender={card.gender}
+                  species={card.species}
+                  image={card.image}
+                />
+              );
+            })}
+          </CardsContainer>
+        </Content>
+      </>
     );
   }
 }

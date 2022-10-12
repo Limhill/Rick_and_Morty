@@ -15,6 +15,6 @@ describe('Main', () => {
     expect(screen.getAllByTestId('card')).toHaveLength(20);
   });
   it('should have a link', () => {
-    expect(screen.getByRole('link')).toBeInTheDocument();
+    expect(screen.getAllByRole('link')).toHaveLength(3);
   });
 });
