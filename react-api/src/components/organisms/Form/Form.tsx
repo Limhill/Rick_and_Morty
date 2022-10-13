@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import TextInput from 'components/atoms/TextInput';
 import Label from 'components/atoms/Label';
 import Select from 'components/molecules/Select';
-import Option from 'components/atoms/Option';
 import { CharacterStatus, Color, fieldName } from 'core/enums';
 import Checkbox from 'components/molecules/Checkbox';
 import Switcher from 'components/atoms/Switcher';
@@ -80,6 +79,11 @@ const DateInput = styled(TextInput)`
 
 const StyledForm = styled.form`
   width: 70%;
+`;
+
+const Option = styled.option`
+  font-size: 2.2rem;
+  color: ${Color.black};
 `;
 
 const initial = {

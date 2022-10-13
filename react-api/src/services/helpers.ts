@@ -1,5 +1,3 @@
-import { CardProps, UserCardProps } from 'core/interfaces/props';
-import { CharacterInfo, UserInfo } from 'core/interfaces/others';
 import { ErrorMessage } from 'core/enums';
 
 export const capitalize = (str: string) => {
@@ -60,12 +58,4 @@ export const validateImage = (filePath: string) => {
   } else {
     return { avatarError: ErrorMessage.imageExtensionIncorrect };
   }
-};
-
-export const isCardProps = (object: CardProps | UserCardProps): object is CardProps => {
-  return 'location' in object;
-};
-
-export const isCharacterInfo = (data: CharacterInfo | UserInfo): data is CharacterInfo => {
-  return 'location' in data;
 };

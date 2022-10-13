@@ -1,4 +1,5 @@
-import { UserCardProps } from './props';
+import { Character } from 'core/interfaces/others';
+import { UserCardProps } from 'core/interfaces/props';
 
 export interface SearchBarState {
   value: string;
@@ -16,4 +17,8 @@ export interface FormState {
 
 export interface CreatePageState {
   cards: UserCardProps[];
+}
+
+export interface MainPageState {
+  characters: Character[];
 }

@@ -1,14 +1,12 @@
 import {
   capitalize,
-  isCardProps,
-  isCharacterInfo,
   validateBirthday,
   validateGender,
   validateName,
   validateSpecies,
   validateStatus,
 } from 'services/helpers';
-import { CharacterGender, CharacterStatus, ErrorMessage } from 'core/enums';
+import { ErrorMessage } from 'core/enums';
 
 describe('capitalize', () => {
   test('EmptyString_EmptyString', () => {
@@ -74,50 +72,5 @@ describe('validateGender', () => {
   });
   test('True_NoError', () => {
     expect(validateGender(true)).toStrictEqual({ genderError: '' });
-  });
-});
-
-describe('isCardProps', () => {
-  const file = new File(['mockFileHere'], 'image.png', { type: 'image/png' });
-  test('UserCardProps_False', () => {
-    expect(
-      isCardProps({ name: '', birthday: '', status: '', species: false, gender: true, image: file })
-    ).toBeFalsy();
-  });
-  test('CardProps_True', () => {
-    expect(
-      isCardProps({
-        id: 1,
-        name: '',
-        status: CharacterStatus.alive,
-        species: '',
-        type: '',
-        gender: CharacterGender.male,
-        origin: { name: '', url: '' },
-        location: { name: '', url: '' },
-        image: '',
-      })
-    ).toBeTruthy();
-  });
-});
-
-describe('isCharacterInfo', () => {
-  test('UserInfo_False', () => {
-    expect(
-      isCharacterInfo({ name: '', status: '', species: '', gender: '', birthday: '' })
-    ).toBeFalsy();
-  });
-  test('CharacterInfo_True', () => {
-    expect(
-      isCharacterInfo({
-        name: '',
-        status: '',
-        species: '',
-        gender: '',
-        type: '',
-        origin: '',
-        location: '',
-      })
-    ).toBeTruthy();
   });
 });

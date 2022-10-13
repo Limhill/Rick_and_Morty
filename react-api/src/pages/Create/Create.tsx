@@ -5,7 +5,7 @@ import Form from 'components/organisms/Form';
 import CardsContainer from 'components/organisms/CardsContainer';
 import { CreatePageState } from 'core/interfaces/states';
 import { UserCardProps } from 'core/interfaces/props';
-import Card from 'components/organisms/Card';
+import TwoSideCard from 'components/organisms/TwoSideCard';
 import Header from 'components/templates/Header';
 
 class Create extends React.Component<unknown, CreatePageState> {
@@ -30,7 +30,7 @@ class Create extends React.Component<unknown, CreatePageState> {
           <CardsContainer>
             {this.state.cards.map((card) => {
               return (
-                <Card
+                <TwoSideCard
                   key={card.name}
                   name={card.name}
                   birthday={card.birthday}

@@ -1,25 +1,8 @@
 import React from 'react';
-import { CharacterGender, CharacterStatus, fieldName } from 'core/enums';
+import { fieldName } from 'core/enums';
+import { Character } from 'core/interfaces/others';
 
-export interface Origin {
-  name: string;
-  url: string;
-}
-
-export interface CardProps {
-  id: number;
-  name: string;
-  status: CharacterStatus;
-  species: string;
-  type: string;
-  gender: CharacterGender;
-  origin: Origin;
-  location: Origin;
-  image: string;
-  episode?: string[];
-  url?: string;
-  created?: string;
-}
+export type OneSideCardProps = Pick<Character, 'name' | 'image'>;
 
 export interface CardSideProps {
   isBackSide?: boolean;
@@ -41,4 +24,8 @@ export interface UserCardProps {
 
 export interface FormProps {
   handler: (data: UserCardProps) => void;
+}
+
+export interface SearchBarProps {
+  handler: (cards: Character[]) => void;
 }
