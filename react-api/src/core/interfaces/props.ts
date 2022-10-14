@@ -29,3 +29,13 @@ export interface FormProps {
 export interface SearchBarProps {
   handler: (cards: Character[]) => void;
 }
+
+export interface ModalProps {
+  isOpen: boolean;
+  handler: () => void;
+}
+
+export interface CardsContainerProps {
+  handler?: () => void;
+  children: React.ReactNode;
+}

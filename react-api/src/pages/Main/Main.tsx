@@ -7,15 +7,21 @@ import Header from 'components/templates/Header';
 import { MainPageState } from 'core/interfaces/states';
 import { Character } from 'core/interfaces/others';
 import OneSideCard from 'components/organisms/OneSideCard';
+import Modal from 'components/organisms/Modal';
 
 class Main extends React.Component<unknown, MainPageState> {
   constructor(props: Main) {
     super(props);
-    this.state = { characters: [] };
+    this.state = { characters: [], modalIsOpen: false };
   }
 
   createCards = (characters: Character[]) => {
     this.setState({ characters });
+  };
+
+  changeModalState = () => {
+    const currentState = this.state.modalIsOpen;
+    this.setState({ modalIsOpen: !currentState });
   };
 
   render() {
@@ -25,12 +31,13 @@ class Main extends React.Component<unknown, MainPageState> {
         <Content>
           <PageTitle>Main page</PageTitle>
           <SearchBar handler={this.createCards} />
-          <CardsContainer data-testid="cards">
+          <CardsContainer handler={this.changeModalState} data-testid="cards">
             {this.state.characters.map((character) => (
               <OneSideCard key={character.id} name={character.name} image={character.image} />
             ))}
           </CardsContainer>
         </Content>
+        <Modal isOpen={this.state.modalIsOpen} handler={this.changeModalState} />
       </>
     );
   }

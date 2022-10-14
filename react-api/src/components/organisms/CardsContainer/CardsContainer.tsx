@@ -1,6 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
+import { CardsContainerProps } from 'core/interfaces/props';
 
-const CardsContainer = styled.section`
+const StyledCardsContainer = styled.section`
   padding-top: 5rem;
   width: 100%;
   display: grid;
@@ -8,5 +10,9 @@ const CardsContainer = styled.section`
   grid-template-rows: repeat(5, 1fr);
   gap: 2rem;
 `;
+
+const CardsContainer = ({ handler, children }: CardsContainerProps) => {
+  return <StyledCardsContainer onClick={handler}>{children}</StyledCardsContainer>;
+};
 
 export default CardsContainer;

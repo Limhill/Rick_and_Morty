@@ -21,4 +21,5 @@ export interface CreatePageState {
 
 export interface MainPageState {
   characters: Character[];
+  modalIsOpen: boolean;
 }
