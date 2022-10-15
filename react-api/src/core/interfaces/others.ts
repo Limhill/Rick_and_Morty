@@ -1,4 +1,4 @@
-import { CharacterGender, CharacterStatus } from '../enums';
+import { CharacterGender, CharacterStatus } from 'core/enums';
 
 export interface Origin {
   name: string;
@@ -20,17 +20,6 @@ export interface Character {
   created: string;
 }
 
-export interface CharacterInfo extends Pick<Character, 'name' | 'species' | 'gender' | 'type'> {
-  status: string;
-  origin: string;
-  location: string;
-}
-
-export interface UserInfo extends Omit<CharacterInfo, 'gender' | 'type' | 'origin' | 'location'> {
-  birthday: string;
-  gender: string;
-}
-
 export interface AllCharactersResponse {
   info: {
     count: number;
@@ -40,3 +29,5 @@ export interface AllCharactersResponse {
   };
   results: Character[];
 }
+
+export type ModalCharacterInfo = Omit<Character, 'id' | 'episode' | 'url'>;

@@ -5,9 +5,24 @@ import CardImage from 'components/atoms/CardImage';
 import CardSide from 'components/molecules/CardSide';
 import CardWrapper from 'components/atoms/CardWrapper';
 
-const OneSideCard = ({ name, image }: OneSideCardProps) => {
+const OneSideCard = ({
+  name,
+  image,
+  status,
+  gender,
+  type,
+  species,
+  origin,
+  created,
+  location,
+  handler,
+}: OneSideCardProps) => {
   return (
-    <CardWrapper>
+    <CardWrapper
+      onClick={() => {
+        handler({ name, image, status, gender, type, species, origin, created, location });
+      }}
+    >
       <CardSide>
         <CardTitle>{name}</CardTitle>
         <CardImage src={image} />

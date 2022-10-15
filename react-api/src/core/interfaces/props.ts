@@ -1,8 +1,10 @@
 import React from 'react';
 import { fieldName } from 'core/enums';
-import { Character } from 'core/interfaces/others';
+import { Character, ModalCharacterInfo } from 'core/interfaces/others';
 
-export type OneSideCardProps = Pick<Character, 'name' | 'image'>;
+export interface OneSideCardProps extends Omit<Character, 'id' | 'episode' | 'url'> {
+  handler: (data: ModalCharacterInfo) => void;
+}
 
 export interface CardSideProps {
   isBackSide?: boolean;
@@ -30,12 +32,7 @@ export interface SearchBarProps {
   handler: (cards: Character[]) => void;
 }
 
-export interface ModalProps {
+export interface ModalProps extends ModalCharacterInfo {
   isOpen: boolean;
   handler: () => void;
-}
-
-export interface CardsContainerProps {
-  handler?: () => void;
-  children: React.ReactNode;
 }
