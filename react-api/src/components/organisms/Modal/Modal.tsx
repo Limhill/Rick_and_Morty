@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styled, { createGlobalStyle } from 'styled-components';
-import { ModalProps } from 'core/interfaces/props';
+import { ModalProps, ModalWindowImageProps } from 'core/interfaces/props';
 import ListItem from 'components/atoms/ListItem';
 import { Color } from 'core/enums';
 
@@ -45,10 +45,13 @@ const List = styled.ul`
   padding: 0 1rem;
 `;
 
-const Image = styled.img`
+const Image = styled.div<ModalWindowImageProps>`
   width: 100%;
-  height: 100%;
+  height: 30rem;
   border-radius: 3rem 3rem 0 0;
+  background-image: url(${({ imagePath }) => imagePath});
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 class Modal extends React.Component<ModalProps, unknown> {
@@ -61,7 +64,7 @@ class Modal extends React.Component<ModalProps, unknown> {
     return ReactDOM.createPortal(
       <Overlay onClick={this.props.handler}>
         <ModalWindow>
-          <Image src={this.props.image} alt={this.props.name} />
+          <Image imagePath={this.props.image} />
           <List>
             <ListItem>
               <b>Name:</b> {this.props.name}

@@ -36,3 +36,7 @@ export interface ModalProps extends ModalCharacterInfo {
   isOpen: boolean;
   handler: () => void;
 }
+
+export interface ModalWindowImageProps {
+  imagePath: string;
+}
