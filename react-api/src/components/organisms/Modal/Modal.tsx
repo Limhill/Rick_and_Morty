@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled, { createGlobalStyle } from 'styled-components';
 import { ModalProps } from 'core/interfaces/props';
+import ListItem from 'components/atoms/ListItem';
+import { Color } from 'core/enums';
 
 const Overlay = styled.section`
   position: fixed;
@@ -21,16 +23,32 @@ const Overlay = styled.section`
 `;
 
 const ModalWindow = styled.div`
-  width: 45rem;
-  height: 45rem;
+  width: 36rem;
   z-index: 2;
-  background: white;
+  background: ${Color.cardBackground};
+  border-radius: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const GlobalStyle = createGlobalStyle`
   body {
     overflow: hidden;
   }
+`;
+
+const List = styled.ul`
+  list-style: none;
+  white-space: break-spaces;
+  padding: 0 1rem;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 3rem 3rem 0 0;
 `;
 
 class Modal extends React.Component<ModalProps, unknown> {
@@ -43,8 +61,35 @@ class Modal extends React.Component<ModalProps, unknown> {
     return ReactDOM.createPortal(
       <Overlay onClick={this.props.handler}>
         <ModalWindow>
-          <p>{this.props.name}</p>
-          <p>{this.props.species}</p>
+          <Image src={this.props.image} alt={this.props.name} />
+          <List>
+            <ListItem>
+              <b>Name:</b> {this.props.name}
+            </ListItem>
+            <ListItem>
+              <b>Status:</b> {this.props.status}
+            </ListItem>
+            <ListItem>
+              <b>Species:</b> {this.props.species}
+            </ListItem>
+            {this.props.type && (
+              <ListItem>
+                <b>Type:</b> {this.props.type}
+              </ListItem>
+            )}
+            <ListItem>
+              <b>Gender:</b> {this.props.gender}
+            </ListItem>
+            <ListItem>
+              <b>Origin:</b> {this.props.origin.name}
+            </ListItem>
+            <ListItem>
+              <b>Location:</b> {this.props.location.name}
+            </ListItem>
+            <ListItem>
+              <b>Created:</b> {new Date(this.props.created).toLocaleDateString()}
+            </ListItem>
+          </List>
         </ModalWindow>
         <GlobalStyle />
       </Overlay>,

@@ -25,7 +25,7 @@ const OneSideCard = ({
     >
       <CardSide>
         <CardTitle>{name}</CardTitle>
-        <CardImage src={image} />
+        <CardImage src={image} alt={name} />
       </CardSide>
     </CardWrapper>
   );

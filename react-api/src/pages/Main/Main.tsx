@@ -49,7 +49,6 @@ class Main extends React.Component<unknown, MainPageState> {
     origin,
     location,
   }: ModalCharacterInfo) => {
-    console.log('i work!');
     this.setState({
       modalIsOpen: true,
       modal: { name, status, gender, type, species, image, created, origin, location },
