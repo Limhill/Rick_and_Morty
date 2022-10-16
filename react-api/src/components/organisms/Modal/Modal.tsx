@@ -4,6 +4,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { ModalProps, ModalWindowImageProps } from 'core/interfaces/props';
 import ListItem from 'components/atoms/ListItem';
 import { Color } from 'core/enums';
+import CloseIcon from 'components/atoms/CloseIcon';
 
 const Overlay = styled.section`
   position: fixed;
@@ -31,6 +32,7 @@ const ModalWindow = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: auto;
 `;
 
 const GlobalStyle = createGlobalStyle`
@@ -52,6 +54,7 @@ const Image = styled.div<ModalWindowImageProps>`
   background-image: url(${({ imagePath }) => imagePath});
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 `;
 
 class Modal extends React.Component<ModalProps, unknown> {
@@ -64,7 +67,9 @@ class Modal extends React.Component<ModalProps, unknown> {
     return ReactDOM.createPortal(
       <Overlay onClick={this.props.handler}>
         <ModalWindow>
-          <Image imagePath={this.props.image} />
+          <Image imagePath={this.props.image}>
+            <CloseIcon />
+          </Image>
           <List>
             <ListItem>
               <b>Name:</b> {this.props.name}
