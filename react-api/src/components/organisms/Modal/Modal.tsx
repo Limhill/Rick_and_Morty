@@ -68,7 +68,7 @@ class Modal extends React.Component<ModalProps, unknown> {
       <Overlay onClick={this.props.handler}>
         <ModalWindow>
           <Image imagePath={this.props.image}>
-            <CloseIcon />
+            <CloseIcon handler={this.props.handler} />
           </Image>
           <List>
             <ListItem>

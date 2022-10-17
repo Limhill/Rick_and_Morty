@@ -34,9 +34,11 @@ export interface SearchBarProps {
 
 export interface ModalProps extends ModalCharacterInfo {
   isOpen: boolean;
-  handler: () => void;
+  handler: (e: React.MouseEvent) => void;
 }
 
 export interface ModalWindowImageProps {
   imagePath: string;
 }
+
+export type CloseIconProps = Pick<ModalProps, 'handler'>;

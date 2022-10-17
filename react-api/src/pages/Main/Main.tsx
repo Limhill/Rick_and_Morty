@@ -55,8 +55,10 @@ class Main extends React.Component<unknown, MainPageState> {
     });
   };
 
-  closeModalWindow = () => {
-    this.setState(initialModalState);
+  closeModalWindow = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      this.setState(initialModalState);
+    }
   };
 
   render() {
