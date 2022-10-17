@@ -1,3 +1,3 @@
-export const placeholder = 'Введите поисковый запрос';
+export const placeholder = 'Enter something...';
 export const searchBarValue = 'searchBarValue';
 export const baseURL = 'https://rickandmortyapi.com/api';

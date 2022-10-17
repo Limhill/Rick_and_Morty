@@ -20,14 +20,4 @@ export interface Character {
   created: string;
 }
 
-export interface AllCharactersResponse {
-  info: {
-    count: number;
-    pages: number;
-    next: string | null;
-    prev: string | null;
-  };
-  results: Character[];
-}
-
 export type ModalCharacterInfo = Omit<Character, 'id' | 'episode' | 'url'>;

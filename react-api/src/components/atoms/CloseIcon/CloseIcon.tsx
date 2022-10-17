@@ -7,11 +7,11 @@ const StyledCloseIcon = styled.svg`
   position: absolute;
   top: 1rem;
   right: 1rem;
-  fill: ${Color.lightGreen};
+  fill: ${Color.red};
 
   &:hover {
     cursor: pointer;
-    filter: drop-shadow(0 0 2px ${Color.lightGreen});
+    filter: drop-shadow(0 0 2px ${Color.red});
   }
 `;
 

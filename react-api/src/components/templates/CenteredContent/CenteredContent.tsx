@@ -5,7 +5,7 @@ const CenteredContent = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 75vh;
   margin: 0 auto;
   max-width: 1440px;
 `;
