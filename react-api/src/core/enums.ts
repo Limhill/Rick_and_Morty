@@ -49,3 +49,10 @@ export enum ErrorMessage {
   imageNotUploaded = 'Please upload an image',
   imageExtensionIncorrect = 'Please upload .png, .jpg or .jpeg file.',
 }
+
+export enum LoadingStatus {
+  initial = 'initial',
+  loading = 'loading',
+  success = 'success',
+  error = 'error',
+}

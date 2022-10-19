@@ -4,9 +4,10 @@ import { SearchBarState } from 'core/interfaces/states';
 import { placeholder, searchBarValue } from 'core/constants';
 import icon from 'assets/icons/search.svg';
 import TextInput from 'components/atoms/TextInput';
-import { Color } from 'core/enums';
-import { getFilteredCharacters } from 'services/index';
+import { Color, LoadingStatus } from 'core/enums';
+import { getFilteredCharacters } from 'services';
 import { SearchBarProps } from 'core/interfaces/props';
+import AppContext from 'core/AppContext';
 
 const StyledSearchBar = styled(TextInput)`
   border-radius: 3rem;
@@ -30,6 +31,9 @@ const Wrapper = styled.form`
 
 class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
   input: RefObject<HTMLInputElement>;
+  static contextType = AppContext;
+  context: React.ContextType<typeof AppContext> = this.context;
+
   constructor(props: SearchBarProps) {
     super(props);
     this.state = { value: localStorage.getItem(searchBarValue) || '' };
@@ -46,12 +50,14 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
   handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    this.context.changeStatus(LoadingStatus.loading);
     if (this.input.current) {
       const response = await getFilteredCharacters(this.input.current.value);
       if (response) {
         this.props.handler(response);
+        this.context.changeStatus(LoadingStatus.success);
       } else {
-        console.log('nothing');
+        this.context.changeStatus(LoadingStatus.error);
       }
     }
   };

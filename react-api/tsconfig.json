@@ -19,7 +19,6 @@
       "core": ["core/*"],
       "__mocks__": ["__mocks__/*"],
       "pages": ["pages/*"],
-      "services": ["services/*"],
       "styles": ["styles/*"]
     },
     "resolveJsonModule": true

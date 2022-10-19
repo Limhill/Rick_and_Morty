@@ -1,14 +1,21 @@
 import React from 'react';
+import styled from 'styled-components';
 import PageTitle from 'components/atoms/PageTitle';
 import Content from 'components/templates/Content';
-import SearchBar from 'components/atoms/SearchBar';
+import SearchBar from 'components/organisms/SearchBar';
 import CardsContainer from 'components/organisms/CardsContainer';
 import Header from 'components/templates/Header';
 import { MainPageState } from 'core/interfaces/states';
 import { Character, ModalCharacterInfo } from 'core/interfaces/others';
 import OneSideCard from 'components/organisms/OneSideCard';
 import Modal from 'components/organisms/Modal';
-import { CharacterGender, CharacterStatus } from 'core/enums';
+import { CharacterGender, CharacterStatus, LoadingStatus } from 'core/enums';
+import AppContext from 'core/AppContext';
+import DefaultText from 'components/atoms/DefaultText/DefaultText';
+
+const StyledDefaultText = styled(DefaultText)`
+  padding-top: 4rem;
+`;
 
 const initialModalState = {
   modalIsOpen: false,
@@ -26,6 +33,9 @@ const initialModalState = {
 };
 
 class Main extends React.Component<unknown, MainPageState> {
+  static contextType = AppContext;
+  context: React.ContextType<typeof AppContext> = this.context;
+
   constructor(props: Main) {
     super(props);
     this.state = {
@@ -68,23 +78,31 @@ class Main extends React.Component<unknown, MainPageState> {
         <Content>
           <PageTitle>Main page</PageTitle>
           <SearchBar handler={this.createCards} />
-          <CardsContainer data-testid="cards">
-            {this.state.characters.map((character) => (
-              <OneSideCard
-                handler={this.openModalWindow}
-                key={character.id}
-                name={character.name}
-                status={character.status}
-                gender={character.gender}
-                type={character.type}
-                species={character.species}
-                created={character.created}
-                location={character.location}
-                origin={character.origin}
-                image={character.image}
-              />
-            ))}
-          </CardsContainer>
+          {this.context.loadingStatus === LoadingStatus.success && (
+            <CardsContainer data-testid="cards">
+              {this.state.characters.map((character) => (
+                <OneSideCard
+                  handler={this.openModalWindow}
+                  key={character.id}
+                  name={character.name}
+                  status={character.status}
+                  gender={character.gender}
+                  type={character.type}
+                  species={character.species}
+                  created={character.created}
+                  location={character.location}
+                  origin={character.origin}
+                  image={character.image}
+                />
+              ))}
+            </CardsContainer>
+          )}
+          {this.context.loadingStatus === LoadingStatus.loading && (
+            <StyledDefaultText>Loading</StyledDefaultText>
+          )}
+          {this.context.loadingStatus === LoadingStatus.error && (
+            <StyledDefaultText>There are no results</StyledDefaultText>
+          )}
         </Content>
         <Modal
           isOpen={this.state.modalIsOpen}
