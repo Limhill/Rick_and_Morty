@@ -57,53 +57,59 @@ const Image = styled.div<ModalWindowImageProps>`
   position: relative;
 `;
 
-class Modal extends React.Component<ModalProps, unknown> {
-  constructor(props: ModalProps) {
-    super(props);
-  }
-
-  render() {
-    if (!this.props.isOpen) return null;
-    return ReactDOM.createPortal(
-      <Overlay onClick={this.props.handler} data-testid="overlay">
-        <ModalWindow data-testid="modal">
-          <Image imagePath={this.props.image}>
-            <CloseIcon handler={this.props.handler} />
-          </Image>
-          <List>
+const Modal = ({
+  name,
+  status,
+  species,
+  type,
+  gender,
+  origin,
+  location,
+  image,
+  created,
+  handler,
+  isOpen,
+}: ModalProps) => {
+  if (!isOpen) return null;
+  return ReactDOM.createPortal(
+    <Overlay onClick={handler} data-testid="overlay">
+      <ModalWindow data-testid="modal">
+        <Image imagePath={image}>
+          <CloseIcon handler={handler} />
+        </Image>
+        <List>
+          <ListItem>
+            <b>Name:</b> {name}
+          </ListItem>
+          <ListItem>
+            <b>Status:</b> {status}
+          </ListItem>
+          <ListItem>
+            <b>Species:</b> {species}
+          </ListItem>
+          {type && (
             <ListItem>
-              <b>Name:</b> {this.props.name}
+              <b>Type:</b> {type}
             </ListItem>
-            <ListItem>
-              <b>Status:</b> {this.props.status}
-            </ListItem>
-            <ListItem>
-              <b>Species:</b> {this.props.species}
-            </ListItem>
-            {this.props.type && (
-              <ListItem>
-                <b>Type:</b> {this.props.type}
-              </ListItem>
-            )}
-            <ListItem>
-              <b>Gender:</b> {this.props.gender}
-            </ListItem>
-            <ListItem>
-              <b>Origin:</b> {this.props.origin.name}
-            </ListItem>
-            <ListItem>
-              <b>Location:</b> {this.props.location.name}
-            </ListItem>
-            <ListItem>
-              <b>Created:</b> {new Date(this.props.created).toLocaleDateString()}
-            </ListItem>
-          </List>
-        </ModalWindow>
-        <GlobalStyle />
-      </Overlay>,
-      document.body
-    );
-  }
-}
+          )}
+          <ListItem>
+            <b>Gender:</b> {gender}
+          </ListItem>
+          <ListItem>
+            <b>Origin:</b> {origin.name}
+          </ListItem>
+          <ListItem>
+            <b>Location:</b> {location.name}
+          </ListItem>
+          <ListItem>
+            <b>Created:</b> {new Date(created).toLocaleDateString()}
+          </ListItem>
+        </List>
+      </ModalWindow>
+      <GlobalStyle />
+    </Overlay>,
+    document.body
+  );
+};
 
 export default Modal;
