@@ -4,8 +4,8 @@ import PageTitle from 'components/atoms/PageTitle';
 import Form from 'components/organisms/Form';
 import CardsContainer from 'components/organisms/CardsContainer';
 import { CreatePageState } from 'core/interfaces/states';
-import { UserCardProps } from 'core/interfaces/props';
-import TwoSideCard from 'components/organisms/TwoSideCard';
+import { DoubleSideCardProps } from 'core/interfaces/props';
+import DoubleSideCard from 'components/organisms/DoubleSideCard';
 import Header from 'components/templates/Header';
 
 class Create extends React.Component<unknown, CreatePageState> {
@@ -14,7 +14,7 @@ class Create extends React.Component<unknown, CreatePageState> {
     this.state = { cards: [] };
   }
 
-  cardCreator = ({ name, birthday, status, species, gender, image }: UserCardProps) => {
+  createCards = ({ name, birthday, status, species, gender, image }: DoubleSideCardProps) => {
     this.setState({
       cards: [...this.state.cards, { name, birthday, status, species, gender, image }],
     });
@@ -26,11 +26,11 @@ class Create extends React.Component<unknown, CreatePageState> {
         <Header />
         <Content>
           <PageTitle>Create your own character!</PageTitle>
-          <Form handler={this.cardCreator} />
+          <Form handler={this.createCards} />
           <CardsContainer>
             {this.state.cards.map((card) => {
               return (
-                <TwoSideCard
+                <DoubleSideCard
                   key={card.name}
                   name={card.name}
                   birthday={card.birthday}

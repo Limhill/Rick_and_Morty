@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Color } from 'core/enums';
-import { UserCardProps } from 'core/interfaces/props';
+import { DoubleSideCardProps } from 'core/interfaces/props';
 import { capitalize } from 'services/helpers';
 import ListItem from 'components/atoms/ListItem';
 
@@ -11,7 +11,7 @@ const StyledCardInfo = styled.ul`
   color: ${Color.black};
 `;
 
-const CardInfo = (props: UserCardProps) => {
+const CardInfo = (props: DoubleSideCardProps) => {
   const items = {
     name: props.name,
     birthday: props.birthday,

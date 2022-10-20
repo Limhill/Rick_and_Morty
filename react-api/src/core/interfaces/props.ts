@@ -15,7 +15,7 @@ export interface SwitcherProps {
   name?: fieldName;
 }
 
-export interface UserCardProps {
+export interface DoubleSideCardProps {
   name: string;
   birthday: string;
   status: string;
@@ -25,7 +25,7 @@ export interface UserCardProps {
 }
 
 export interface FormProps {
-  handler: (data: UserCardProps) => void;
+  handler: (data: DoubleSideCardProps) => void;
 }
 
 export interface SearchBarProps {

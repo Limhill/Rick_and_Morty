@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CardSideProps, UserCardProps } from 'core/interfaces/props';
+import { CardSideProps, DoubleSideCardProps } from 'core/interfaces/props';
 import CardInfo from 'components/molecules/CardInfo';
 import CardSide from 'components/molecules/CardSide/CardSide';
 import CardTitle from 'components/atoms/CardTitle/CardTitle';
@@ -34,7 +34,14 @@ const StyledCardSide = styled(CardSide)<CardSideProps>`
   transform: ${({ isBackSide }) => (isBackSide ? 'rotateY(180deg)' : 'none')};
 `;
 
-const TwoSideCard = ({ name, birthday, status, species, gender, image }: UserCardProps) => {
+const DoubleSideCard = ({
+  name,
+  birthday,
+  status,
+  species,
+  gender,
+  image,
+}: DoubleSideCardProps) => {
   return (
     <StyledCardWrapper data-testid="card">
       <StyledCard>
@@ -57,4 +64,4 @@ const TwoSideCard = ({ name, birthday, status, species, gender, image }: UserCar
   );
 };
 
-export default TwoSideCard;
+export default DoubleSideCard;

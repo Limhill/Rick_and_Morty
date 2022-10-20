@@ -1,5 +1,5 @@
 import { Character, ModalCharacterInfo } from 'core/interfaces/others';
-import { UserCardProps } from 'core/interfaces/props';
+import { DoubleSideCardProps } from 'core/interfaces/props';
 import { LoadingStatus } from 'core/enums';
 
 export interface SearchBarState {
@@ -17,7 +17,7 @@ export interface FormState {
 }
 
 export interface CreatePageState {
-  cards: UserCardProps[];
+  cards: DoubleSideCardProps[];
 }
 
 export interface MainPageState {
