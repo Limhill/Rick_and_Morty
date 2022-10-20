@@ -1,5 +1,5 @@
 {
-  "name": "react-api",
+  "name": "react-hooks",
   "version": "0.1.0",
   "jest": {
     "transformIgnorePatterns": [
