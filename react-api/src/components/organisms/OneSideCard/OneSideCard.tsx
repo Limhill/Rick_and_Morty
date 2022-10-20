@@ -22,6 +22,7 @@ const OneSideCard = ({
       onClick={() => {
         handler({ name, image, status, gender, type, species, origin, created, location });
       }}
+      data-testid="card"
     >
       <CardSide>
         <CardTitle>{name}</CardTitle>

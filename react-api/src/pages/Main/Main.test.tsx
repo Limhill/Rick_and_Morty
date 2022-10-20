@@ -11,10 +11,10 @@ describe('Main', () => {
       </MemoryRouter>
     );
   });
-  it('should contain 20 cards', () => {
-    expect(screen.getAllByTestId('card')).toHaveLength(20);
+  it('should not contain any card', () => {
+    expect(screen.queryByTestId('card')).toBeNull();
   });
-  it('should have a link', () => {
+  it('should have links', () => {
     expect(screen.getAllByRole('link')).toHaveLength(3);
   });
 });

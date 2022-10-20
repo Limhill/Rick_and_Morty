@@ -5,7 +5,7 @@ import { placeholder, searchBarValue } from 'core/constants';
 import icon from 'assets/icons/search.svg';
 import TextInput from 'components/atoms/TextInput';
 import { Color, LoadingStatus } from 'core/enums';
-import { getFilteredCharacters } from 'services';
+import { getFilteredCharacters } from 'services/axios';
 import { SearchBarProps } from 'core/interfaces/props';
 import AppContext from 'core/AppContext';
 
@@ -53,7 +53,7 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     this.context.changeStatus(LoadingStatus.loading);
     if (this.input.current) {
       const response = await getFilteredCharacters(this.input.current.value);
-      if (response) {
+      if (typeof response !== 'string') {
         this.props.handler(response);
         this.context.changeStatus(LoadingStatus.success);
       } else {

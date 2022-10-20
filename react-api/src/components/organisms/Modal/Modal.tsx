@@ -65,8 +65,8 @@ class Modal extends React.Component<ModalProps, unknown> {
   render() {
     if (!this.props.isOpen) return null;
     return ReactDOM.createPortal(
-      <Overlay onClick={this.props.handler}>
-        <ModalWindow>
+      <Overlay onClick={this.props.handler} data-testid="overlay">
+        <ModalWindow data-testid="modal">
           <Image imagePath={this.props.image}>
             <CloseIcon handler={this.props.handler} />
           </Image>

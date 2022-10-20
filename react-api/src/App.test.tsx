@@ -32,3 +32,32 @@ describe('App routing', () => {
     expect(screen.getByText(/page not found/i)).toBeInTheDocument();
   });
 });
+
+describe('App work', () => {
+  beforeEach(() => {
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>
+    );
+  });
+  it('should render correct response', async () => {
+    const searchBar = screen.getByRole('textbox');
+    userEvent.type(searchBar, 'ts{enter}');
+    const items = await screen.findAllByTestId('card');
+    expect(items).toHaveLength(6);
+  });
+  it('should find nothing if request is incorrect', async () => {
+    const searchBar = screen.getByRole('textbox');
+    userEvent.type(searchBar, '111111{enter}');
+    const items = await screen.findByText(/there are no results/i);
+    expect(items).toBeInTheDocument();
+  });
+  it('should show modal window after click on card', async () => {
+    const searchBar = screen.getByRole('textbox');
+    userEvent.type(searchBar, 'nm{enter}');
+    const card = await screen.findByTestId('card');
+    userEvent.click(card);
+    expect(screen.getAllByText(/unmuscular michael/i)).toHaveLength(2);
+  });
+});
