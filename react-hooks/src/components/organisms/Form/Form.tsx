@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useReducer, useRef } from 'react';
 import styled from 'styled-components';
 import TextInput from 'components/atoms/TextInput';
 import Label from 'components/atoms/Label';
 import Select from 'components/molecules/Select';
-import { CharacterStatus, Color, fieldName } from 'core/enums';
+import { ActionType, CharacterStatus, Color, fieldName } from 'core/enums';
 import Checkbox from 'components/molecules/Checkbox';
 import Switcher from 'components/atoms/Switcher';
-import { FormState } from 'core/interfaces/states';
+import { FormState, FormStringStates } from 'core/interfaces/states';
 import ErrorText from 'components/atoms/ErrorText';
 import {
   validateSpecies,
   validateBirthday,
   validateImage,
-  validateName,
   validateStatus,
   validateGender,
+  validateName,
 } from 'services/helpers';
 import { FormProps } from 'core/interfaces/props';
 import BorderedFlexbox from 'components/atoms/BorderedFlexbox';
+import { BooleanStateAction, StringStateAction } from 'core/interfaces/others';
+import { isBooleanStateAction } from 'services/typeGuards';
 
 const FormItem = styled.div`
   display: flex;
@@ -86,7 +88,14 @@ const Option = styled.option`
   color: ${Color.black};
 `;
 
-const initial = {
+const reducer = (state: FormState, action: BooleanStateAction | StringStateAction): FormState => {
+  if (isBooleanStateAction(action)) {
+    return { ...state, isSubmitDisabled: action.payload };
+  }
+  return { ...state, ...action.payload };
+};
+
+const initialState = {
   isSubmitDisabled: true,
   nameError: ' ',
   dateError: ' ',
@@ -96,175 +105,170 @@ const initial = {
   avatarError: ' ',
 };
 
-class Form extends React.Component<FormProps, FormState> {
-  nameInput: React.RefObject<HTMLInputElement>;
-  dateInput: React.RefObject<HTMLInputElement>;
-  statusSelect: React.RefObject<HTMLSelectElement>;
-  speciesCheckbox: React.RefObject<HTMLInputElement>;
-  genderSwitcher: React.RefObject<HTMLInputElement>;
-  avatarInput: React.RefObject<HTMLInputElement>;
-  form: React.RefObject<HTMLFormElement>;
+const Form = ({ handler }: FormProps) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const nameInput = useRef<HTMLInputElement>(null);
+  const dateInput = useRef<HTMLInputElement>(null);
+  const statusSelect = useRef<HTMLSelectElement>(null);
+  const speciesCheckbox = useRef<HTMLInputElement>(null);
+  const genderSwitcher = useRef<HTMLInputElement>(null);
+  const avatarInput = useRef<HTMLInputElement>(null);
+  const form = useRef<HTMLFormElement>(null);
 
-  constructor(props: FormProps) {
-    super(props);
-    this.state = initial;
-
-    this.nameInput = React.createRef();
-    this.dateInput = React.createRef();
-    this.statusSelect = React.createRef();
-    this.speciesCheckbox = React.createRef();
-    this.genderSwitcher = React.createRef();
-    this.avatarInput = React.createRef();
-    this.form = React.createRef();
-  }
-
-  handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    if (this.state.isSubmitDisabled) {
-      this.setState({ isSubmitDisabled: false });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    if (state.isSubmitDisabled) {
+      dispatch({ type: ActionType.changeBooleanState, payload: false });
     }
+
     const key = `${e.target.name}Error`;
-    if (Object.keys(this.state).includes(key)) {
-      this.setState({ [key]: '' } as unknown as Pick<FormState, keyof FormState>);
+    if (Object.keys(state).includes(key)) {
+      dispatch({
+        type: ActionType.changeStringState,
+        payload: { [key]: '' } as Pick<FormStringStates, keyof FormStringStates>,
+      });
     }
   };
 
-  handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (this.nameInput.current) {
-      await this.setState(validateName(this.nameInput.current.value));
-    }
-    if (this.dateInput.current) {
-      await this.setState(validateBirthday(this.dateInput.current.value));
-    }
-
-    if (this.statusSelect.current) {
-      await this.setState(validateStatus(this.statusSelect.current.value));
-    }
-
-    if (this.speciesCheckbox.current) {
-      await this.setState(validateSpecies(this.speciesCheckbox.current.checked));
-    }
-
-    if (this.genderSwitcher.current) {
-      await this.setState(validateGender(this.genderSwitcher.current.checked));
-    }
-
-    if (this.avatarInput.current) {
-      await this.setState(validateImage(this.avatarInput.current.value));
+    if (
+      nameInput.current &&
+      dateInput.current &&
+      statusSelect.current &&
+      speciesCheckbox.current &&
+      genderSwitcher.current &&
+      avatarInput.current &&
+      form.current
+    ) {
+      dispatch({
+        type: ActionType.changeStringState,
+        payload: {
+          ...validateName(nameInput.current.value),
+          ...validateBirthday(dateInput.current.value),
+          ...validateStatus(statusSelect.current.value),
+          ...validateSpecies(speciesCheckbox.current.checked),
+          ...validateGender(genderSwitcher.current.checked),
+          ...validateImage(avatarInput.current.value),
+        },
+      });
     }
 
     if (
-      !this.state.nameError &&
-      !this.state.dateError &&
-      !this.state.statusError &&
-      !this.state.speciesError &&
-      !this.state.avatarError &&
-      !this.state.genderError &&
-      !this.state.isSubmitDisabled
+      !state.nameError &&
+      !state.dateError &&
+      !state.statusError &&
+      !state.speciesError &&
+      !state.avatarError &&
+      !state.genderError &&
+      !state.isSubmitDisabled
     ) {
       if (
-        this.nameInput.current &&
-        this.dateInput.current &&
-        this.statusSelect.current &&
-        this.speciesCheckbox.current &&
-        this.genderSwitcher.current &&
-        this.avatarInput.current &&
-        this.avatarInput.current.files
+        nameInput.current &&
+        dateInput.current &&
+        statusSelect.current &&
+        speciesCheckbox.current &&
+        genderSwitcher.current &&
+        avatarInput.current &&
+        avatarInput.current.files
       ) {
-        this.props.handler({
-          name: this.nameInput.current.value,
-          birthday: this.dateInput.current.value,
-          status: this.statusSelect.current.value,
-          species: this.speciesCheckbox.current.checked,
-          gender: this.genderSwitcher.current.checked,
-          image: this.avatarInput.current.files[0],
+        handler({
+          name: nameInput.current.value,
+          birthday: dateInput.current.value,
+          status: statusSelect.current.value,
+          species: speciesCheckbox.current.checked,
+          gender: genderSwitcher.current.checked,
+          image: avatarInput.current.files[0],
         });
 
-        if (this.form.current) {
-          this.form.current.reset();
-          this.speciesCheckbox.current.checked = false;
-          this.genderSwitcher.current.checked = false;
-          this.setState(initial);
+        if (form.current) {
+          form.current.reset();
+          speciesCheckbox.current.checked = false;
+          genderSwitcher.current.checked = false;
+          dispatch({ type: ActionType.changeBooleanState, payload: true });
+          dispatch({
+            type: ActionType.changeStringState,
+            payload: {
+              nameError: ' ',
+              dateError: ' ',
+              statusError: ' ',
+              speciesError: ' ',
+              genderError: ' ',
+              avatarError: ' ',
+            },
+          });
         }
       }
     }
   };
-  render() {
-    return (
-      <StyledForm
-        autoComplete="off"
-        onSubmit={this.handleSubmit}
-        noValidate
-        encType="multipart/form-data"
-        ref={this.form}
-      >
-        <GridContainer>
-          <FormItem>
-            <Label htmlFor="input">Name</Label>
-            <TextInput
-              onChange={this.handleChange}
-              id="input"
-              placeholder="Character name"
-              ref={this.nameInput}
-              name={fieldName.name}
+  return (
+    <StyledForm
+      autoComplete="off"
+      onSubmit={handleSubmit}
+      noValidate
+      encType="multipart/form-data"
+      ref={form}
+    >
+      <GridContainer>
+        <FormItem>
+          <Label htmlFor="input">Name</Label>
+          <TextInput
+            onChange={handleChange}
+            id="input"
+            placeholder="Character name"
+            ref={nameInput}
+            name={fieldName.name}
+          />
+          <ErrorText>{state.nameError}</ErrorText>
+        </FormItem>
+        <FormItem>
+          <Label htmlFor="date">Date of birth</Label>
+          <DateInput
+            onChange={handleChange}
+            id="date"
+            type="date"
+            ref={dateInput}
+            name={fieldName.date}
+          />
+          <ErrorText>{state.dateError}</ErrorText>
+        </FormItem>
+        <FormItem>
+          <Label htmlFor="select">Pick character status</Label>
+          <Select onChange={handleChange} id="select" ref={statusSelect} name={fieldName.status}>
+            <Option>Character status</Option>
+            <Option>{CharacterStatus.alive}</Option>
+            <Option>{CharacterStatus.dead}</Option>
+            <Option>{CharacterStatus.unknown}</Option>
+          </Select>
+          <ErrorText>{state.statusError}</ErrorText>
+        </FormItem>
+        <FormItem>
+          <Checkbox ref={speciesCheckbox} handler={handleChange} />
+          <ErrorText>{state.speciesError}</ErrorText>
+        </FormItem>
+        <FormItem>
+          <Switcher ref={genderSwitcher} handler={handleChange} />
+          <ErrorText>{state.genderError}</ErrorText>
+        </FormItem>
+        <FormItem>
+          <Label htmlFor="avatar">Choose avatar</Label>
+          <BorderedFlexbox>
+            <InnerText>Image:</InnerText>
+            <FileInput
+              id="avatar"
+              name={fieldName.avatar}
+              type="file"
+              onChange={handleChange}
+              ref={avatarInput}
             />
-            <ErrorText>{this.state.nameError}</ErrorText>
-          </FormItem>
-          <FormItem>
-            <Label htmlFor="date">Date of birth</Label>
-            <DateInput
-              onChange={this.handleChange}
-              id="date"
-              type="date"
-              ref={this.dateInput}
-              name={fieldName.date}
-            />
-            <ErrorText>{this.state.dateError}</ErrorText>
-          </FormItem>
-          <FormItem>
-            <Label htmlFor="select">Pick character status</Label>
-            <Select
-              onChange={this.handleChange}
-              id="select"
-              ref={this.statusSelect}
-              name={fieldName.status}
-            >
-              <Option>Character status</Option>
-              <Option>{CharacterStatus.alive}</Option>
-              <Option>{CharacterStatus.dead}</Option>
-              <Option>{CharacterStatus.unknown}</Option>
-            </Select>
-            <ErrorText>{this.state.statusError}</ErrorText>
-          </FormItem>
-          <FormItem>
-            <Checkbox ref={this.speciesCheckbox} handler={this.handleChange} />
-            <ErrorText>{this.state.speciesError}</ErrorText>
-          </FormItem>
-          <FormItem>
-            <Switcher ref={this.genderSwitcher} handler={this.handleChange} />
-            <ErrorText>{this.state.genderError}</ErrorText>
-          </FormItem>
-          <FormItem>
-            <Label htmlFor="avatar">Choose avatar</Label>
-            <BorderedFlexbox>
-              <InnerText>Image:</InnerText>
-              <FileInput
-                id="avatar"
-                name={fieldName.avatar}
-                type="file"
-                onChange={this.handleChange}
-                ref={this.avatarInput}
-              />
-            </BorderedFlexbox>
-            <ErrorText>{this.state.avatarError}</ErrorText>
-          </FormItem>
-        </GridContainer>
-        <SubmitContainer>
-          <Submit disabled={this.state.isSubmitDisabled}>Submit</Submit>
-        </SubmitContainer>
-      </StyledForm>
-    );
-  }
-}
+          </BorderedFlexbox>
+          <ErrorText>{state.avatarError}</ErrorText>
+        </FormItem>
+      </GridContainer>
+      <SubmitContainer>
+        <Submit disabled={state.isSubmitDisabled}>Submit</Submit>
+      </SubmitContainer>
+    </StyledForm>
+  );
+};
 
 export default Form;

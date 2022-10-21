@@ -56,3 +56,8 @@ export enum LoadingStatus {
   success = 'success',
   error = 'error',
 }
+
+export enum ActionType {
+  changeStringState = 'changeStringState',
+  changeBooleanState = 'changeBooleanState',
+}

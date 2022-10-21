@@ -16,6 +16,8 @@ export interface FormState {
   avatarError: string;
 }
 
+export type FormStringStates = Omit<FormState, 'isSubmitDisabled'>;
+
 export interface CreatePageState {
   cards: DoubleSideCardProps[];
 }
