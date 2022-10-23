@@ -1,6 +1,5 @@
-import React, { createRef, FormEvent, RefObject } from 'react';
+import React, { FormEvent, useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { SearchBarState } from 'core/interfaces/states';
 import { placeholder, searchBarValue } from 'core/constants';
 import icon from 'assets/icons/search.svg';
 import TextInput from 'components/atoms/TextInput';
@@ -29,51 +28,51 @@ const Wrapper = styled.form`
   justify-content: center;
 `;
 
-class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
-  input: RefObject<HTMLInputElement>;
-  static contextType = AppContext;
-  context: React.ContextType<typeof AppContext> = this.context;
+const SearchBar = ({ handler }: SearchBarProps) => {
+  const context = useContext(AppContext);
+  const [state, setState] = useState(localStorage.getItem(searchBarValue) || '');
+  const input = useRef(state);
 
-  constructor(props: SearchBarProps) {
-    super(props);
-    this.state = { value: localStorage.getItem(searchBarValue) || '' };
-    this.input = createRef();
-  }
-
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ value: e.target.value });
-  };
-
-  componentWillUnmount() {
-    localStorage.setItem(searchBarValue, this.state.value);
-  }
-
-  handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    this.context.changeStatus(LoadingStatus.loading);
-    if (this.input.current) {
-      const response = await getFilteredCharacters(this.input.current.value);
-      if (typeof response !== 'string') {
-        this.props.handler(response);
-        this.context.changeStatus(LoadingStatus.success);
-      } else {
-        this.context.changeStatus(LoadingStatus.error);
-      }
+  const requestCharacters = async () => {
+    context.changeStatus(LoadingStatus.loading);
+    const response = await getFilteredCharacters(state);
+    if (typeof response !== 'string') {
+      handler(response);
+      context.changeStatus(LoadingStatus.success);
+    } else {
+      context.changeStatus(LoadingStatus.error);
     }
   };
 
-  render() {
-    return (
-      <Wrapper onSubmit={this.handleSubmit}>
-        <StyledSearchBar
-          onChange={this.handleChange}
-          value={this.state.value}
-          placeholder={placeholder}
-          ref={this.input}
-        />
-      </Wrapper>
-    );
-  }
-}
+  useEffect(() => {
+    input.current = state;
+  }, [state]);
+
+  useEffect(() => {
+    const inputValue = localStorage.getItem(searchBarValue);
+    if (inputValue) {
+      requestCharacters().then(/* do nothing */);
+      setState(inputValue);
+    }
+    return () => {
+      localStorage.setItem(searchBarValue, input.current);
+    };
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState(e.target.value);
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await requestCharacters();
+  };
+
+  return (
+    <Wrapper onSubmit={handleSubmit}>
+      <StyledSearchBar onChange={handleChange} placeholder={placeholder} value={state} />
+    </Wrapper>
+  );
+};
 
 export default SearchBar;

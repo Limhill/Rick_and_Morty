@@ -2,10 +2,6 @@ import { Character, ModalCharacterInfo } from 'core/interfaces/others';
 import { DoubleSideCardProps } from 'core/interfaces/props';
 import { LoadingStatus } from 'core/enums';
 
-export interface SearchBarState {
-  value: string;
-}
-
 export interface FormState {
   isSubmitDisabled: boolean;
   nameError: string;
