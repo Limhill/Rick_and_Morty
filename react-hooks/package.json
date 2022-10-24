@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "cd .. && husky install react-forms/.husky",
+    "prepare": "cd .. && husky install react-hooks/.husky",
     "lint": "eslint src/** --ext .ts, .tsx --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier src --write"
