@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import Main from 'pages/Main';
@@ -16,36 +16,31 @@ const AppWrapper = styled.main`
   min-height: 100vh;
 `;
 
-class App extends React.Component<unknown, AppState> {
-  changeStatus: (newStatus: LoadingStatus) => void;
-  constructor(props: unknown) {
-    super(props);
+const App = () => {
+  const changeStatus = (newStatus: LoadingStatus) => {
+    setState(() => ({
+      loadingStatus: newStatus,
+      changeStatus,
+    }));
+  };
 
-    this.changeStatus = (newStatus: LoadingStatus) => {
-      this.setState(() => ({
-        loadingStatus: newStatus,
-      }));
-    };
+  const [state, setState] = useState<AppState>({
+    loadingStatus: LoadingStatus.initial,
+    changeStatus,
+  });
 
-    this.state = {
-      loadingStatus: LoadingStatus.initial,
-      changeStatus: this.changeStatus,
-    };
-  }
-  render() {
-    return (
-      <AppContext.Provider value={this.state}>
-        <AppWrapper>
-          <Routes>
-            <Route path={Pages.main} element={<Main />} />
-            <Route path={Pages.aboutUs} element={<AboutUs />} />
-            <Route path={Pages.create} element={<Create />} />
-            <Route path={Pages.pageNotFound} element={<PageNotFound />} />
-          </Routes>
-        </AppWrapper>
-      </AppContext.Provider>
-    );
-  }
-}
+  return (
+    <AppContext.Provider value={state}>
+      <AppWrapper>
+        <Routes>
+          <Route path={Pages.main} element={<Main />} />
+          <Route path={Pages.aboutUs} element={<AboutUs />} />
+          <Route path={Pages.create} element={<Create />} />
+          <Route path={Pages.pageNotFound} element={<PageNotFound />} />
+        </Routes>
+      </AppWrapper>
+    </AppContext.Provider>
+  );
+};
 
 export default App;
