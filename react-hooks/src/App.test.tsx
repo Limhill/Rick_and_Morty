@@ -16,7 +16,7 @@ describe('App routing', () => {
     expect(screen.getByText(/this is an about us page/i)).toBeInTheDocument();
     const mainPageLink = screen.getByTestId('main-page-link');
     userEvent.click(mainPageLink);
-    const searchBar = screen.getByPlaceholderText(/введите поисковый запрос/i);
+    const searchBar = screen.getByPlaceholderText(/enter something/i);
     expect(searchBar).toBeInTheDocument();
     const createPageLink = screen.getByTestId('create-page-link');
     userEvent.click(createPageLink);
@@ -52,6 +52,7 @@ describe('App work', () => {
     userEvent.type(searchBar, '111111{enter}');
     const items = await screen.findByText(/there are no results/i);
     expect(items).toBeInTheDocument();
+    userEvent.clear(searchBar);
   });
   it('should show modal window after click on card', async () => {
     const searchBar = screen.getByRole('textbox');
@@ -59,5 +60,6 @@ describe('App work', () => {
     const card = await screen.findByTestId('card');
     userEvent.click(card);
     expect(screen.getAllByText(/unmuscular michael/i)).toHaveLength(2);
+    userEvent.clear(searchBar);
   });
 });
