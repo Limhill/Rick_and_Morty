@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import PageNotFound from './PageNotFound';
+import NotFound from 'pages/NotFound';
 
-describe('PageNotFound', () => {
+describe('NotFound', () => {
   beforeEach(() => {
     render(
       <MemoryRouter>
-        <PageNotFound />
+        <NotFound />
       </MemoryRouter>
     );
   });

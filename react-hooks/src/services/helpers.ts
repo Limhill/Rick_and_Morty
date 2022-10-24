@@ -51,9 +51,13 @@ export const validateGender = (isChecked: boolean) => {
 };
 
 export const validateImage = (filePath: string) => {
+  let extension = filePath.split('.').at(-1);
+  if (extension) {
+    extension = extension.toLowerCase();
+  }
   if (!filePath) {
     return { avatarError: ErrorMessage.imageNotUploaded };
-  } else if (filePath.endsWith('.png') || filePath.endsWith('.jpg') || filePath.endsWith('.jpeg')) {
+  } else if (extension === 'png' || extension === 'jpg' || extension === 'jpeg') {
     return { avatarError: '' };
   } else {
     return { avatarError: ErrorMessage.imageExtensionIncorrect };

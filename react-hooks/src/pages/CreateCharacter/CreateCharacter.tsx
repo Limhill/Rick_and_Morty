@@ -7,10 +7,10 @@ import { DoubleSideCardProps } from 'core/interfaces/props';
 import DoubleSideCard from 'components/organisms/DoubleSideCard';
 import Header from 'components/templates/Header';
 
-const Create = () => {
+const CreateCharacter = () => {
   const [cards, setCards] = useState<DoubleSideCardProps[]>([]);
 
-  const createCards = ({ name, birthday, status, species, gender, image }: DoubleSideCardProps) => {
+  const addCard = ({ name, birthday, status, species, gender, image }: DoubleSideCardProps) => {
     setCards(cards.concat({ name, birthday, status, species, gender, image }));
   };
 
@@ -19,7 +19,7 @@ const Create = () => {
       <Header />
       <Content>
         <PageTitle>Create your own character!</PageTitle>
-        <Form handler={createCards} />
+        <Form addCard={addCard} />
         <CardsContainer>
           {cards.map((card) => {
             return (
@@ -40,4 +40,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default CreateCharacter;

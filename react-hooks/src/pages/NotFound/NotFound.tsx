@@ -4,7 +4,7 @@ import DefaultText from 'components/atoms/DefaultText';
 import PageTitle from 'components/atoms/PageTitle';
 import Header from 'components/templates/Header';
 
-const PageNotFound = () => {
+const NotFound = () => {
   return (
     <>
       <Header />
@@ -16,4 +16,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default NotFound;

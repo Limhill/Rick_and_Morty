@@ -1,5 +1,4 @@
 import { Character, ModalCharacterInfo } from 'core/interfaces/others';
-import { DoubleSideCardProps } from 'core/interfaces/props';
 import { LoadingStatus } from 'core/enums';
 
 export interface FormState {
@@ -13,10 +12,6 @@ export interface FormState {
 }
 
 export type FormStringStates = Omit<FormState, 'isSubmitDisabled'>;
-
-export interface CreatePageState {
-  cards: DoubleSideCardProps[];
-}
 
 export interface MainPageState {
   characters: Character[];

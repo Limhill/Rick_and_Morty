@@ -59,21 +59,12 @@ const Checkmark = styled.span`
 `;
 
 const Checkbox = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handler(e);
-  };
   return (
     <label htmlFor="species">
       <Label as="div">Check species</Label>
       <CheckBoxContainer>
         Is it a human?
-        <input
-          id="species"
-          ref={ref}
-          type="checkbox"
-          onChange={handleChange}
-          name={fieldName.species}
-        />
+        <input id="species" ref={ref} type="checkbox" onChange={handler} name={fieldName.species} />
         <Checkmark />
       </CheckBoxContainer>
     </label>

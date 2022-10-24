@@ -25,7 +25,7 @@ export interface DoubleSideCardProps {
 }
 
 export interface FormProps {
-  handler: (data: DoubleSideCardProps) => void;
+  addCard: (data: DoubleSideCardProps) => void;
 }
 
 export interface SearchBarProps {

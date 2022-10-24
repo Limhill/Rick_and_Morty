@@ -58,6 +58,5 @@ export enum LoadingStatus {
 }
 
 export enum ActionType {
-  changeStringState = 'changeStringState',
-  changeBooleanState = 'changeBooleanState',
+  changeFormState = 'changeFormState',
 }

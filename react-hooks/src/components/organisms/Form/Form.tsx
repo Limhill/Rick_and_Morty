@@ -18,8 +18,7 @@ import {
 } from 'services/helpers';
 import { FormProps } from 'core/interfaces/props';
 import BorderedFlexbox from 'components/atoms/BorderedFlexbox';
-import { BooleanStateAction, StringStateAction } from 'core/interfaces/others';
-import { isBooleanStateAction } from 'services/typeGuards';
+import { ChangeFormStateAction } from 'core/interfaces/others';
 
 const FormItem = styled.div`
   display: flex;
@@ -88,10 +87,7 @@ const Option = styled.option`
   color: ${Color.black};
 `;
 
-const reducer = (state: FormState, action: BooleanStateAction | StringStateAction): FormState => {
-  if (isBooleanStateAction(action)) {
-    return { ...state, isSubmitDisabled: action.payload };
-  }
+const reducer = (state: FormState, action: ChangeFormStateAction): FormState => {
   return { ...state, ...action.payload };
 };
 
@@ -105,7 +101,7 @@ const initialState = {
   avatarError: ' ',
 };
 
-const Form = ({ handler }: FormProps) => {
+const Form = ({ addCard }: FormProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const nameInput = useRef<HTMLInputElement>(null);
   const dateInput = useRef<HTMLInputElement>(null);
@@ -117,31 +113,41 @@ const Form = ({ handler }: FormProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if (state.isSubmitDisabled) {
-      dispatch({ type: ActionType.changeBooleanState, payload: false });
+      dispatch({ type: ActionType.changeFormState, payload: { isSubmitDisabled: false } });
     }
-
     const key = `${e.target.name}Error`;
     if (Object.keys(state).includes(key)) {
       dispatch({
-        type: ActionType.changeStringState,
+        type: ActionType.changeFormState,
         payload: { [key]: '' } as Pick<FormStringStates, keyof FormStringStates>,
       });
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
+
+    const isEachRefNotNull =
       nameInput.current &&
       dateInput.current &&
       statusSelect.current &&
       speciesCheckbox.current &&
       genderSwitcher.current &&
       avatarInput.current &&
-      form.current
-    ) {
+      form.current;
+
+    const hasAnyError =
+      state.nameError ||
+      state.dateError ||
+      state.statusError ||
+      state.speciesError ||
+      state.avatarError ||
+      state.genderError ||
+      state.isSubmitDisabled;
+
+    if (isEachRefNotNull) {
       dispatch({
-        type: ActionType.changeStringState,
+        type: ActionType.changeFormState,
         payload: {
           ...validateName(nameInput.current.value),
           ...validateBirthday(dateInput.current.value),
@@ -153,25 +159,9 @@ const Form = ({ handler }: FormProps) => {
       });
     }
 
-    if (
-      !state.nameError &&
-      !state.dateError &&
-      !state.statusError &&
-      !state.speciesError &&
-      !state.avatarError &&
-      !state.genderError &&
-      !state.isSubmitDisabled
-    ) {
-      if (
-        nameInput.current &&
-        dateInput.current &&
-        statusSelect.current &&
-        speciesCheckbox.current &&
-        genderSwitcher.current &&
-        avatarInput.current &&
-        avatarInput.current.files
-      ) {
-        handler({
+    if (!hasAnyError) {
+      if (isEachRefNotNull && avatarInput.current.files) {
+        addCard({
           name: nameInput.current.value,
           birthday: dateInput.current.value,
           status: statusSelect.current.value,
@@ -184,9 +174,8 @@ const Form = ({ handler }: FormProps) => {
           form.current.reset();
           speciesCheckbox.current.checked = false;
           genderSwitcher.current.checked = false;
-          dispatch({ type: ActionType.changeBooleanState, payload: true });
           dispatch({
-            type: ActionType.changeStringState,
+            type: ActionType.changeFormState,
             payload: {
               nameError: ' ',
               dateError: ' ',
@@ -194,6 +183,7 @@ const Form = ({ handler }: FormProps) => {
               speciesError: ' ',
               genderError: ' ',
               avatarError: ' ',
+              isSubmitDisabled: true,
             },
           });
         }

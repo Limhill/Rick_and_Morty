@@ -63,22 +63,13 @@ const SwitcherContainer = styled(BorderedFlexbox)`
 `;
 
 const Switcher = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handler(e);
-  };
   return (
     <label htmlFor="gender">
       <Label as="div">Choose character gender</Label>
       <SwitcherContainer>
         <InnerText>Male</InnerText>
         <SliderContainer>
-          <input
-            id="gender"
-            ref={ref}
-            type="checkbox"
-            onChange={handleChange}
-            name={fieldName.gender}
-          />
+          <input id="gender" ref={ref} type="checkbox" onChange={handler} name={fieldName.gender} />
           <Slider />
         </SliderContainer>
         <InnerText>Female</InnerText>

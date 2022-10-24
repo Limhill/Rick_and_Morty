@@ -9,7 +9,7 @@ const mockHandler = jest.fn(() => {
 });
 
 describe('Form render', () => {
-  beforeEach(() => render(<Form handler={mockHandler} />));
+  beforeEach(() => render(<Form addCard={mockHandler} />));
   it('should have 1 input with type="text', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
@@ -35,7 +35,7 @@ describe('Form render', () => {
 
 describe('Form errors', () => {
   beforeEach(() => {
-    render(<Form handler={mockHandler} />);
+    render(<Form addCard={mockHandler} />);
   });
 
   it('should show all errors if form is empty', async () => {
