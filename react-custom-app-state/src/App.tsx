@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Main from 'pages/Main';
 import AboutUs from 'pages/AboutUs';
 import NotFound from 'pages/NotFound';
-import { Color, LoadingStatus, Pages } from 'core/enums';
+import { Color, LoadingStatus, Pages, SortBy } from 'core/enums';
 import backgroundImage from 'assets/images/space.jpg';
 import CreateCharacter from 'pages/CreateCharacter';
 import { AppState } from 'core/interfaces/states';
@@ -18,14 +18,12 @@ const AppWrapper = styled.main`
 
 const App = () => {
   const changeStatus = (newStatus: LoadingStatus) => {
-    setState(() => ({
-      loadingStatus: newStatus,
-      changeStatus,
-    }));
+    setState((prevState) => ({ ...prevState, loadingStatus: newStatus, changeStatus }));
   };
 
   const [state, setState] = useState<AppState>({
     loadingStatus: LoadingStatus.initial,
+    sortBy: SortBy.name,
     changeStatus,
   });
 

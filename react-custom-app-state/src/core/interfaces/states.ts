@@ -1,5 +1,5 @@
 import { Character, ModalCharacterInfo } from 'core/interfaces/others';
-import { LoadingStatus } from 'core/enums';
+import { LoadingStatus, SortBy } from 'core/enums';
 
 export interface FormState {
   isSubmitDisabled: boolean;
@@ -21,5 +21,6 @@ export interface MainPageState {
 
 export interface AppState {
   loadingStatus: LoadingStatus;
+  sortBy: SortBy;
   changeStatus: (newStatus: LoadingStatus) => void;
 }

@@ -12,9 +12,16 @@ import Modal from 'components/organisms/Modal';
 import { CharacterGender, CharacterStatus, LoadingStatus } from 'core/enums';
 import AppContext from 'core/AppContext';
 import DefaultText from 'components/atoms/DefaultText';
+import Select from '../../components/molecules/Select';
 
 const StyledDefaultText = styled(DefaultText)`
   padding-top: 4rem;
+`;
+
+const SearchParametersContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const initialModalState = {
@@ -75,23 +82,37 @@ const Main = () => {
         <PageTitle>Main page</PageTitle>
         <SearchBar handler={createCards} />
         {context.loadingStatus === LoadingStatus.success && (
-          <CardsContainer data-testid="cards">
-            {state.characters.map((character) => (
-              <OneSideCard
-                handler={openModalWindow}
-                key={character.id}
-                name={character.name}
-                status={character.status}
-                gender={character.gender}
-                type={character.type}
-                species={character.species}
-                created={character.created}
-                location={character.location}
-                origin={character.origin}
-                image={character.image}
-              />
-            ))}
-          </CardsContainer>
+          <>
+            <SearchParametersContainer>
+              <Select>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </Select>
+              <Select>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </Select>
+            </SearchParametersContainer>
+            <CardsContainer data-testid="cards">
+              {state.characters.map((character) => (
+                <OneSideCard
+                  handler={openModalWindow}
+                  key={character.id}
+                  name={character.name}
+                  status={character.status}
+                  gender={character.gender}
+                  type={character.type}
+                  species={character.species}
+                  created={character.created}
+                  location={character.location}
+                  origin={character.origin}
+                  image={character.image}
+                />
+              ))}
+            </CardsContainer>
+          </>
         )}
         {context.loadingStatus === LoadingStatus.loading && (
           <StyledDefaultText>Loading</StyledDefaultText>

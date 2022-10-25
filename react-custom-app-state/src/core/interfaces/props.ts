@@ -42,3 +42,7 @@ export interface ModalWindowImageProps {
 }
 
 export type CloseIconProps = Pick<ModalProps, 'handler'>;
+
+export interface SelectProps {
+  minWidth?: number;
+}

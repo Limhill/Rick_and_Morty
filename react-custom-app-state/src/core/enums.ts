@@ -60,3 +60,11 @@ export enum LoadingStatus {
 export enum ActionType {
   changeFormState = 'changeFormState',
 }
+
+export enum SortBy {
+  name = 'name',
+  status = 'status',
+  species = 'species',
+  type = 'type',
+  gender = 'gender',
+}

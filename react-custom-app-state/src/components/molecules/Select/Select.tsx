@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import { Color } from 'core/enums';
+import { SelectProps } from 'core/interfaces/props';
 
-const Select = styled.select`
+const Select = styled.select<SelectProps>`
   background: transparent;
   outline: none;
   font-size: 2.2rem;
   font-family: Roboto, sans-serif;
   border: 0.3rem solid ${Color.lightBlue};
   color: ${Color.white};
-  min-width: 50%;
+  min-width: ${(minWidth) => (minWidth ? `${minWidth}%` : 'initial')};
   border-radius: 8px;
   padding: 1rem;
   cursor: pointer;
