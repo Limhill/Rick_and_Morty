@@ -223,7 +223,13 @@ const Form = ({ addCard }: FormProps) => {
         </FormItem>
         <FormItem>
           <Label htmlFor="select">Pick character status</Label>
-          <Select onChange={handleChange} id="select" ref={statusSelect} name={fieldName.status}>
+          <Select
+            onChange={handleChange}
+            id="select"
+            ref={statusSelect}
+            name={fieldName.status}
+            padding={1}
+          >
             <Option>Character status</Option>
             <Option>{CharacterStatus.alive}</Option>
             <Option>{CharacterStatus.dead}</Option>

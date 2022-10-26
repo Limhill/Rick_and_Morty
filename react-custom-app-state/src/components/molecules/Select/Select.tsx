@@ -9,9 +9,9 @@ const Select = styled.select<SelectProps>`
   font-family: Roboto, sans-serif;
   border: 0.3rem solid ${Color.lightBlue};
   color: ${Color.white};
-  min-width: ${(minWidth) => (minWidth ? `${minWidth}%` : 'initial')};
+  min-width: ${({ minWidth }) => (minWidth ? `${minWidth}%` : 'initial')};
   border-radius: 8px;
-  padding: 1rem;
+  padding: ${({ padding }) => (padding ? `${padding}rem` : 0)};
   cursor: pointer;
   &::placeholder {
     color: ${Color.white};

@@ -1,11 +1,12 @@
 import React from 'react';
-import { LoadingStatus, SortBy } from 'core/enums';
+import { LoadingStatus, SearchBy } from 'core/enums';
+import { AppState } from 'core/interfaces/states';
 
 const AppContext = React.createContext({
   loadingStatus: LoadingStatus.initial,
-  sortBy: SortBy.name,
-  changeStatus: (newStatus: LoadingStatus) => {
-    console.log(newStatus);
+  searchBy: SearchBy.name,
+  changeContext: (data: Partial<AppState>) => {
+    console.log(data);
   },
 });
 

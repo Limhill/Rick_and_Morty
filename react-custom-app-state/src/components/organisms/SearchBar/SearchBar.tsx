@@ -34,13 +34,13 @@ const SearchBar = ({ handler }: SearchBarProps) => {
   const input = useRef(state);
 
   const requestCharacters = async () => {
-    context.changeStatus(LoadingStatus.loading);
-    const response = await getFilteredCharacters(state);
+    context.changeContext({ loadingStatus: LoadingStatus.loading });
+    const response = await getFilteredCharacters(state, context.searchBy);
     if (typeof response !== 'string') {
       handler(response);
-      context.changeStatus(LoadingStatus.success);
+      context.changeContext({ loadingStatus: LoadingStatus.success });
     } else {
-      context.changeStatus(LoadingStatus.error);
+      context.changeContext({ loadingStatus: LoadingStatus.error });
     }
   };
 

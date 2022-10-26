@@ -1,5 +1,5 @@
 import { Character, ModalCharacterInfo } from 'core/interfaces/others';
-import { LoadingStatus, SortBy } from 'core/enums';
+import { LoadingStatus, SearchBy } from 'core/enums';
 
 export interface FormState {
   isSubmitDisabled: boolean;
@@ -20,7 +20,17 @@ export interface MainPageState {
 }
 
 export interface AppState {
+  /**
+   * Status of data request
+   */
   loadingStatus: LoadingStatus;
-  sortBy: SortBy;
-  changeStatus: (newStatus: LoadingStatus) => void;
+  /**
+   * Search criteria
+   */
+  searchBy: SearchBy;
+  /**
+   * Function for changing App context
+   * @param data
+   */
+  changeContext: (data: Partial<AppState>) => void;
 }

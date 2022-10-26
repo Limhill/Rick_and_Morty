@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Main from 'pages/Main';
 import AboutUs from 'pages/AboutUs';
 import NotFound from 'pages/NotFound';
-import { Color, LoadingStatus, Pages, SortBy } from 'core/enums';
+import { Color, LoadingStatus, Pages, SearchBy } from 'core/enums';
 import backgroundImage from 'assets/images/space.jpg';
 import CreateCharacter from 'pages/CreateCharacter';
 import { AppState } from 'core/interfaces/states';
@@ -17,14 +17,17 @@ const AppWrapper = styled.main`
 `;
 
 const App = () => {
-  const changeStatus = (newStatus: LoadingStatus) => {
-    setState((prevState) => ({ ...prevState, loadingStatus: newStatus, changeStatus }));
+  const changeContext = (data: Partial<AppState>) => {
+    setState((prevState) => ({
+      ...prevState,
+      ...data,
+    }));
   };
 
   const [state, setState] = useState<AppState>({
     loadingStatus: LoadingStatus.initial,
-    sortBy: SortBy.name,
-    changeStatus,
+    searchBy: SearchBy.name,
+    changeContext,
   });
 
   return (
