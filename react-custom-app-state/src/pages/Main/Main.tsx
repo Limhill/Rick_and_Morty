@@ -13,6 +13,7 @@ import { CharacterGender, CharacterStatus, LoadingStatus } from 'core/enums';
 import AppContext from 'core/AppContext';
 import DefaultText from 'components/atoms/DefaultText';
 import SearchParameters from 'components/organisms/SearchParameters';
+import Pagination from 'components/molecules/Pagination';
 
 const StyledDefaultText = styled(DefaultText)`
   padding-top: 4rem;
@@ -77,23 +78,26 @@ const Main = () => {
         <SearchBar handler={createCards} />
         <SearchParameters />
         {context.loadingStatus === LoadingStatus.success && (
-          <CardsContainer data-testid="cards">
-            {state.characters.map((character) => (
-              <OneSideCard
-                handler={openModalWindow}
-                key={character.id}
-                name={character.name}
-                status={character.status}
-                gender={character.gender}
-                type={character.type}
-                species={character.species}
-                created={character.created}
-                location={character.location}
-                origin={character.origin}
-                image={character.image}
-              />
-            ))}
-          </CardsContainer>
+          <>
+            <CardsContainer data-testid="cards">
+              {state.characters.map((character) => (
+                <OneSideCard
+                  handler={openModalWindow}
+                  key={character.id}
+                  name={character.name}
+                  status={character.status}
+                  gender={character.gender}
+                  type={character.type}
+                  species={character.species}
+                  created={character.created}
+                  location={character.location}
+                  origin={character.origin}
+                  image={character.image}
+                />
+              ))}
+            </CardsContainer>
+            <Pagination />
+          </>
         )}
         {context.loadingStatus === LoadingStatus.loading && (
           <StyledDefaultText>Loading</StyledDefaultText>
