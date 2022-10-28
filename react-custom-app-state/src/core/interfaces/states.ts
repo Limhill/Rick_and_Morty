@@ -29,6 +29,10 @@ export interface AppState {
    */
   searchBy: SearchBy;
   /**
+   * How many results would be on the page
+   */
+  resultsPerPage: number;
+  /**
    * Function for changing App context
    * @param data
    */

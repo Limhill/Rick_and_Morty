@@ -2,7 +2,7 @@ import React, { useReducer, useRef } from 'react';
 import styled from 'styled-components';
 import TextInput from 'components/atoms/TextInput';
 import Label from 'components/atoms/Label';
-import Select from 'components/molecules/Select';
+import Select from 'components/atoms/Select';
 import { ActionType, CharacterStatus, Color, fieldName } from 'core/enums';
 import Checkbox from 'components/molecules/Checkbox';
 import Switcher from 'components/atoms/Switcher';

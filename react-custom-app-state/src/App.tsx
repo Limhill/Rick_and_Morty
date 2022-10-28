@@ -27,6 +27,7 @@ const App = () => {
   const [state, setState] = useState<AppState>({
     loadingStatus: LoadingStatus.initial,
     searchBy: SearchBy.name,
+    resultsPerPage: 20,
     changeContext,
   });
 

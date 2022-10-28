@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Content from 'components/templates/Content';
 import PageTitle from 'components/atoms/PageTitle';
 import Form from 'components/organisms/Form';
-import CardsContainer from 'components/organisms/CardsContainer';
+import CardsContainer from 'components/atoms/CardsContainer';
 import { DoubleSideCardProps } from 'core/interfaces/props';
 import DoubleSideCard from 'components/organisms/DoubleSideCard';
 import Header from 'components/templates/Header';
