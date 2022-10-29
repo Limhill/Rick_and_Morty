@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Color } from 'core/enums';
+import AppContext from 'core/AppContext';
+import { PaginationProps } from 'core/interfaces/props';
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   width: 30%;
+  padding-top: 2rem;
 `;
 
 const StyledButton = styled.button`
@@ -17,20 +20,42 @@ const StyledButton = styled.button`
   cursor: pointer;
   color: ${Color.white};
   background: transparent;
-  &:hover,
-  &:focus {
+  &:hover {
     box-shadow: 0 0 15px 5px rgba(172, 228, 170, 0.7);
+  }
+  &:disabled {
+    box-shadow: none;
+    border: 2px solid gray;
+    color: lightgray;
   }
 `;
 
-const Pagination = () => {
+const Pagination = ({ pages }: PaginationProps) => {
+  const { currentPage, changeContext } = useContext(AppContext);
+  const increasePageNumber = () => {
+    changeContext({ currentPage: currentPage + 1 });
+  };
+  const decreasePageNumber = () => {
+    changeContext({ currentPage: currentPage - 1 });
+  };
+  const goToTheFirstPage = () => {
+    changeContext({ currentPage: 1 });
+  };
+  const goToTheLastPage = () => {
+    changeContext({ currentPage: pages.length });
+  };
+
   return (
     <Container>
-      <StyledButton>1</StyledButton>
-      <StyledButton>2</StyledButton>
-      <StyledButton>3</StyledButton>
-      <StyledButton>4</StyledButton>
-      <StyledButton>50</StyledButton>
+      <StyledButton onClick={goToTheFirstPage}>&lt;&lt;</StyledButton>
+      <StyledButton onClick={decreasePageNumber} disabled={!pages[currentPage - 2]}>
+        &lt;
+      </StyledButton>
+      <StyledButton>{currentPage}</StyledButton>
+      <StyledButton onClick={increasePageNumber} disabled={!pages[currentPage]}>
+        &gt;
+      </StyledButton>
+      <StyledButton onClick={goToTheLastPage}>&gt;&gt;</StyledButton>
     </Container>
   );
 };

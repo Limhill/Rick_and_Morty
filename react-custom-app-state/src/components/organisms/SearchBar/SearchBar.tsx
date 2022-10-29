@@ -38,7 +38,7 @@ const SearchBar = ({ handler }: SearchBarProps) => {
     const response = await getFilteredCharacters(state, context.searchBy);
     if (typeof response !== 'string') {
       handler(response);
-      context.changeContext({ loadingStatus: LoadingStatus.success });
+      context.changeContext({ loadingStatus: LoadingStatus.success, currentPage: 1 });
     } else {
       context.changeContext({ loadingStatus: LoadingStatus.error });
     }

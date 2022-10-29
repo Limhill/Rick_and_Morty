@@ -6,6 +6,7 @@ const AppContext = React.createContext<AppState>({
   loadingStatus: LoadingStatus.initial,
   searchBy: SearchBy.name,
   resultsPerPage: 20,
+  currentPage: 1,
   changeContext: (data: Partial<AppState>) => {
     console.log(data);
   },

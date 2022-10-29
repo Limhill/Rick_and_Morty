@@ -27,6 +27,10 @@ const SearchParameters = () => {
     context.changeContext({ searchBy: e.target.value as SearchBy });
   };
 
+  const changeResultsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    context.changeContext({ resultsPerPage: Number(e.target.value) });
+  };
+
   return (
     <SearchParametersContainer>
       <div>
@@ -41,7 +45,7 @@ const SearchParameters = () => {
       </div>
       <div>
         <StyledLabel htmlFor="results per page">Results per page:</StyledLabel>
-        <Select id="results per page" padding={0.5}>
+        <Select id="results per page" padding={0.5} onChange={changeResultsPerPage}>
           <StyledOption value="20">20</StyledOption>
           <StyledOption value="60">60</StyledOption>
           <StyledOption value="100">100</StyledOption>

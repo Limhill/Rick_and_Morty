@@ -53,3 +53,7 @@ export interface SelectProps {
    */
   padding?: number;
 }
+
+export interface PaginationProps {
+  pages: Array<Character[]>;
+}

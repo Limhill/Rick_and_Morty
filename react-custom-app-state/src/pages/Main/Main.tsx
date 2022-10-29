@@ -14,6 +14,7 @@ import AppContext from 'core/AppContext';
 import DefaultText from 'components/atoms/DefaultText';
 import SearchParameters from 'components/organisms/SearchParameters';
 import Pagination from 'components/molecules/Pagination';
+import { splitOnPages } from '../../services/helpers';
 
 const StyledDefaultText = styled(DefaultText)`
   padding-top: 4rem;
@@ -37,10 +38,18 @@ const initialModalState = {
 const Main = () => {
   const context = useContext(AppContext);
 
-  const [state, setState] = useState<MainPageState>({ characters: [], ...initialModalState });
+  const [state, setState] = useState<MainPageState>({
+    characters: [],
+    pages: [],
+    ...initialModalState,
+  });
 
   const createCards = (characters: Character[]) => {
-    setState((prevState) => ({ ...prevState, characters }));
+    setState((prevState) => ({
+      ...prevState,
+      characters,
+      pages: splitOnPages(characters, context.resultsPerPage),
+    }));
   };
 
   const openModalWindow = ({
@@ -80,7 +89,7 @@ const Main = () => {
         {context.loadingStatus === LoadingStatus.success && (
           <>
             <CardsContainer data-testid="cards">
-              {state.characters.map((character) => (
+              {state.pages[context.currentPage - 1].map((character) => (
                 <OneSideCard
                   handler={openModalWindow}
                   key={character.id}
@@ -96,7 +105,7 @@ const Main = () => {
                 />
               ))}
             </CardsContainer>
-            <Pagination />
+            <Pagination pages={state.pages} />
           </>
         )}
         {context.loadingStatus === LoadingStatus.loading && (

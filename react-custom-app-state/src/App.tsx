@@ -28,6 +28,7 @@ const App = () => {
     loadingStatus: LoadingStatus.initial,
     searchBy: SearchBy.name,
     resultsPerPage: 20,
+    currentPage: 1,
     changeContext,
   });
 

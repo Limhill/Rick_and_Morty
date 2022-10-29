@@ -1,4 +1,5 @@
 import { ErrorMessage } from 'core/enums';
+import { Character } from 'core/interfaces/others';
 
 export const capitalize = (str: string) => {
   return (str.at(0) || '').toUpperCase().concat(str.slice(1));
@@ -62,4 +63,21 @@ export const validateImage = (filePath: string) => {
   } else {
     return { avatarError: ErrorMessage.imageExtensionIncorrect };
   }
+};
+
+export const splitOnPages = (array: Character[], resultsPerPage: number) => {
+  if (array.length <= resultsPerPage) return [array];
+
+  const pages = [];
+  let arr: Character[] = [];
+  for (let i = 0; i <= array.length; i++) {
+    if (array[i] && arr.length < resultsPerPage) {
+      arr.push(array[i]);
+    } else {
+      pages.push(arr);
+      arr = [array[i]];
+    }
+  }
+  console.log(pages);
+  return pages;
 };

@@ -17,6 +17,7 @@ export interface MainPageState {
   characters: Character[];
   modalIsOpen: boolean;
   modal: ModalCharacterInfo;
+  pages: Array<Character[]>;
 }
 
 export interface AppState {
@@ -32,6 +33,10 @@ export interface AppState {
    * How many results would be on the page
    */
   resultsPerPage: number;
+  /**
+   * Current opened page
+   */
+  currentPage: number;
   /**
    * Function for changing App context
    * @param data
