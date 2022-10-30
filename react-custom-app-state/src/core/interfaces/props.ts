@@ -28,10 +28,6 @@ export interface FormProps {
   addCard: (data: DoubleSideCardProps) => void;
 }
 
-export interface SearchBarProps {
-  handler: (cards: Character[]) => void;
-}
-
 export interface ModalProps extends ModalCharacterInfo {
   isOpen: boolean;
   handler: (e: React.MouseEvent) => void;
@@ -54,6 +50,7 @@ export interface SelectProps {
   padding?: number;
 }
 
-export interface PaginationProps {
-  pages: Array<Character[]>;
+export interface SearchParametersProps {
+  characters: Character[];
+  setPages: (pages: Array<Character[]>) => void;
 }

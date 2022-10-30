@@ -65,19 +65,18 @@ export const validateImage = (filePath: string) => {
   }
 };
 
-export const splitOnPages = (array: Character[], resultsPerPage: number) => {
-  if (array.length <= resultsPerPage) return [array];
+export const splitArrayOnChunks = (array: Character[], chunkSize: number) => {
+  if (array.length <= chunkSize) return [array];
 
-  const pages = [];
-  let arr: Character[] = [];
+  const result = [];
+  let chunk: Character[] = [];
   for (let i = 0; i <= array.length; i++) {
-    if (array[i] && arr.length < resultsPerPage) {
-      arr.push(array[i]);
+    if (array[i] && chunk.length < chunkSize) {
+      chunk.push(array[i]);
     } else {
-      pages.push(arr);
-      arr = [array[i]];
+      result.push(chunk);
+      chunk = [array[i]];
     }
   }
-  console.log(pages);
-  return pages;
+  return result;
 };

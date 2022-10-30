@@ -14,7 +14,6 @@ import AppContext from 'core/AppContext';
 import DefaultText from 'components/atoms/DefaultText';
 import SearchParameters from 'components/organisms/SearchParameters';
 import Pagination from 'components/molecules/Pagination';
-import { splitOnPages } from '../../services/helpers';
 
 const StyledDefaultText = styled(DefaultText)`
   padding-top: 4rem;
@@ -36,21 +35,12 @@ const initialModalState = {
 };
 
 const Main = () => {
-  const context = useContext(AppContext);
+  const { loadingStatus, currentPage, pages } = useContext(AppContext);
 
   const [state, setState] = useState<MainPageState>({
     characters: [],
-    pages: [],
     ...initialModalState,
   });
-
-  const createCards = (characters: Character[]) => {
-    setState((prevState) => ({
-      ...prevState,
-      characters,
-      pages: splitOnPages(characters, context.resultsPerPage),
-    }));
-  };
 
   const openModalWindow = ({
     name,
@@ -79,17 +69,21 @@ const Main = () => {
     }
   };
 
+  const setPages = (pages: Array<Character[]>) => {
+    setState((prevState) => ({ ...prevState, pages }));
+  };
+
   return (
     <>
       <Header />
       <Content>
         <PageTitle>Main page</PageTitle>
-        <SearchBar handler={createCards} />
-        <SearchParameters />
-        {context.loadingStatus === LoadingStatus.success && (
+        <SearchBar />
+        <SearchParameters characters={state.characters} setPages={setPages} />
+        {loadingStatus === LoadingStatus.success && (
           <>
             <CardsContainer data-testid="cards">
-              {state.pages[context.currentPage - 1].map((character) => (
+              {pages[currentPage - 1].map((character) => (
                 <OneSideCard
                   handler={openModalWindow}
                   key={character.id}
@@ -105,13 +99,11 @@ const Main = () => {
                 />
               ))}
             </CardsContainer>
-            <Pagination pages={state.pages} />
+            <Pagination />
           </>
         )}
-        {context.loadingStatus === LoadingStatus.loading && (
-          <StyledDefaultText>Loading</StyledDefaultText>
-        )}
-        {context.loadingStatus === LoadingStatus.error && (
+        {loadingStatus === LoadingStatus.loading && <StyledDefaultText>Loading</StyledDefaultText>}
+        {loadingStatus === LoadingStatus.error && (
           <StyledDefaultText>There are no results</StyledDefaultText>
         )}
       </Content>

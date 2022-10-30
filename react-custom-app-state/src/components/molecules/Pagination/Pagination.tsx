@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Color } from 'core/enums';
 import AppContext from 'core/AppContext';
-import { PaginationProps } from 'core/interfaces/props';
 
 const Container = styled.div`
   display: flex;
@@ -30,8 +29,8 @@ const StyledButton = styled.button`
   }
 `;
 
-const Pagination = ({ pages }: PaginationProps) => {
-  const { currentPage, changeContext } = useContext(AppContext);
+const Pagination = () => {
+  const { currentPage, changeContext, pages } = useContext(AppContext);
   const increasePageNumber = () => {
     changeContext({ currentPage: currentPage + 1 });
   };

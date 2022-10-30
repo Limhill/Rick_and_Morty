@@ -7,8 +7,10 @@ const AppContext = React.createContext<AppState>({
   searchBy: SearchBy.name,
   resultsPerPage: 20,
   currentPage: 1,
+  characters: [],
+  pages: [],
   changeContext: (data: Partial<AppState>) => {
-    console.log(data);
+    /* do nothing */
   },
 });
 

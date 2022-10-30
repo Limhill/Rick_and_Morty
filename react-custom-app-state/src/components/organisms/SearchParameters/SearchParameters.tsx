@@ -4,6 +4,8 @@ import Label from 'components/atoms/Label';
 import Select from 'components/atoms/Select';
 import { SearchBy } from 'core/enums';
 import AppContext from 'core/AppContext';
+import { SearchParametersProps } from 'core/interfaces/props';
+import { splitArrayOnChunks } from 'services/helpers';
 
 const SearchParametersContainer = styled.div`
   display: flex;
@@ -20,22 +22,23 @@ const StyledLabel = styled(Label)`
   padding-right: 0.5rem;
 `;
 
-const SearchParameters = () => {
-  const context = useContext(AppContext);
+const SearchParameters = ({ characters, setPages }: SearchParametersProps) => {
+  const { resultsPerPage, searchBy, changeContext } = useContext(AppContext);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    context.changeContext({ searchBy: e.target.value as SearchBy });
+    changeContext({ searchBy: e.target.value as SearchBy });
   };
 
   const changeResultsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    context.changeContext({ resultsPerPage: Number(e.target.value) });
+    changeContext({ resultsPerPage: Number(e.target.value), currentPage: 1 });
+    setPages(splitArrayOnChunks(characters, resultsPerPage));
   };
 
   return (
     <SearchParametersContainer>
       <div>
         <StyledLabel htmlFor="sort-by">Sort by:</StyledLabel>
-        <Select id="sort-by" padding={0.5} onChange={handleSelect} value={context.searchBy}>
+        <Select id="sort-by" padding={0.5} onChange={handleSelect} value={searchBy}>
           <StyledOption value={SearchBy.name}>name</StyledOption>
           <StyledOption value={SearchBy.status}>status</StyledOption>
           <StyledOption value={SearchBy.species}>species</StyledOption>
@@ -45,7 +48,12 @@ const SearchParameters = () => {
       </div>
       <div>
         <StyledLabel htmlFor="results per page">Results per page:</StyledLabel>
-        <Select id="results per page" padding={0.5} onChange={changeResultsPerPage}>
+        <Select
+          id="results per page"
+          padding={0.5}
+          onChange={changeResultsPerPage}
+          value={resultsPerPage}
+        >
           <StyledOption value="20">20</StyledOption>
           <StyledOption value="60">60</StyledOption>
           <StyledOption value="100">100</StyledOption>

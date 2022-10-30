@@ -29,6 +29,8 @@ const App = () => {
     searchBy: SearchBy.name,
     resultsPerPage: 20,
     currentPage: 1,
+    characters: [],
+    pages: [],
     changeContext,
   });
 

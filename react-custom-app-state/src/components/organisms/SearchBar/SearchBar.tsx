@@ -5,8 +5,8 @@ import icon from 'assets/icons/search.svg';
 import TextInput from 'components/atoms/TextInput';
 import { Color, LoadingStatus } from 'core/enums';
 import { getFilteredCharacters } from 'services/axios';
-import { SearchBarProps } from 'core/interfaces/props';
 import AppContext from 'core/AppContext';
+import { splitArrayOnChunks } from 'services/helpers';
 
 const StyledSearchBar = styled(TextInput)`
   border-radius: 3rem;
@@ -28,19 +28,23 @@ const Wrapper = styled.form`
   justify-content: center;
 `;
 
-const SearchBar = ({ handler }: SearchBarProps) => {
-  const context = useContext(AppContext);
+const SearchBar = () => {
+  const { searchBy, resultsPerPage, changeContext } = useContext(AppContext);
   const [state, setState] = useState(localStorage.getItem(searchBarValue) || '');
   const input = useRef(state);
 
   const requestCharacters = async () => {
-    context.changeContext({ loadingStatus: LoadingStatus.loading });
-    const response = await getFilteredCharacters(state, context.searchBy);
+    changeContext({ loadingStatus: LoadingStatus.loading });
+    const response = await getFilteredCharacters(state, searchBy);
     if (typeof response !== 'string') {
-      handler(response);
-      context.changeContext({ loadingStatus: LoadingStatus.success, currentPage: 1 });
+      changeContext({
+        loadingStatus: LoadingStatus.success,
+        currentPage: 1,
+        characters: response,
+        pages: splitArrayOnChunks(response, resultsPerPage),
+      });
     } else {
-      context.changeContext({ loadingStatus: LoadingStatus.error });
+      changeContext({ loadingStatus: LoadingStatus.error });
     }
   };
 
