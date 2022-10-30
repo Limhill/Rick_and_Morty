@@ -6,7 +6,7 @@ import SearchBar from 'components/organisms/SearchBar';
 import CardsContainer from 'components/atoms/CardsContainer';
 import Header from 'components/templates/Header';
 import { MainPageState } from 'core/interfaces/states';
-import { Character, ModalCharacterInfo } from 'core/interfaces/others';
+import { ModalCharacterInfo } from 'core/interfaces/others';
 import OneSideCard from 'components/organisms/OneSideCard';
 import Modal from 'components/organisms/Modal';
 import { CharacterGender, CharacterStatus, LoadingStatus } from 'core/enums';
@@ -38,7 +38,6 @@ const Main = () => {
   const { loadingStatus, currentPage, pages } = useContext(AppContext);
 
   const [state, setState] = useState<MainPageState>({
-    characters: [],
     ...initialModalState,
   });
 
@@ -69,17 +68,13 @@ const Main = () => {
     }
   };
 
-  const setPages = (pages: Array<Character[]>) => {
-    setState((prevState) => ({ ...prevState, pages }));
-  };
-
   return (
     <>
       <Header />
       <Content>
         <PageTitle>Main page</PageTitle>
         <SearchBar />
-        <SearchParameters characters={state.characters} setPages={setPages} />
+        <SearchParameters />
         {loadingStatus === LoadingStatus.success && (
           <>
             <CardsContainer data-testid="cards">

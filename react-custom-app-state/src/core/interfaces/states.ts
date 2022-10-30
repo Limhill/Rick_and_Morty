@@ -14,7 +14,6 @@ export interface FormState {
 export type FormStringStates = Omit<FormState, 'isSubmitDisabled'>;
 
 export interface MainPageState {
-  characters: Character[];
   modalIsOpen: boolean;
   modal: ModalCharacterInfo;
 }
@@ -48,5 +47,5 @@ export interface AppState {
    * Function for changing App context
    * @param data
    */
-  changeContext: (data: Partial<AppState>) => void;
+  changeContext: (data?: Partial<AppState>) => void;
 }

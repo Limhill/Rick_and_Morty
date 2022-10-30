@@ -17,7 +17,7 @@ const AppWrapper = styled.main`
 `;
 
 const App = () => {
-  const changeContext = (data: Partial<AppState>) => {
+  const changeContext = (data: Partial<AppState> | undefined) => {
     setState((prevState) => ({
       ...prevState,
       ...data,

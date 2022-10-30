@@ -49,8 +49,3 @@ export interface SelectProps {
    */
   padding?: number;
 }
-
-export interface SearchParametersProps {
-  characters: Character[];
-  setPages: (pages: Array<Character[]>) => void;
-}

@@ -4,7 +4,6 @@ import Label from 'components/atoms/Label';
 import Select from 'components/atoms/Select';
 import { SearchBy } from 'core/enums';
 import AppContext from 'core/AppContext';
-import { SearchParametersProps } from 'core/interfaces/props';
 import { splitArrayOnChunks } from 'services/helpers';
 
 const SearchParametersContainer = styled.div`
@@ -22,16 +21,19 @@ const StyledLabel = styled(Label)`
   padding-right: 0.5rem;
 `;
 
-const SearchParameters = ({ characters, setPages }: SearchParametersProps) => {
-  const { resultsPerPage, searchBy, changeContext } = useContext(AppContext);
+const SearchParameters = () => {
+  const { resultsPerPage, searchBy, characters, changeContext } = useContext(AppContext);
 
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     changeContext({ searchBy: e.target.value as SearchBy });
   };
 
   const changeResultsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    changeContext({ resultsPerPage: Number(e.target.value), currentPage: 1 });
-    setPages(splitArrayOnChunks(characters, resultsPerPage));
+    changeContext({
+      resultsPerPage: Number(e.target.value),
+      currentPage: 1,
+      pages: splitArrayOnChunks(characters, Number(e.target.value)),
+    });
   };
 
   return (

@@ -9,9 +9,7 @@ const AppContext = React.createContext<AppState>({
   currentPage: 1,
   characters: [],
   pages: [],
-  changeContext: (data: Partial<AppState>) => {
-    /* do nothing */
-  },
+  changeContext: () => {},
 });
 
 export default AppContext;

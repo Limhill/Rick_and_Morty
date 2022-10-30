@@ -55,7 +55,6 @@ const SearchBar = () => {
   useEffect(() => {
     const inputValue = localStorage.getItem(searchBarValue);
     if (inputValue) {
-      requestCharacters().then(/* do nothing */);
       setState(inputValue);
     }
     return () => {
