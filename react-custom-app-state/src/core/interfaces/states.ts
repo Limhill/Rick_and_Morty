@@ -1,4 +1,4 @@
-import { Character, ModalCharacterInfo } from 'core/interfaces/others';
+import { Character } from 'core/interfaces/others';
 import { LoadingStatus, SearchBy } from 'core/enums';
 
 export interface FormState {
@@ -12,11 +12,6 @@ export interface FormState {
 }
 
 export type FormStringStates = Omit<FormState, 'isSubmitDisabled'>;
-
-export interface MainPageState {
-  modalIsOpen: boolean;
-  modal: ModalCharacterInfo;
-}
 
 export interface AppState {
   /**

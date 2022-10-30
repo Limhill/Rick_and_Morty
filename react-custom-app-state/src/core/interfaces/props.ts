@@ -2,9 +2,7 @@ import React from 'react';
 import { fieldName } from 'core/enums';
 import { Character, ModalCharacterInfo } from 'core/interfaces/others';
 
-export interface OneSideCardProps extends Omit<Character, 'id' | 'episode' | 'url'> {
-  handler: (data: ModalCharacterInfo) => void;
-}
+export type OneSideCardProps = Omit<Character, 'id' | 'episode' | 'url'>;
 
 export interface CardSideProps {
   isBackSide?: boolean;
@@ -48,4 +46,8 @@ export interface SelectProps {
    * padding in rem
    */
   padding?: number;
+}
+
+export interface DetailedInfoProps {
+  character: Character;
 }

@@ -54,12 +54,4 @@ describe('App work', () => {
     expect(items).toBeInTheDocument();
     userEvent.clear(searchBar);
   });
-  it('should show modal window after click on card', async () => {
-    const searchBar = screen.getByRole('textbox');
-    userEvent.type(searchBar, 'nm{enter}');
-    const card = await screen.findByTestId('card');
-    userEvent.click(card);
-    expect(screen.getAllByText(/unmuscular michael/i)).toHaveLength(2);
-    userEvent.clear(searchBar);
-  });
 });

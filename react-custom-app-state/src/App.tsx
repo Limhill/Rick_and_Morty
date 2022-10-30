@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
+import CharacterInfo from 'pages/CharacterInfo';
 import Main from 'pages/Main';
 import AboutUs from 'pages/AboutUs';
 import NotFound from 'pages/NotFound';
@@ -42,6 +43,7 @@ const App = () => {
           <Route path={Pages.aboutUs} element={<AboutUs />} />
           <Route path={Pages.create} element={<CreateCharacter />} />
           <Route path={Pages.pageNotFound} element={<NotFound />} />
+          <Route path="/:id" element={<CharacterInfo />} />
         </Routes>
       </AppWrapper>
     </AppContext.Provider>
