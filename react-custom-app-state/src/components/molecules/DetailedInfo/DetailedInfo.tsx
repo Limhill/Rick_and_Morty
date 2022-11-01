@@ -1,14 +1,21 @@
 import React from 'react';
+import styled from 'styled-components';
 import { DetailedInfoProps } from 'core/interfaces/props';
 import List from 'components/atoms/List';
 import DefaultText from 'components/atoms/DefaultText';
+
+const StyledImage = styled.img`
+  width: 45rem;
+  height: 45rem;
+  margin-top: 2rem;
+  box-sizing: border-box;
+`;
 
 const DetailedInfo = ({ character }: DetailedInfoProps) => {
   const { name, status, species, image, created, gender, origin, location, type } = character;
   return (
     <>
-      <h1>{name}</h1>
-      <img src={image} alt={name} />
+      <StyledImage src={image} alt={name} />
       <List>
         <DefaultText>
           <b>Name:</b> {name}

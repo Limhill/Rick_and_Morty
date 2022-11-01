@@ -43,7 +43,7 @@ const App = () => {
           <Route path={Pages.aboutUs} element={<AboutUs />} />
           <Route path={Pages.create} element={<CreateCharacter />} />
           <Route path={Pages.pageNotFound} element={<NotFound />} />
-          <Route path="/:id" element={<CharacterInfo />} />
+          <Route path={Pages.characterId} element={<CharacterInfo />} />
         </Routes>
       </AppWrapper>
     </AppContext.Provider>

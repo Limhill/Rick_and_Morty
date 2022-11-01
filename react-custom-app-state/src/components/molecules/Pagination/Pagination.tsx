@@ -26,7 +26,12 @@ const StyledButton = styled.button`
     box-shadow: none;
     border: 2px solid gray;
     color: lightgray;
+    cursor: auto;
   }
+`;
+
+const StyledCentralButton = styled(StyledButton)`
+  cursor: auto;
 `;
 
 const Pagination = () => {
@@ -46,15 +51,19 @@ const Pagination = () => {
 
   return (
     <Container>
-      <StyledButton onClick={goToTheFirstPage}>&lt;&lt;</StyledButton>
+      <StyledButton onClick={goToTheFirstPage} disabled={currentPage <= 1}>
+        &lt;&lt;
+      </StyledButton>
       <StyledButton onClick={decreasePageNumber} disabled={!pages[currentPage - 2]}>
         &lt;
       </StyledButton>
-      <StyledButton>{currentPage}</StyledButton>
+      <StyledCentralButton>{currentPage}</StyledCentralButton>
       <StyledButton onClick={increasePageNumber} disabled={!pages[currentPage]}>
         &gt;
       </StyledButton>
-      <StyledButton onClick={goToTheLastPage}>&gt;&gt;</StyledButton>
+      <StyledButton onClick={goToTheLastPage} disabled={currentPage >= pages.length}>
+        &gt;&gt;
+      </StyledButton>
     </Container>
   );
 };

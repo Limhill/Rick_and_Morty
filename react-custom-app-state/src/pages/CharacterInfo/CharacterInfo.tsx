@@ -1,10 +1,17 @@
 import React, { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import DefaultText from 'components/atoms/DefaultText';
+import { Navigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import Header from 'components/templates/Header';
 import CenteredContent from 'components/templates/CenteredContent';
 import AppContext from 'core/AppContext';
 import DetailedInfo from 'components/molecules/DetailedInfo';
+import { Pages } from 'core/enums';
+import Link from 'components/atoms/Link';
+import { Character } from 'core/interfaces/others';
+
+const StyledLink = styled(Link)`
+  margin-left: 2rem;
+`;
 
 const CharacterInfo = () => {
   const { id } = useParams();
@@ -13,17 +20,16 @@ const CharacterInfo = () => {
     return item.id === Number(id);
   });
 
-  const currentComponent = currentCharacter ? (
-    <DetailedInfo character={currentCharacter} />
-  ) : (
-    <DefaultText>There is no info</DefaultText>
-  );
-
-  return (
+  return currentCharacter ? (
     <>
       <Header />
-      <CenteredContent>{currentComponent}</CenteredContent>
+      <StyledLink to={Pages.main}>Go back</StyledLink>
+      <CenteredContent>
+        <DetailedInfo character={currentCharacter as Character} />
+      </CenteredContent>
     </>
+  ) : (
+    <Navigate to={Pages.main} replace />
   );
 };
 

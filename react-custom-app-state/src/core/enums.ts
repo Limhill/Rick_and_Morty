@@ -2,7 +2,8 @@ export enum Pages {
   main = '/',
   aboutUs = '/about',
   create = '/create',
-  pageNotFound = '/*',
+  pageNotFound = '*',
+  characterId = '/:id',
 }
 
 export enum CharacterStatus {
