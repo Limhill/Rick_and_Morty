@@ -39,6 +39,10 @@ export interface AppState {
    */
   pages: Array<Character[]>;
   /**
+   * Value that is in SearchBar
+   */
+  searchBarValue: string;
+  /**
    * Function for changing App context
    * @param data
    */

@@ -10,6 +10,7 @@ import backgroundImage from 'assets/images/space.jpg';
 import CreateCharacter from 'pages/CreateCharacter';
 import { AppState } from 'core/interfaces/states';
 import AppContext from 'core/AppContext';
+import { searchRequest } from 'core/constants';
 
 const AppWrapper = styled.main`
   background-color: ${Color.black};
@@ -32,6 +33,7 @@ const App = () => {
     currentPage: 1,
     characters: [],
     pages: [],
+    searchBarValue: localStorage.getItem(searchRequest) || '',
     changeContext,
   });
 

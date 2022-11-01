@@ -1,6 +1,6 @@
-import React, { FormEvent, useContext, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { placeholder, searchBarValue } from 'core/constants';
+import { placeholder, searchRequest } from 'core/constants';
 import icon from 'assets/icons/search.svg';
 import TextInput from 'components/atoms/TextInput';
 import { Color, LoadingStatus } from 'core/enums';
@@ -29,13 +29,12 @@ const Wrapper = styled.form`
 `;
 
 const SearchBar = () => {
-  const { searchBy, resultsPerPage, changeContext } = useContext(AppContext);
-  const [state, setState] = useState(localStorage.getItem(searchBarValue) || '');
-  const input = useRef(state);
+  const { searchBy, resultsPerPage, searchBarValue, changeContext } = useContext(AppContext);
+  const input = useRef(searchBarValue);
 
   const requestCharacters = async () => {
     changeContext({ loadingStatus: LoadingStatus.loading });
-    const response = await getFilteredCharacters(state, searchBy);
+    const response = await getFilteredCharacters(searchBarValue, searchBy);
     if (typeof response !== 'string') {
       changeContext({
         loadingStatus: LoadingStatus.success,
@@ -49,21 +48,21 @@ const SearchBar = () => {
   };
 
   useEffect(() => {
-    input.current = state;
-  }, [state]);
+    input.current = searchBarValue;
+  }, [searchBarValue]);
 
   useEffect(() => {
-    const inputValue = localStorage.getItem(searchBarValue);
+    const inputValue = localStorage.getItem(searchRequest);
     if (inputValue) {
-      setState(inputValue);
+      changeContext({ searchBarValue: inputValue });
     }
     return () => {
-      localStorage.setItem(searchBarValue, input.current);
+      localStorage.setItem(searchRequest, input.current);
     };
-  }, []);
+  }, [changeContext]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(e.target.value);
+    changeContext({ searchBarValue: e.target.value });
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -73,7 +72,7 @@ const SearchBar = () => {
 
   return (
     <Wrapper onSubmit={handleSubmit}>
-      <StyledSearchBar onChange={handleChange} placeholder={placeholder} value={state} />
+      <StyledSearchBar onChange={handleChange} placeholder={placeholder} value={searchBarValue} />
     </Wrapper>
   );
 };

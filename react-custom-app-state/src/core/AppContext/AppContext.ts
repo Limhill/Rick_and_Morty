@@ -9,6 +9,7 @@ const AppContext = React.createContext<AppState>({
   currentPage: 1,
   characters: [],
   pages: [],
+  searchBarValue: '',
   changeContext: () => {},
 });
 

@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Label from 'components/atoms/Label';
 import Select from 'components/atoms/Select';
-import { SearchBy } from 'core/enums';
+import { LoadingStatus, SearchBy } from 'core/enums';
 import AppContext from 'core/AppContext';
 import { splitArrayOnChunks } from 'services/helpers';
+import { getFilteredCharacters } from '../../../services/axios';
 
 const SearchParametersContainer = styled.div`
   display: flex;
@@ -22,10 +23,25 @@ const StyledLabel = styled(Label)`
 `;
 
 const SearchParameters = () => {
-  const { resultsPerPage, searchBy, characters, changeContext } = useContext(AppContext);
+  const { resultsPerPage, searchBy, characters, searchBarValue, changeContext } =
+    useContext(AppContext);
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    changeContext({ searchBy: e.target.value as SearchBy });
+  const handleSelect = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    await changeContext({
+      loadingStatus: LoadingStatus.loading,
+      searchBy: e.target.value as SearchBy,
+    });
+    const response = await getFilteredCharacters(searchBarValue, e.target.value as SearchBy);
+    if (typeof response !== 'string') {
+      changeContext({
+        loadingStatus: LoadingStatus.success,
+        currentPage: 1,
+        characters: response,
+        pages: splitArrayOnChunks(response, resultsPerPage),
+      });
+    } else {
+      changeContext({ loadingStatus: LoadingStatus.error });
+    }
   };
 
   const changeResultsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
