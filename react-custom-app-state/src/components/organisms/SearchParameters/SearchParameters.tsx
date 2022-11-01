@@ -5,7 +5,7 @@ import Select from 'components/atoms/Select';
 import { LoadingStatus, SearchBy } from 'core/enums';
 import AppContext from 'core/AppContext';
 import { splitArrayOnChunks } from 'services/helpers';
-import { getFilteredCharacters } from '../../../services/axios';
+import { getFilteredCharacters } from 'services/axios';
 
 const SearchParametersContainer = styled.div`
   display: flex;

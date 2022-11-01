@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import Form from 'components/organisms/Form';
+import Form from 'components/templates/Form/index';
 import { ErrorMessage } from 'core/enums';
 
 const mockHandler = jest.fn(() => {
@@ -9,7 +9,7 @@ const mockHandler = jest.fn(() => {
 });
 
 describe('Form render', () => {
-  beforeEach(() => render(<Form addCard={mockHandler} />));
+  beforeEach(() => render(<Form addNewCard={mockHandler} />));
   it('should have 1 input with type="text', () => {
     expect(screen.getByRole('textbox')).toBeInTheDocument();
   });
@@ -35,7 +35,7 @@ describe('Form render', () => {
 
 describe('Form errors', () => {
   beforeEach(() => {
-    render(<Form addCard={mockHandler} />);
+    render(<Form addNewCard={mockHandler} />);
   });
 
   it('should show all errors if form is empty', async () => {

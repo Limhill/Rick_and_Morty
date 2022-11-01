@@ -1,5 +1,5 @@
 import React from 'react';
-import { fieldName } from 'core/enums';
+import { formFieldName } from 'core/enums';
 import { Character, ModalCharacterInfo } from 'core/interfaces/others';
 
 export type OneSideCardProps = Omit<Character, 'id' | 'episode' | 'url'>;
@@ -9,8 +9,8 @@ export interface CardSideProps {
 }
 
 export interface SwitcherProps {
-  handler: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-  name?: fieldName;
+  resetErrorMessages: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  name?: formFieldName;
 }
 
 export interface DoubleSideCardProps {
@@ -23,19 +23,13 @@ export interface DoubleSideCardProps {
 }
 
 export interface FormProps {
-  addCard: (data: DoubleSideCardProps) => void;
+  addNewCard: (data: DoubleSideCardProps) => void;
 }
 
 export interface ModalProps extends ModalCharacterInfo {
   isOpen: boolean;
   handler: (e: React.MouseEvent) => void;
 }
-
-export interface ModalWindowImageProps {
-  imagePath: string;
-}
-
-export type CloseIconProps = Pick<ModalProps, 'handler'>;
 
 export interface SelectProps {
   /**

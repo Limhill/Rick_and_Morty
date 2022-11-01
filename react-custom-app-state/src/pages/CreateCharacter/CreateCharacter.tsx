@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Content from 'components/templates/Content';
+import Content from 'components/atoms/Content';
 import PageTitle from 'components/atoms/PageTitle';
-import Form from 'components/organisms/Form';
+import Form from 'components/templates/Form';
 import CardsContainer from 'components/atoms/CardsContainer';
 import { DoubleSideCardProps } from 'core/interfaces/props';
 import DoubleSideCard from 'components/organisms/DoubleSideCard';
@@ -10,7 +10,7 @@ import Header from 'components/templates/Header';
 const CreateCharacter = () => {
   const [cards, setCards] = useState<DoubleSideCardProps[]>([]);
 
-  const addCard = ({ name, birthday, status, species, gender, image }: DoubleSideCardProps) => {
+  const addNewCard = ({ name, birthday, status, species, gender, image }: DoubleSideCardProps) => {
     setCards(cards.concat({ name, birthday, status, species, gender, image }));
   };
 
@@ -19,7 +19,7 @@ const CreateCharacter = () => {
       <Header />
       <Content>
         <PageTitle>Create your own character!</PageTitle>
-        <Form addCard={addCard} />
+        <Form addNewCard={addNewCard} />
         <CardsContainer>
           {cards.map((card) => {
             return (

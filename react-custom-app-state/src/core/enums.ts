@@ -30,7 +30,7 @@ export enum Color {
   cardHighlight = 'rgba(109, 114, 195, 0.9)',
 }
 
-export enum fieldName {
+export enum formFieldName {
   name = 'name',
   date = 'date',
   status = 'status',

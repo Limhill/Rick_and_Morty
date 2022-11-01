@@ -11,7 +11,7 @@ const StyledImage = styled.img`
   box-sizing: border-box;
 `;
 
-const DetailedInfo = ({ character }: DetailedInfoProps) => {
+const CharacterInformation = ({ character }: DetailedInfoProps) => {
   const { name, status, species, image, created, gender, origin, location, type } = character;
   return (
     <>
@@ -48,4 +48,4 @@ const DetailedInfo = ({ character }: DetailedInfoProps) => {
   );
 };
 
-export default DetailedInfo;
+export default CharacterInformation;

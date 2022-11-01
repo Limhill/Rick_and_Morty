@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import { Color, fieldName } from 'core/enums';
+import { Color, formFieldName } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
 import Label from 'components/atoms/Label';
 
@@ -58,13 +58,19 @@ const Checkmark = styled.span`
   }
 `;
 
-const Checkbox = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) => {
+const Checkbox = forwardRef<HTMLInputElement, SwitcherProps>(({ resetErrorMessages }, ref) => {
   return (
     <label htmlFor="species">
       <Label as="div">Check species</Label>
       <CheckBoxContainer>
         Is it a human?
-        <input id="species" ref={ref} type="checkbox" onChange={handler} name={fieldName.species} />
+        <input
+          id="species"
+          ref={ref}
+          type="checkbox"
+          onChange={resetErrorMessages}
+          name={formFieldName.species}
+        />
         <Checkmark />
       </CheckBoxContainer>
     </label>

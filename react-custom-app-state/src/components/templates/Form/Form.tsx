@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import TextInput from 'components/atoms/TextInput';
 import Label from 'components/atoms/Label';
 import Select from 'components/atoms/Select';
-import { ActionType, CharacterStatus, Color, fieldName } from 'core/enums';
+import { ActionType, CharacterStatus, Color, formFieldName } from 'core/enums';
 import Checkbox from 'components/molecules/Checkbox';
-import Switcher from 'components/atoms/Switcher';
+import Switcher from 'components/molecules/Switcher';
 import { FormState, FormStringStates } from 'core/interfaces/states';
 import ErrorText from 'components/atoms/ErrorText';
 import {
@@ -15,7 +15,7 @@ import {
   validateStatus,
   validateGender,
   validateName,
-} from 'services/helpers';
+} from 'services/validation';
 import { FormProps } from 'core/interfaces/props';
 import BorderedFlexbox from 'components/atoms/BorderedFlexbox';
 import { ChangeFormStateAction } from 'core/interfaces/others';
@@ -101,8 +101,9 @@ const initialState = {
   avatarError: ' ',
 };
 
-const Form = ({ addCard }: FormProps) => {
+const Form = ({ addNewCard }: FormProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const nameInput = useRef<HTMLInputElement>(null);
   const dateInput = useRef<HTMLInputElement>(null);
   const statusSelect = useRef<HTMLSelectElement>(null);
@@ -111,10 +112,14 @@ const Form = ({ addCard }: FormProps) => {
   const avatarInput = useRef<HTMLInputElement>(null);
   const form = useRef<HTMLFormElement>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const enableSubmit = () => {
     if (state.isSubmitDisabled) {
       dispatch({ type: ActionType.changeFormState, payload: { isSubmitDisabled: false } });
     }
+  };
+
+  const resetErrorMessages = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    enableSubmit();
     const key = `${e.target.name}Error`;
     if (Object.keys(state).includes(key)) {
       dispatch({
@@ -161,7 +166,7 @@ const Form = ({ addCard }: FormProps) => {
 
     if (!hasAnyError) {
       if (isEachRefNotNull && avatarInput.current.files) {
-        addCard({
+        addNewCard({
           name: nameInput.current.value,
           birthday: dateInput.current.value,
           status: statusSelect.current.value,
@@ -176,15 +181,7 @@ const Form = ({ addCard }: FormProps) => {
           genderSwitcher.current.checked = false;
           dispatch({
             type: ActionType.changeFormState,
-            payload: {
-              nameError: ' ',
-              dateError: ' ',
-              statusError: ' ',
-              speciesError: ' ',
-              genderError: ' ',
-              avatarError: ' ',
-              isSubmitDisabled: true,
-            },
+            payload: initialState,
           });
         }
       }
@@ -202,32 +199,32 @@ const Form = ({ addCard }: FormProps) => {
         <FormItem>
           <Label htmlFor="input">Name</Label>
           <TextInput
-            onChange={handleChange}
+            onChange={resetErrorMessages}
             id="input"
             placeholder="Character name"
             ref={nameInput}
-            name={fieldName.name}
+            name={formFieldName.name}
           />
           <ErrorText>{state.nameError}</ErrorText>
         </FormItem>
         <FormItem>
           <Label htmlFor="date">Date of birth</Label>
           <DateInput
-            onChange={handleChange}
+            onChange={resetErrorMessages}
             id="date"
             type="date"
             ref={dateInput}
-            name={fieldName.date}
+            name={formFieldName.date}
           />
           <ErrorText>{state.dateError}</ErrorText>
         </FormItem>
         <FormItem>
           <Label htmlFor="select">Pick character status</Label>
           <Select
-            onChange={handleChange}
+            onChange={resetErrorMessages}
             id="select"
             ref={statusSelect}
-            name={fieldName.status}
+            name={formFieldName.status}
             padding={1}
           >
             <Option>Character status</Option>
@@ -238,11 +235,11 @@ const Form = ({ addCard }: FormProps) => {
           <ErrorText>{state.statusError}</ErrorText>
         </FormItem>
         <FormItem>
-          <Checkbox ref={speciesCheckbox} handler={handleChange} />
+          <Checkbox ref={speciesCheckbox} resetErrorMessages={resetErrorMessages} />
           <ErrorText>{state.speciesError}</ErrorText>
         </FormItem>
         <FormItem>
-          <Switcher ref={genderSwitcher} handler={handleChange} />
+          <Switcher ref={genderSwitcher} resetErrorMessages={resetErrorMessages} />
           <ErrorText>{state.genderError}</ErrorText>
         </FormItem>
         <FormItem>
@@ -251,9 +248,9 @@ const Form = ({ addCard }: FormProps) => {
             <InnerText>Image:</InnerText>
             <FileInput
               id="avatar"
-              name={fieldName.avatar}
+              name={formFieldName.avatar}
               type="file"
-              onChange={handleChange}
+              onChange={resetErrorMessages}
               ref={avatarInput}
             />
           </BorderedFlexbox>

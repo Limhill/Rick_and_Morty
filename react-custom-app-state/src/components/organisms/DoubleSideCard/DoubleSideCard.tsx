@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { CardSideProps, DoubleSideCardProps } from 'core/interfaces/props';
 import CardInfo from 'components/molecules/CardInfo';
-import CardSide from 'components/molecules/CardSide/CardSide';
+import CardSide from 'components/atoms/CardSide/CardSide';
 import CardTitle from 'components/atoms/CardTitle/CardTitle';
 import CardImage from 'components/atoms/CardImage';
 import { Color } from 'core/enums';

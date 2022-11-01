@@ -1,7 +1,7 @@
 import { ActionType, CharacterGender, CharacterStatus } from 'core/enums';
 import { FormState } from 'core/interfaces/states';
 
-export interface Origin {
+export interface CharacterOrigin {
   name: string;
   url: string;
 }
@@ -23,8 +23,8 @@ export interface Character {
   species: string;
   type: string;
   gender: CharacterGender;
-  origin: Origin;
-  location: Origin;
+  origin: CharacterOrigin;
+  location: CharacterOrigin;
   image: string;
   episode: string[];
   url: string;

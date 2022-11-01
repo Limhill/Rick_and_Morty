@@ -11,13 +11,13 @@ const StyledCardInfo = styled.ul`
   color: ${Color.black};
 `;
 
-const CardInfo = (props: DoubleSideCardProps) => {
+const CardInfo = ({ name, birthday, status, species, gender }: DoubleSideCardProps) => {
   const items = {
-    name: props.name,
-    birthday: props.birthday,
-    status: props.status,
-    species: props.species ? 'Human' : 'Non-human',
-    gender: props.gender ? 'Female' : 'Male',
+    name,
+    birthday,
+    status,
+    species: species ? 'Human' : 'Non-human',
+    gender: gender ? 'Female' : 'Male',
   };
 
   return (

@@ -36,6 +36,7 @@ const StyledCentralButton = styled(StyledButton)`
 
 const Pagination = () => {
   const { currentPage, changeContext, pages } = useContext(AppContext);
+
   const increasePageNumber = () => {
     changeContext({ currentPage: currentPage + 1 });
   };

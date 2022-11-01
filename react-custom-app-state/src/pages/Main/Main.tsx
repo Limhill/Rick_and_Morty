@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PageTitle from 'components/atoms/PageTitle';
-import Content from 'components/templates/Content';
+import Content from 'components/atoms/Content';
 import SearchBar from 'components/organisms/SearchBar';
 import CardsContainer from 'components/atoms/CardsContainer';
 import Header from 'components/templates/Header';
-import OneSideCard from 'components/organisms/OneSideCard';
+import OneSideCard from 'components/molecules/OneSideCard';
 import { LoadingStatus } from 'core/enums';
 import AppContext from 'core/AppContext';
 import DefaultText from 'components/atoms/DefaultText';
 import SearchParameters from 'components/organisms/SearchParameters';
-import Pagination from 'components/molecules/Pagination';
+import Pagination from 'components/organisms/Pagination';
 
 const StyledDefaultText = styled(DefaultText)`
   padding-top: 4rem;

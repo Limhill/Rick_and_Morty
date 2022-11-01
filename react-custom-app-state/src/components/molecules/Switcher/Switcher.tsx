@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import { Color, fieldName } from 'core/enums';
+import { Color, formFieldName } from 'core/enums';
 import { SwitcherProps } from 'core/interfaces/props';
 import BorderedFlexbox from 'components/atoms/BorderedFlexbox';
 import Label from 'components/atoms/Label';
@@ -62,14 +62,20 @@ const SwitcherContainer = styled(BorderedFlexbox)`
   cursor: pointer;
 `;
 
-const Switcher = forwardRef<HTMLInputElement, SwitcherProps>(({ handler }, ref) => {
+const Switcher = forwardRef<HTMLInputElement, SwitcherProps>(({ resetErrorMessages }, ref) => {
   return (
     <label htmlFor="gender">
       <Label as="div">Choose character gender</Label>
       <SwitcherContainer>
         <InnerText>Male</InnerText>
         <SliderContainer>
-          <input id="gender" ref={ref} type="checkbox" onChange={handler} name={fieldName.gender} />
+          <input
+            id="gender"
+            ref={ref}
+            type="checkbox"
+            onChange={resetErrorMessages}
+            name={formFieldName.gender}
+          />
           <Slider />
         </SliderContainer>
         <InnerText>Female</InnerText>

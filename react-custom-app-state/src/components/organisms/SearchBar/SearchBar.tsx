@@ -47,6 +47,15 @@ const SearchBar = () => {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeContext({ searchBarValue: e.target.value });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await requestCharacters();
+  };
+
   useEffect(() => {
     input.current = searchBarValue;
   }, [searchBarValue]);
@@ -60,15 +69,6 @@ const SearchBar = () => {
       localStorage.setItem(searchRequest, input.current);
     };
   }, [changeContext]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    changeContext({ searchBarValue: e.target.value });
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    await requestCharacters();
-  };
 
   return (
     <Wrapper onSubmit={handleSubmit}>
