@@ -48,3 +48,5 @@ export interface AppState {
    */
   changeContext: (data?: Partial<AppState>) => void;
 }
+
+export type AppReduxState = Omit<AppState, 'changeContext'>;

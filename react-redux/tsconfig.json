@@ -14,10 +14,11 @@
     "skipLibCheck": true,
     "baseUrl": "./src",
     "paths": {
+      "app": ["app/*"],
       "assets": ["assets/*"],
       "components": ["components/*"],
       "core": ["core/*"],
-      "__mocks__": ["__mocks__/*"],
+      "features": ["features/*"],
       "pages": ["pages/*"],
       "styles": ["styles/*"]
     },
