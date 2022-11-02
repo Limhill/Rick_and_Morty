@@ -1,7 +1,14 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoadingStatus, SearchBy } from 'core/enums';
 import { searchRequest } from 'core/constants';
 import { AppReduxState } from 'core/interfaces/states';
+import { getFilteredCharacters } from 'services/axios';
+import { splitArrayOnChunks } from 'services/helpers';
+
+interface ThunkProps {
+  input: string;
+  searchBy: SearchBy;
+}
 
 const initialState: AppReduxState = {
   loadingStatus: LoadingStatus.initial,
@@ -12,6 +19,13 @@ const initialState: AppReduxState = {
   pages: [],
   searchBarValue: localStorage.getItem(searchRequest) || '',
 };
+
+export const getCharacters = createAsyncThunk(
+  'app/getCharacters',
+  async ({ input, searchBy }: ThunkProps) => {
+    return await getFilteredCharacters(input, searchBy);
+  }
+);
 
 export const appSlice = createSlice({
   name: 'app',
@@ -32,6 +46,31 @@ export const appSlice = createSlice({
     changeSearchBarValue: (state: AppReduxState, action: PayloadAction<string>) => {
       state.searchBarValue = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCharacters.pending, (state) => {
+        state.loadingStatus = LoadingStatus.loading;
+      })
+      .addCase(getCharacters.fulfilled, (state, action) => {
+        if (typeof action.payload === 'string') {
+          state.characters = [];
+          state.pages = [];
+          state.currentPage = 1;
+          state.loadingStatus = LoadingStatus.error;
+        } else {
+          state.characters = action.payload;
+          state.pages = splitArrayOnChunks(action.payload, state.resultsPerPage);
+          state.currentPage = 1;
+          state.loadingStatus = LoadingStatus.success;
+        }
+      })
+      .addCase(getCharacters.rejected, (state) => {
+        state.loadingStatus = LoadingStatus.error;
+        state.characters = [];
+        state.pages = [];
+        state.currentPage = 1;
+      });
   },
 });
 
