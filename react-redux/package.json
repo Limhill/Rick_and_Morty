@@ -1,5 +1,5 @@
 {
-  "name": "react-custom-app-state",
+  "name": "react-redux",
   "version": "0.1.0",
   "jest": {
     "transformIgnorePatterns": [
@@ -23,7 +23,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "cd .. && husky install react-custom-app-state/.husky",
+    "prepare": "cd .. && husky install react-redux/.husky",
     "lint": "eslint src/** --ext .ts, .tsx --fix",
     "prettier": "npx prettier src --check",
     "prettier:fix": "npm run prettier src --write"

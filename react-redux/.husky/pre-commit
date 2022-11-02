@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-cd react-custom-app-state
+cd react-redux
 CI=true npm run test
