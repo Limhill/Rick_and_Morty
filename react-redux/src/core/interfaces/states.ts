@@ -13,7 +13,7 @@ export interface FormState {
 
 export type FormStringStates = Omit<FormState, 'isSubmitDisabled'>;
 
-export interface AppState {
+export interface AppReduxState {
   /**
    * Status of data request
    */
@@ -42,11 +42,4 @@ export interface AppState {
    * Value that is in SearchBar
    */
   searchBarValue: string;
-  /**
-   * Function for changing App context
-   * @param data
-   */
-  changeContext: (data?: Partial<AppState>) => void;
 }
-
-export type AppReduxState = Omit<AppState, 'changeContext'>;

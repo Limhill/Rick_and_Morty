@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoadingStatus, SearchBy } from 'core/enums';
 import { searchRequest } from 'core/constants';
 import { AppReduxState } from 'core/interfaces/states';
-import { getFilteredCharacters } from 'services/axios';
+import { getFilteredCharacters } from 'services/api';
 import { splitArrayOnChunks } from 'services/helpers';
 
 interface ThunkProps {

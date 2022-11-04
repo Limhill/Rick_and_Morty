@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import CharacterInfo from 'pages/CharacterInfo';
 import Main from 'pages/Main';
 import AboutUs from 'pages/AboutUs';
 import NotFound from 'pages/NotFound';
-import { Color, LoadingStatus, Pages, SearchBy } from 'core/enums';
+import { Color, Pages } from 'core/enums';
 import backgroundImage from 'assets/images/space.jpg';
 import CreateCharacter from 'pages/CreateCharacter';
-import { AppState } from 'core/interfaces/states';
-import AppContext from 'core/AppContext';
-import { searchRequest } from 'core/constants';
 
 const AppWrapper = styled.main`
   background-color: ${Color.black};
@@ -19,36 +16,16 @@ const AppWrapper = styled.main`
 `;
 
 const App = () => {
-  const changeContext = (data: Partial<AppState> | undefined) => {
-    setState((prevState) => ({
-      ...prevState,
-      ...data,
-    }));
-  };
-
-  const [state, setState] = useState<AppState>({
-    loadingStatus: LoadingStatus.initial,
-    searchBy: SearchBy.name,
-    resultsPerPage: 20,
-    currentPage: 1,
-    characters: [],
-    pages: [],
-    searchBarValue: localStorage.getItem(searchRequest) || '',
-    changeContext,
-  });
-
   return (
-    <AppContext.Provider value={state}>
-      <AppWrapper>
-        <Routes>
-          <Route path={Pages.main} element={<Main />} />
-          <Route path={Pages.aboutUs} element={<AboutUs />} />
-          <Route path={Pages.create} element={<CreateCharacter />} />
-          <Route path={Pages.pageNotFound} element={<NotFound />} />
-          <Route path={Pages.characterId} element={<CharacterInfo />} />
-        </Routes>
-      </AppWrapper>
-    </AppContext.Provider>
+    <AppWrapper>
+      <Routes>
+        <Route path={Pages.main} element={<Main />} />
+        <Route path={Pages.aboutUs} element={<AboutUs />} />
+        <Route path={Pages.create} element={<CreateCharacter />} />
+        <Route path={Pages.pageNotFound} element={<NotFound />} />
+        <Route path={Pages.characterId} element={<CharacterInfo />} />
+      </Routes>
+    </AppWrapper>
   );
 };
 
