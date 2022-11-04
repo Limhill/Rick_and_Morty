@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Label from 'components/atoms/Label';
 import Select from 'components/atoms/Select';
-import { LoadingStatus, SearchBy } from 'core/enums';
-import AppContext from 'core/AppContext';
-import { splitArrayOnChunks } from 'services/helpers';
-import { getFilteredCharacters } from 'services/axios';
+import { SearchBy } from 'core/enums';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { changeResultsPerPage, changeSearchBy, getCharacters } from 'features/appSlice';
 
 const SearchParametersContainer = styled.div`
   display: flex;
@@ -23,40 +22,23 @@ const StyledLabel = styled(Label)`
 `;
 
 const SearchParameters = () => {
-  const { resultsPerPage, searchBy, characters, searchBarValue, changeContext } =
-    useContext(AppContext);
+  const { resultsPerPage, searchBy, searchBarValue } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
 
-  const handleSelect = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-    await changeContext({
-      loadingStatus: LoadingStatus.loading,
-      searchBy: e.target.value as SearchBy,
-    });
-    const response = await getFilteredCharacters(searchBarValue, e.target.value as SearchBy);
-    if (typeof response !== 'string') {
-      changeContext({
-        loadingStatus: LoadingStatus.success,
-        currentPage: 1,
-        characters: response,
-        pages: splitArrayOnChunks(response, resultsPerPage),
-      });
-    } else {
-      changeContext({ loadingStatus: LoadingStatus.error });
-    }
+  const handleSearchByChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(getCharacters({ searchBarValue, searchBy: e.target.value as SearchBy }));
+    dispatch(changeSearchBy(e.target.value as SearchBy));
   };
 
-  const changeResultsPerPage = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    changeContext({
-      resultsPerPage: Number(e.target.value),
-      currentPage: 1,
-      pages: splitArrayOnChunks(characters, Number(e.target.value)),
-    });
+  const handleResultsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(changeResultsPerPage(Number(e.target.value)));
   };
 
   return (
     <SearchParametersContainer>
       <div>
         <StyledLabel htmlFor="sort-by">Sort by:</StyledLabel>
-        <Select id="sort-by" padding={0.5} onChange={handleSelect} value={searchBy}>
+        <Select id="sort-by" padding={0.5} onChange={handleSearchByChange} value={searchBy}>
           <StyledOption value={SearchBy.name}>name</StyledOption>
           <StyledOption value={SearchBy.status}>status</StyledOption>
           <StyledOption value={SearchBy.species}>species</StyledOption>
@@ -69,7 +51,7 @@ const SearchParameters = () => {
         <Select
           id="results per page"
           padding={0.5}
-          onChange={changeResultsPerPage}
+          onChange={handleResultsPerPageChange}
           value={resultsPerPage}
         >
           <StyledOption value="20">20</StyledOption>

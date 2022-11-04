@@ -31,14 +31,13 @@ export const appSlice = createSlice({
   name: 'app',
   initialState,
   reducers: {
-    changeLoadingStatus: (state: AppReduxState, action: PayloadAction<LoadingStatus>) => {
-      state.loadingStatus = action.payload;
-    },
     changeSearchBy: (state: AppReduxState, action: PayloadAction<SearchBy>) => {
       state.searchBy = action.payload;
     },
     changeResultsPerPage: (state: AppReduxState, action: PayloadAction<number>) => {
       state.resultsPerPage = action.payload;
+      state.pages = splitArrayOnChunks(state.characters, action.payload);
+      state.currentPage = 1;
     },
     changeCurrentPage: (state: AppReduxState, action: PayloadAction<number>) => {
       state.currentPage = action.payload;
@@ -73,12 +72,7 @@ export const appSlice = createSlice({
   },
 });
 
-export const {
-  changeLoadingStatus,
-  changeSearchBy,
-  changeResultsPerPage,
-  changeCurrentPage,
-  changeSearchBarValue,
-} = appSlice.actions;
+export const { changeSearchBy, changeResultsPerPage, changeCurrentPage, changeSearchBarValue } =
+  appSlice.actions;
 
 export default appSlice.reducer;
