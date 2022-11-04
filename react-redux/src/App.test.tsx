@@ -2,13 +2,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { store } from 'app/store';
 import App from './App';
 
 describe('App routing', () => {
   it('should handle routes', () => {
     render(
       <BrowserRouter>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </BrowserRouter>
     );
     const aboutUsPageLink = screen.getByTestId('about-us-page-link');
@@ -26,7 +30,9 @@ describe('App routing', () => {
     const badRoute = '/just/some/bad/route';
     render(
       <MemoryRouter initialEntries={[badRoute]}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </MemoryRouter>
     );
     expect(screen.getByText(/page not found/i)).toBeInTheDocument();
@@ -37,7 +43,9 @@ describe('App work', () => {
   beforeEach(() => {
     render(
       <MemoryRouter>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </MemoryRouter>
     );
   });

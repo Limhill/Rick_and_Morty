@@ -1,12 +1,11 @@
-import React, { FormEvent, useContext, useEffect, useRef } from 'react';
+import React, { FormEvent, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { placeholder, searchRequest } from 'core/constants';
 import icon from 'assets/icons/search.svg';
 import TextInput from 'components/atoms/TextInput';
-import { Color, LoadingStatus } from 'core/enums';
-import { getFilteredCharacters } from 'services/axios';
-import AppContext from 'core/AppContext';
-import { splitArrayOnChunks } from 'services/helpers';
+import { Color } from 'core/enums';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { changeSearchBarValue, getCharacters } from 'features/appSlice';
 
 const StyledSearchBar = styled(TextInput)`
   border-radius: 3rem;
@@ -29,31 +28,17 @@ const Wrapper = styled.form`
 `;
 
 const SearchBar = () => {
-  const { searchBy, resultsPerPage, searchBarValue, changeContext } = useContext(AppContext);
+  const { searchBy, searchBarValue } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
   const input = useRef(searchBarValue);
 
-  const requestCharacters = async () => {
-    changeContext({ loadingStatus: LoadingStatus.loading });
-    const response = await getFilteredCharacters(searchBarValue, searchBy);
-    if (typeof response !== 'string') {
-      changeContext({
-        loadingStatus: LoadingStatus.success,
-        currentPage: 1,
-        characters: response,
-        pages: splitArrayOnChunks(response, resultsPerPage),
-      });
-    } else {
-      changeContext({ loadingStatus: LoadingStatus.error });
-    }
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    changeContext({ searchBarValue: e.target.value });
+    dispatch(changeSearchBarValue(e.target.value));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    await requestCharacters();
+    dispatch(getCharacters({ searchBarValue, searchBy }));
   };
 
   useEffect(() => {
@@ -63,12 +48,12 @@ const SearchBar = () => {
   useEffect(() => {
     const inputValue = localStorage.getItem(searchRequest);
     if (inputValue) {
-      changeContext({ searchBarValue: inputValue });
+      dispatch(changeSearchBarValue(inputValue));
     }
     return () => {
       localStorage.setItem(searchRequest, input.current);
     };
-  }, [changeContext]);
+  }, [dispatch]);
 
   return (
     <Wrapper onSubmit={handleSubmit}>

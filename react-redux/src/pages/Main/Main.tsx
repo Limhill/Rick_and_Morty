@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PageTitle from 'components/atoms/PageTitle';
@@ -8,10 +8,10 @@ import CardsContainer from 'components/atoms/CardsContainer';
 import Header from 'components/templates/Header';
 import OneSideCard from 'components/molecules/OneSideCard';
 import { LoadingStatus } from 'core/enums';
-import AppContext from 'core/AppContext';
 import DefaultText from 'components/atoms/DefaultText';
 import SearchParameters from 'components/organisms/SearchParameters';
 import Pagination from 'components/organisms/Pagination';
+import { useAppSelector } from 'app/hooks';
 
 const StyledDefaultText = styled(DefaultText)`
   padding-top: 4rem;
@@ -22,7 +22,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Main = () => {
-  const { loadingStatus, currentPage, pages } = useContext(AppContext);
+  const { loadingStatus, currentPage, pages } = useAppSelector((state) => state.app);
 
   return (
     <>

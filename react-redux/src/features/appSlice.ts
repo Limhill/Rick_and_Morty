@@ -6,7 +6,7 @@ import { getFilteredCharacters } from 'services/axios';
 import { splitArrayOnChunks } from 'services/helpers';
 
 interface ThunkProps {
-  input: string;
+  searchBarValue: string;
   searchBy: SearchBy;
 }
 
@@ -22,8 +22,8 @@ const initialState: AppReduxState = {
 
 export const getCharacters = createAsyncThunk(
   'app/getCharacters',
-  async ({ input, searchBy }: ThunkProps) => {
-    return await getFilteredCharacters(input, searchBy);
+  async ({ searchBarValue, searchBy }: ThunkProps) => {
+    return await getFilteredCharacters(searchBarValue, searchBy);
   }
 );
 
@@ -56,14 +56,13 @@ export const appSlice = createSlice({
         if (typeof action.payload === 'string') {
           state.characters = [];
           state.pages = [];
-          state.currentPage = 1;
           state.loadingStatus = LoadingStatus.error;
         } else {
           state.characters = action.payload;
           state.pages = splitArrayOnChunks(action.payload, state.resultsPerPage);
-          state.currentPage = 1;
           state.loadingStatus = LoadingStatus.success;
         }
+        state.currentPage = 1;
       })
       .addCase(getCharacters.rejected, (state) => {
         state.loadingStatus = LoadingStatus.error;

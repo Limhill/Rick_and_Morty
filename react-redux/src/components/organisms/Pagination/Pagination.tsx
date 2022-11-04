@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Color } from 'core/enums';
-import AppContext from 'core/AppContext';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { changeCurrentPage } from 'features/appSlice';
 
 const Container = styled.div`
   display: flex;
@@ -35,19 +36,20 @@ const StyledCentralButton = styled(StyledButton)`
 `;
 
 const Pagination = () => {
-  const { currentPage, changeContext, pages } = useContext(AppContext);
+  const { currentPage, pages } = useAppSelector((state) => state.app);
+  const dispatch = useAppDispatch();
 
   const increasePageNumber = () => {
-    changeContext({ currentPage: currentPage + 1 });
+    dispatch(changeCurrentPage(currentPage + 1));
   };
   const decreasePageNumber = () => {
-    changeContext({ currentPage: currentPage - 1 });
+    dispatch(changeCurrentPage(currentPage - 1));
   };
   const goToTheFirstPage = () => {
-    changeContext({ currentPage: 1 });
+    dispatch(changeCurrentPage(1));
   };
   const goToTheLastPage = () => {
-    changeContext({ currentPage: pages.length });
+    dispatch(changeCurrentPage(pages.length));
   };
 
   return (
